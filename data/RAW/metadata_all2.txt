@@ -1,0 +1,73 @@
+Sample	Country	Time	Surface	Tecnology	Level	Host	Reads_count
+CAR1_ita_i	Italy	08/11/22	carcass	Illumina	read	no	32351921
+CAR2_ita_i	Italy	15/11/22	carcass	Illumina	read	no	6387251
+CAR3_ita_i	Italy	22/11/22	carcass	Illumina	read	no	2220548
+CAR4_ita_i	Italy	29/11/22	carcass	Illumina	read	no	2794621
+CD1_ita_i	Italy	08/11/22	clean drain	Illumina	read	no	37269656
+CD2_ita_i	Italy	15/11/22	clean drain	Illumina	read	no	43864233
+CD3_ita_i	Italy	22/11/22	clean drain	Illumina	read	no	64360485
+CD4_ita_i	Italy	29/11/22	clean drain	Illumina	read	no	52685752
+CS1_ita_i	Italy	08/11/22	clean surface	Illumina	read	no	14979218
+CS2_ita_i	Italy	15/11/22	clean surface	Illumina	read	no	21925097
+CS3_ita_i	Italy	22/11/22	clean surface	Illumina	read	no	27653079
+CS4_ita_i	Italy	29/11/22	clean surface	Illumina	read	no	16253242
+DD1_ita_i	Italy	08/11/22	dirty drain	Illumina	read	no	30866120
+DD2_ita_i	Italy	15/11/22	dirty drain	Illumina	read	no	54309076
+DD3_ita_i	Italy	22/11/22	dirty drain	Illumina	read	no	46258447
+DD4_ita_i	Italy	29/11/22	dirty drain	Illumina	read	no	41771099
+DS1_ita_i	Italy	08/11/22	dirty surface	Illumina	read	no	27071498
+DS2_ita_i	Italy	15/11/22	dirty surface	Illumina	read	no	29419691
+DS3_ita_i	Italy	22/11/22	dirty surface	Illumina	read	no	43572560
+DS4_ita_i	Italy	29/11/22	dirty surface	Illumina	read	no	44893121
+CAR1_ita_n	Italy	08/11/22	carcass	Nanopore	read	no	161179
+CAR2_ita_n	Italy	15/11/22	carcass	Nanopore	read	no	36630
+CAR3_ita_n	Italy	22/11/22	carcass	Nanopore	read	no	4258
+CAR4_ita_n	Italy	29/11/22	carcass	Nanopore	read	no	931
+CD1_ita_n	Italy	08/11/22	clean drain	Nanopore	read	no	100457
+CD2_ita_n	Italy	15/11/22	clean drain	Nanopore	read	no	4420
+CD3_ita_n	Italy	22/11/22	clean drain	Nanopore	read	no	116677
+CD4_ita_n	Italy	29/11/22	clean drain	Nanopore	read	no	82629
+CS1_ita_n	Italy	08/11/22	clean surface	Nanopore	read	no	110297
+CS2_ita_n	Italy	15/11/22	clean surface	Nanopore	read	no	427634
+CS3_ita_n	Italy	22/11/22	clean surface	Nanopore	read	no	218818
+CS4_ita_n	Italy	29/11/22	clean surface	Nanopore	read	no	52242
+DD1_ita_n	Italy	08/11/22	dirty drain	Nanopore	read	no	28984
+DD2_ita_n	Italy	15/11/22	dirty drain	Nanopore	read	no	8871
+DD3_ita_n	Italy	22/11/22	dirty drain	Nanopore	read	no	248515
+DD4_ita_n	Italy	29/11/22	dirty drain	Nanopore	read	no	73862
+DS1_ita_n	Italy	08/11/22	dirty surface	Nanopore	read	no	143136
+DS2_ita_n	Italy	15/11/22	dirty surface	Nanopore	read	no	67649
+DS3_ita_n	Italy	22/11/22	dirty surface	Nanopore	read	no	186928
+DS4_ita_n	Italy	29/11/22	dirty surface	Nanopore	read	no	109881
+CD1_spa_i	Spain	07/03/23	clean drain	Illumina	read	no	6569202
+CD2_spa_i	Spain	14/03/23	clean drain	Illumina	read	no	7040303
+CD3_spa_i	Spain	21/03/23	clean drain	Illumina	read	no	4063364
+CD4_spa_i	Spain	28/03/23	clean drain	Illumina	read	no	6547298
+CS1_spa_i	Spain	07/03/23	clean surface	Illumina	read	no	1104917
+CS2_spa_i	Spain	14/03/23	clean surface	Illumina	read	no	1079195
+CS3_spa_i	Spain	21/03/23	clean surface	Illumina	read	no	1652351
+CS4_spa_i	Spain	28/03/23	clean surface	Illumina	read	no	1744584
+DD1_spa_i	Spain	07/03/23	dirty drain	Illumina	read	no	20008320
+DD2_spa_i	Spain	14/03/23	dirty drain	Illumina	read	no	15460411
+DD3_spa_i	Spain	21/03/23	dirty drain	Illumina	read	no	11065102
+DD4_spa_i	Spain	28/03/23	dirty drain	Illumina	read	no	20347070
+DS1_spa_i	Spain	07/03/23	dirty surface	Illumina	read	no	5549390
+DS2_spa_i	Spain	14/03/23	dirty surface	Illumina	read	no	1928076
+DS3_spa_i	Spain	21/03/23	dirty surface	Illumina	read	no	10549943
+DS4_spa_i	Spain	28/03/23	dirty surface	Illumina	read	no	3793577
+CD1_spa_n	Spain	07/03/23	clean drain	Nanopore	read	no	201846
+CD2_spa_n	Spain	14/03/23	clean drain	Nanopore	read	no	148794
+CD3_spa_n	Spain	21/03/23	clean drain	Nanopore	read	no	116656
+CD4_spa_n	Spain	28/03/23	clean drain	Nanopore	read	no	99859
+CS1_spa_n	Spain	07/03/23	clean surface	Nanopore	read	no	54317
+CS2_spa_n	Spain	14/03/23	clean surface	Nanopore	read	no	128015
+CS3_spa_n	Spain	21/03/23	clean surface	Nanopore	read	no	151925
+CS4_spa_n	Spain	28/03/23	clean surface	Nanopore	read	no	134461
+DD1_spa_n	Spain	07/03/23	dirty drain	Nanopore	read	no	153826
+DD2_spa_n	Spain	14/03/23	dirty drain	Nanopore	read	no	286251
+DD3_spa_n	Spain	21/03/23	dirty drain	Nanopore	read	no	225272
+DD4_spa_n	Spain	28/03/23	dirty drain	Nanopore	read	no	434523
+DS1_spa_n	Spain	07/03/23	dirty surface	Nanopore	read	no	165692
+DS2_spa_n	Spain	14/03/23	dirty surface	Nanopore	read	no	90086
+DS3_spa_n	Spain	21/03/23	dirty surface	Nanopore	read	no	184387
+DS4_spa_n	Spain	28/03/23	dirty surface	Nanopore	read	no	140917

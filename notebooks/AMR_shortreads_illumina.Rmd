@@ -1,0 +1,108 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+# read abundance matrix of resfinder genes at reads level (only ILLUMINA)
+meta <- readRDS("../../data/R/metadata_samples_reads.rds") %>%
+  filter(Tecnology == "Illumina") %>%
+  mutate(Time = as.Date(Time))
+
+abun <- readRDS("../../data/R/counts_resfinder_reads.rds")
+abun <- abun[rownames(meta), ]
+abun <- abun[, colSums(abun) > 0]
+```
+
+```{r, fig.width=6, fig.height=6}
+tibble(
+  "Gene" = colnames(abun),
+  "prevalence" = colSums(abun>0) / nrow(abun),
+  "median_non_zero" = apply(abun, 2, \(x) median(x[x>0])),
+  "RF_ToT_Counts" = colSums(abun)
+) %>%
+  mutate(log10_RF_ToT_Counts = log10(RF_ToT_Counts)) %>%
+  pivot_longer(-Gene, names_to = "stat", values_to = "value") %>%
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 30, fill = "lightblue", color = "darkblue") +
+  facet_wrap(~stat, scales = "free") +
+  theme_bw() +
+  theme(axis.title = element_blank())
+```
+
+```{r}
+abun_filt <- abun[, colSums(abun>0) >= 10 &
+                    apply(abun, 2, \(x) median(x[x>0])) >= 3]
+
+tibble(value = rowSums(abun_filt) / rowSums(abun)) %>%
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 30, fill = "lightblue", color = "darkblue") +
+  theme_bw() +
+  xlab("preserved counts after filtering")
+```
+
+## Aitchison
+
+```{r}
+abun_filt_CLR <- abun_filt %>%
+  zCompositions::cmultRepl() %>%
+  vegan::decostand(method = "clr", MARGIN = 1)
+```
+
+```{r}
+pcoa_aitch <- cmdscale(dist(abun_filt_CLR), eig = T, add = T) 
+
+variance_explained_aitch <- (100 * (pcoa_aitch$eig / sum(pcoa_aitch$eig))) %>%
+  round(digits=2) %>% format(nsmall=2, trim=T)
+
+pcoa_aitch$points %>%
+  as_tibble(rownames = "sample") %>%
+  rename(PCo1 = V1, PCo2 = V2) %>%
+  left_join(meta %>% rownames_to_column("sample"), by = "sample") %>%
+  ggplot(aes(x = PCo1, y = PCo2, fill = Country, shape = Surface)) +
+  geom_point(size = 4, color = "black") +  # Adding color for the outline
+  scale_shape_manual(values = c(21, 22, 23, 24, 25)) +
+  theme_bw() +
+  labs(title = "PCoA Plot", x = "PCo1", y = "PCo2") +
+  guides(fill = guide_legend(override.aes = list(shape = 21))) +
+  labs(x=glue::glue("PCo1 ({variance_explained_aitch[1]}%)"),
+       y=glue::glue("PCo1 ({variance_explained_aitch[2]}%)"))
+```
+
+```{r}
+vegan::adonis2(dist(abun_filt_CLR) ~ Country + Surface, data = meta, by = "margin", 
+               permutations = 1E3)
+```
+
+## Bray-Curtis
+
+```{r}
+pcoa_bray <- cmdscale(vegan::vegdist(abun_filt), eig = T, add = T) 
+
+variance_explained_bray <- (100 * (pcoa_bray$eig / sum(pcoa_bray$eig))) %>%
+  round(digits=2) %>% format(nsmall=2, trim=T)
+
+pcoa_bray$points %>%
+  as_tibble(rownames = "sample") %>%
+  rename(PCo1 = V1, PCo2 = V2) %>%
+  left_join(meta %>% rownames_to_column("sample"), by = "sample") %>%
+  ggplot(aes(x = PCo1, y = PCo2, fill = Country, shape = Surface)) +
+  geom_point(size = 4, color = "black") +  # Adding color for the outline
+  scale_shape_manual(values = c(21, 22, 23, 24, 25)) +
+  theme_bw() +
+  labs(title = "PCoA Plot", x = "PCo1", y = "PCo2") +
+  guides(fill = guide_legend(override.aes = list(shape = 21))) +
+  labs(x=glue::glue("PCo1 ({variance_explained_bray[1]}%)"),
+       y=glue::glue("PCo1 ({variance_explained_bray[2]}%)"))
+```
+
+```{r}
+vegan::adonis2(vegan::vegdist(abun_filt) ~ Country + Surface, data = meta, by = "margin", 
+               permutations = 1E3)
+```
+
+
