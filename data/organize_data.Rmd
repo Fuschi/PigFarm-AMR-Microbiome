@@ -8,8 +8,16 @@ library(tidyverse)
 ```
 
 ```{r}
-meta1 <- read_tsv("RAW/metadata_all_1.txt")
-meta2 <- read_tsv("RAW/metadata_all2.txt")
+meta1 <- read_tsv("RAW/metadata_all_1.txt") %>%
+  mutate(Sample_id = if_else(Level == "contig",
+                             paste(Sample, "contig", sep = "_"),
+                             paste(Sample, "read", sep = "_")),
+         .before = 1)
+meta2 <- read_tsv("RAW/metadata_all2.txt") %>%
+  mutate(Sample_id = if_else(Level == "contig",
+                             paste(Sample, "contig", sep = "_"),
+                             paste(Sample, "read", sep = "_")),
+         .before = 1)
 ```
 
 ```{r}
@@ -43,6 +51,8 @@ resfinder_reads <- resfinder_reads %>%
 counts_resfinder_reads <- resfinder_reads %>%
   select(-Antibiotic_Family) %>%
   column_to_rownames("Gene") %>% t
+rownames(counts_resfinder_reads) <- paste(rownames(counts_resfinder_reads), 
+                                          "read", sep = "_")
 
 meta_resfinder_reads <- resfinder_reads %>%
   select(Gene, Antibiotic_Family) %>%
@@ -52,23 +62,52 @@ meta_resfinder_reads <- resfinder_reads %>%
 ```{r}
 counts_species_reads <- read_tsv("RAW/matrix_species.txt") %>%
   column_to_rownames("...1") %>% t
+rownames(counts_species_reads) <- paste(rownames(counts_species_reads), 
+                                        "read", sep = "_")
 ```
 
 ```{r}
 # There aren't the abundances for the contigs
-df_contigs <- read_tsv("RAW/data_merged_contigs_final.txt") %>%
-  select(-1)
+# Read the data file and process it
+df_contigs <- read_tsv("../data/RAW/data_merged_contigs_final.txt") %>%
+  select(-1) %>%
+  mutate(Tecnology = if_else(str_detect(Contig_name, "_i_"), "Illumina", "Nanopore")) %>%
+  filter(Tecnology == "Illumina") %>%
+  mutate(
+    Contig_coverage = str_extract(Contig_name, "cov_\\d+\\.\\d+"),
+    Contig_coverage = as.numeric(str_replace(Contig_coverage, "cov_", "")),
+    .after = Contig_length
+  ) %>%
+  mutate(Sample_id = paste(Sample, "contig", sep = "_"), .before = 1)
 ```
+
+```{r}
+counts_resfinder_contig_illumina_nomobile <- df_contigs %>%
+  select(Sample_id, ARG, Contig_coverage, Contig_length) %>%
+  reframe(Contig_coverage = sum(Contig_coverage * Contig_length) / sum(Contig_length),
+          .by = c(Sample_id, ARG)) %>%
+  pivot_wider(names_from = ARG, values_from = Contig_coverage, values_fill = 0) %>%
+  column_to_rownames("Sample_id") %>%
+  as.matrix()
+```
+
 
 ```{r}
 # Select as metadata on samples the table meta2 with only the reads info
 meta_samples_reads <- meta2 %>%
-  column_to_rownames("Sample") %>%
+  column_to_rownames("Sample_id") %>%
+  mutate(Time = as_date(Time))
+
+meta_samples_contig_illumina_nomobile <- meta1 %>%
+  filter(Sample_id %in% rownames(counts_resfinder_contig_illumina_nomobile)) %>%
+  column_to_rownames("Sample_id") %>%
   mutate(Time = as_date(Time))
 
 # Order the matrix equal for sure
 meta_samples_reads <- meta_samples_reads[rownames(counts_resfinder_reads), ]
 counts_species_reads <- counts_species_reads[rownames(counts_resfinder_reads), ]
+
+meta_samples_contig_illumina_nomobile <- meta_samples_contig_illumina_nomobile[rownames(counts_resfinder_contig_illumina_nomobile), ]
 ```
 
 
@@ -76,7 +115,11 @@ counts_species_reads <- counts_species_reads[rownames(counts_resfinder_reads), ]
 # Write the ordered tables in R format
 saveRDS(counts_resfinder_reads, "R/counts_resfinder_reads.rds")
 saveRDS(counts_species_reads, "R/counts_species_reads.rds")
+saveRDS(counts_resfinder_contig_illumina_nomobile, "R/counts_resfinder_contigs_illumina_nomobile.rds")
 saveRDS(meta_samples_reads, "R/metadata_samples_reads.rds")
 saveRDS(meta_resfinder_reads, "R/metadata_resfinder_reads.rds")
+saveRDS(meta_samples_contig_illumina_nomobile, "R/metadata_samples_contigs_illumina_nomobile.rds")
 ```
+
+
 

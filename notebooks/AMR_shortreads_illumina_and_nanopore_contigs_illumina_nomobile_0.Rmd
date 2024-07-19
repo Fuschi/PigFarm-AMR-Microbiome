@@ -1,0 +1,63 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+```
+
+```{r}
+# read tables
+abun <- as.data.frame(readRDS("../data/R/counts_resfinder_reads.rds")) %>%
+  bind_rows(
+    as.data.frame(readRDS("../data/R/counts_resfinder_contigs_illumina_nomobile.rds"))
+    ) %>%
+  replace(is.na(.), 0)
+meta <- readRDS("../data/R/metadata_samples_reads.rds") %>%
+  bind_rows(readRDS("../data/R/metadata_samples_contigs_illumina_nomobile.rds"))
+
+meta <- meta %>% arrange(Surface, Tecnology, Country)
+abun <- abun[rownames(meta), ]
+```
+
+```{r}
+# Create tibble with the total amount of AMR counts across the samples with the metadata
+df_TotCounts <- tibble(
+  sample = rownames(abun),
+  TotCounts = rowSums(abun)
+) %>%
+  left_join(rownames_to_column(meta,"sample"), by = "sample")
+```
+
+```{r}
+df_TotCounts %>%
+  reframe(varTotCounts = var(TotCounts) / mean(TotCounts) , .by = c(Tecnology, Level))
+  
+```
+
+
+```{r}
+# Compare the ratio of the total amount of AMR respect sample reads number
+df_TotCounts %>%
+  group_by(Level, Tecnology, Country, Surface) %>%
+  mutate(ScaledTotCounts = scale(TotCounts)) %>%
+  ungroup() %>%
+  unite("TecnologyLevel", c(Tecnology, Level)) %>%
+  # mutate(AMR_ratio = TotCounts / Reads_count,
+  #        AMR_presence = case_when(
+  #          TotCounts == 0 ~ "missing",
+  #          TotCounts <= 100 ~ "<= 100",
+  #          TotCounts > 100 ~ ">  100"
+  #        )) %>%
+  ggplot(aes(x = Time, y = ScaledTotCounts, color = TecnologyLevel)) +
+  geom_point(size = 2) +
+  facet_wrap(~ Country + Surface, nrow = 2, scales = "free") +
+  theme_bw() +
+  theme(axis.text.x = element_blank(),
+        legend.position = c(.925, .25)) +
+  scale_y_continuous(labels = scales::scientific)
+```
+
+
