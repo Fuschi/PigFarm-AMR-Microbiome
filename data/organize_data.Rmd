@@ -96,12 +96,12 @@ counts_resfinder_contig_illumina_nomobile <- df_contigs %>%
 # Select as metadata on samples the table meta2 with only the reads info
 meta_samples_reads <- meta2 %>%
   column_to_rownames("Sample_id") %>%
-  mutate(Time = as_date(Time))
+  mutate(Time = as.Date(Time, format = "%d/%m/%y"))
 
 meta_samples_contig_illumina_nomobile <- meta1 %>%
   filter(Sample_id %in% rownames(counts_resfinder_contig_illumina_nomobile)) %>%
   column_to_rownames("Sample_id") %>%
-  mutate(Time = as_date(Time))
+  mutate(Time = as.Date(Time, format = "%d/%m/%y"))
 
 # Order the matrix equal for sure
 meta_samples_reads <- meta_samples_reads[rownames(counts_resfinder_reads), ]

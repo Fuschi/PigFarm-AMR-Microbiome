@@ -1,0 +1,95 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(gridExtra)
+library(ggpubr)
+```
+
+```{r}
+abun <- readRDS("../data/R/counts_resfinder_reads.rds")
+meta <- readRDS("../data/R/metadata_samples_reads.rds")
+
+abun <- abun[meta$Tecnology == "Illumina", ]
+meta <- meta[meta$Tecnology == "Illumina", ]
+```
+
+
+## Sample Depth
+
+```{r}
+df <- rowSums(abun) %>% enframe(name = "sample_id", value = "SampleDepth")
+
+table_depth_1 <- tableGrob(df[1:18, ], theme = ttheme_minimal(
+  base_size = 8,
+  core = list(fg_params = list(cex = 0.8)),
+  colhead = list(fg_params = list(cex = 1)),
+  rowhead = list(fg_params = list(cex = 0.8)),
+  rows = NULL
+))
+table_depth_2 <- tableGrob(df[19:36, ], theme = ttheme_minimal(
+  base_size = 8,
+  core = list(fg_params = list(cex = 0.8)),
+  colhead = list(fg_params = list(cex = 1)),
+  rowhead = list(fg_params = list(cex = 0.8)),
+  rows = NULL
+))
+
+plot_hist <- df %>%
+  ggplot(aes(x = SampleDepth)) +
+  geom_histogram(bins = 20, fill = "lightblue", color = "darkblue") +
+  theme_bw()
+
+plot_box <- df %>%
+  left_join(rownames_to_column(meta, "sample_id"), by = "sample_id") %>%
+  select(Time, Country, Surface, SampleDepth) %>%
+  ggplot(aes(x = Surface, y = SampleDepth, color = Country)) +
+  geom_boxplot(position = position_dodge(width = 0.75), outlier.shape = NA) +
+  geom_jitter(position = position_dodge(width = 0.75), size = 1.5) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
+        axis.title.x = element_blank())
+
+p_table <- ggarrange(table_depth_1, table_depth_2, ncol = 2)
+p2 <- ggarrange(plot_hist, plot_box, nrow = 2, common.legend = TRUE, legend = "bottom")
+pall <- ggarrange(p_table, p2, widths = c(.5, .5))
+```
+
+
+```{r, fig.width=8, fig.height=5}
+pall
+```
+
+## Counts
+
+```{r}
+summary(c(abun))
+sum(abun!=0) / length(abun)
+```
+
+```{r}
+
+df_colors <- data.frame("CountrySurface" = paste(meta$Country, meta$Surface, sep = " "))
+rownames(df_colors) <- rownames(meta)
+pheatmap::pheatmap(mat = log10(abun+1), cluster_rows = FALSE, 
+                   show_rownames = FALSE, show_colnames = FALSE, annotation_row = df_colors)
+  
+```
+
+```{r}
+abun %>% as_tibble(rownames = "sample_id") %>%
+  pivot_longer(-sample_id, names_to = "ARG", values_to = "count") %>%
+  mutate(count_category = case_when(
+    count == 0 ~ "0",
+    count <= 5 ~ "<=5",
+    count > 5 ~ ">5"
+  )) %>%
+  ggplot(aes(y = sample_id, x = ARG, fill = count_category)) +
+  geom_tile() +
+  theme(axis.text = element_blank(),
+        legend.position = "bottom")
+```
+
