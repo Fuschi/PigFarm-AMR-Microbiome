@@ -1,0 +1,185 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+df_arg_reads <- read_csv("RAW/matrix_Resfinder_all_nh_v2_idcorretto.csv") %>%
+  mutate(Gene_Sum = rowSums(select(., -c(Antibiotic_Family, Gene)))) %>%
+  filter(Gene_Sum > 0) %>%
+  select(-Gene_Sum) 
+
+abun_arg_reads <- df_arg_reads %>%
+  select(-Antibiotic_Family) %>%
+  pivot_longer(-Gene, names_to = "sample_id", values_to = "counts") %>%
+  pivot_wider(names_from = "Gene", values_from = "counts") %>%
+  mutate(sample_id = str_replace(sample_id, "_i$", "_illumina"),
+         sample_id = str_replace(sample_id, "_n$", "_nanopore"),
+         sample_id = paste(sample_id, "reads", sep = "_")) 
+```
+
+```{r}
+df_arg_contigs <- read_tsv("RAW/data_merged_contigs_final.txt") %>%
+  select(-1) %>%
+  mutate(sample_id = str_replace(Sample, "_i$", "_illumina"),
+         sample_id = str_replace(sample_id, "_n$", "_nanopore"),
+         sample_id = paste(sample_id, "contigs", sep = "_")) %>%
+  relocate(sample_id, .before = 1) %>%
+  filter(str_detect(sample_id, "illumina")) 
+
+abun_arg_contigs <- df_arg_contigs %>%
+  select(sample_id, ARG, Contig_name, Contig_length) %>%
+  mutate(Contig_coverage = str_extract(Contig_name, "cov_\\d+\\.\\d+"),
+         Contig_coverage = as.numeric(str_replace(Contig_coverage, "cov_", ""))) %>%
+  reframe(Contig_coverage = sum(Contig_coverage * Contig_length) / sum(Contig_length),
+          .by = c(sample_id, ARG)) %>%
+  pivot_wider(names_from = ARG, values_from = Contig_coverage, values_fill = 0) 
+```
+
+```{r}
+meta_sample <- read_tsv("RAW/metadata_all2.txt") %>%
+  mutate(sample_id = str_replace(sample_id, "_i$", "_illumina"),
+         sample_id = str_replace(sample_id, "_n$", "_nanopore"),
+         sample_id = paste(sample_id, "reads", sep = "_"),
+         experiment_id = str_extract(sample_id, "^[^_]+_[^_]+")) %>%
+  relocate(experiment_id, .after = 1)
+
+meta_sample <- meta_sample %>%
+  filter(Tecnology == "Illumina") %>%
+  mutate(sample_id = str_replace(sample_id, "reads", "contigs"),
+         Level = "contigs") %>%
+  bind_rows(meta_sample) %>%
+  arrange(Surface) %>%
+  column_to_rownames("sample_id")
+
+abun_arg <- bind_rows(abun_arg_reads, abun_arg_contigs) %>%
+  column_to_rownames("sample_id") %>% as.matrix()
+abun_arg <- abun_arg[rownames(meta_sample), ]
+abun_arg[is.na(abun_arg)] <- 0
+
+
+taxa_arg <- tibble(taxa_id = colnames(abun_arg)) %>%
+  left_join(df_arg_reads%>%select(Gene, Antibiotic_Family), by = join_by(taxa_id == Gene)) %>%
+  column_to_rownames("taxa_id")
+
+mg_arg <- mgnet::mgnet(
+  abun = abun_arg,
+  meta = meta_sample,
+  taxa = taxa_arg
+)
+```
+```{r}
+saveRDS(mg_arg, "R/arg.rds")
+```
+
+## Bacteria
+
+```{r}
+df_bac_species <- read_tsv("RAW/matrix_bacteria_S_idcorretto.txt") %>%
+  column_to_rownames("...1") %>%
+  t %>% as_tibble(rownames = "sample_id") %>%
+  mutate(sample_id = str_replace(sample_id, "_i$", "_illumina"),
+         sample_id = str_replace(sample_id, "_n$", "_nanopore"),
+         sample_id = paste(sample_id, "bacteria", sep = "_")) %>%
+  column_to_rownames("sample_id") %>%
+  rename("Ochrobactrum quorumnocens" = "[Ochrobactrum] quorumnocens",
+         "Roseinatronobacter bogoriensis subsp. barguzinensis" = "Rhodobaca barguzinensis")
+
+meta_bacteria <- read_tsv("RAW/metadata_all2.txt") %>%
+  mutate(sample_id = str_replace(sample_id, "_i$", "_illumina"),
+         sample_id = str_replace(sample_id, "_n$", "_nanopore"),
+         sample_id = paste(sample_id, "bacteria", sep = "_"),
+         experiment_id = str_extract(sample_id, "^[^_]+_[^_]+")) %>%
+  relocate(experiment_id, .after = 1) %>%
+  column_to_rownames("sample_id")
+  
+meta_bacteria <- meta_bacteria[rownames(df_bac_species), ]
+
+
+taxa_bacteria <- taxizedb::name2taxid(colnames(df_bac_species)) %>%
+  taxizedb::classification(verbose = T)
+
+# Assuming you already have `taxa_bacteria` as the result of `taxizedb::classification()`
+# Define the taxonomic ranks you expect in the final data frame
+expected_ranks <- c("superkingdom", "phylum", "class", "order", "family", "genus", "species")
+
+# Store the original names from colnames(df_bac_species)
+original_names <- colnames(df_bac_species)
+
+# Function to safely process each element and attach the original name
+process_taxa <- function(x, original_name) {
+  # Check if the element is a data frame and has the necessary columns
+  if (is.data.frame(x) && all(c("rank", "name") %in% colnames(x))) {
+    df <- as.data.frame(t(deframe(x[, c("rank", "name")])))
+    
+    # Ensure all expected ranks are present, fill missing ones with NA
+    missing_ranks <- setdiff(expected_ranks, colnames(df))
+    if (length(missing_ranks) > 0) {
+      df[missing_ranks] <- NA
+    }
+    
+    # Add the original name as a new column
+    df$original_name <- original_name
+    
+    return(df[, c("original_name", expected_ranks), drop = FALSE])  # Return data frame with original name and all expected ranks
+  } else {
+    # Return a data frame with NA for non-conforming elements, and include the original name
+    return(as.data.frame(matrix(NA, nrow = 1, ncol = length(expected_ranks) + 1, 
+                                dimnames = list(NULL, c("original_name", expected_ranks)))) %>%
+             mutate(original_name = original_name))
+  }
+}
+
+# Apply the function to each element of the list with corresponding original name
+taxa_bacteria <- map2(taxa_bacteria, original_names, process_taxa) %>%
+  bind_rows()
+
+# Display the resulting data frame
+taxa_bacteria <- taxa_bacteria %>%
+  column_to_rownames("original_name") %>%
+  select(-species)
+
+taxa_bacteria <- taxa_bacteria[colnames(df_bac_species), ]
+
+mg_bac <- mgnet::mgnet(
+  abun = as.matrix(df_bac_species),
+  meta = meta_bacteria,
+  taxa = taxa_bacteria
+)
+
+saveRDS(mg_bac, "R/bac.rds")
+```
+
+## Genera
+
+```{r}
+df_bac_genera <- df_bac_species %>%
+  as_tibble(rownames = "sample_id") %>%
+  pivot_longer(-sample_id, names_to = "species", values_to = "count") %>%
+  left_join(rownames_to_column(taxa_bacteria,"species"), by = "species") %>%
+  filter(!is.na(genus)) %>%
+  group_by(sample_id, genus) %>%
+  summarise(count = sum(count), .groups = "drop") %>%
+  pivot_wider(names_from = "genus", values_from = "count") %>%
+  column_to_rownames("sample_id")
+
+taxa_genera <- as_tibble(taxa_bacteria, rownames = NA) %>%
+  filter(!is.na(genus)) %>%
+  distinct() %>%
+  column_to_rownames("genus")
+taxa_genera <- taxa_genera[colnames(df_bac_genera), ]
+
+meta_genera <- meta_bacteria[rownames(df_bac_genera), ]
+
+mg_gen <- mgnet::mgnet(
+  abun = as.matrix(df_bac_genera),
+  meta = meta_genera,
+  taxa = taxa_genera
+)
+
+saveRDS(mg_gen, "R/gen.rds")
+```
