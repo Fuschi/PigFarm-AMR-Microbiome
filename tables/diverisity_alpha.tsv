@@ -1,0 +1,61 @@
+source	sample_id	Country	Time	Surface	Technology	Shannon	Pielou
+bac_reads	CAR1_ita_i	Italy	08/11/22	carcass	Illumina	5.382839293914119	0.5792859750052433
+bac_reads	CAR2_ita_i	Italy	15/11/22	carcass	Illumina	4.883593458628369	0.530651553143205
+bac_reads	CAR3_ita_i	Italy	22/11/22	carcass	Illumina	4.858417038819974	0.5325437661900826
+bac_reads	CAR4_ita_i	Italy	29/11/22	carcass	Illumina	4.422748607728071	0.4850799145644628
+bac_reads	CD1_ita_i	Italy	08/11/22	clean drain	Illumina	4.803984824678806	0.5181384654652218
+bac_reads	CD2_ita_i	Italy	15/11/22	clean drain	Illumina	5.135576078537517	0.5532605876508794
+bac_reads	CD3_ita_i	Italy	22/11/22	clean drain	Illumina	4.888399730966085	0.5268383807236532
+bac_reads	CD4_ita_i	Italy	29/11/22	clean drain	Illumina	3.791495761439594	0.41049939553807413
+bac_reads	CS1_ita_i	Italy	08/11/22	clean surface	Illumina	3.757973084183069	0.4071284007666983
+bac_reads	CS2_ita_i	Italy	15/11/22	clean surface	Illumina	3.369491283936627	0.3641694305831253
+bac_reads	CS3_ita_i	Italy	22/11/22	clean surface	Illumina	3.3018854295155093	0.35642206517182334
+bac_reads	CS4_ita_i	Italy	29/11/22	clean surface	Illumina	2.117405294087738	0.22966353125577105
+bac_reads	DD1_ita_i	Italy	08/11/22	dirty drain	Illumina	5.7781991546887745	0.6220930716938344
+bac_reads	DD2_ita_i	Italy	15/11/22	dirty drain	Illumina	5.915999721695473	0.6360666219687572
+bac_reads	DD3_ita_i	Italy	22/11/22	dirty drain	Illumina	5.947864429001052	0.639668718628964
+bac_reads	DD4_ita_i	Italy	29/11/22	dirty drain	Illumina	5.370208818550678	0.5777722245521145
+bac_reads	DS1_ita_i	Italy	08/11/22	dirty surface	Illumina	5.73970626330594	0.6181646568545004
+bac_reads	DS2_ita_i	Italy	15/11/22	dirty surface	Illumina	4.931548133248947	0.530977868794688
+bac_reads	DS3_ita_i	Italy	22/11/22	dirty surface	Illumina	5.428611973870346	0.5839288216256568
+bac_reads	DS4_ita_i	Italy	29/11/22	dirty surface	Illumina	5.370887391726875	0.5777367782347019
+arg_reads	CAR1_ita_i	Italy	08/11/22	carcass	Illumina	4.852899319703963	0.8059924431663663
+arg_reads	CAR2_ita_i	Italy	15/11/22	carcass	Illumina	4.709137075449121	0.857288257927315
+arg_reads	CAR3_ita_i	Italy	22/11/22	carcass	Illumina	4.631214262440077	0.8899324195606543
+arg_reads	CAR4_ita_i	Italy	29/11/22	carcass	Illumina	4.36348734166843	0.8420821324006229
+arg_reads	CD1_ita_i	Italy	08/11/22	clean drain	Illumina	4.765698101704762	0.8312252614209343
+arg_reads	CD2_ita_i	Italy	15/11/22	clean drain	Illumina	5.052552206058617	0.8273347421375931
+arg_reads	CD3_ita_i	Italy	22/11/22	clean drain	Illumina	4.23451943949686	0.8154351289806984
+arg_reads	CD4_ita_i	Italy	29/11/22	clean drain	Illumina	3.9594624770371007	0.7881283124882369
+arg_reads	CS1_ita_i	Italy	08/11/22	clean surface	Illumina	3.894567963451941	0.6664735793059071
+arg_reads	CS2_ita_i	Italy	15/11/22	clean surface	Illumina	4.865898878549246	0.8382059856667643
+arg_reads	CS3_ita_i	Italy	22/11/22	clean surface	Illumina	4.435714930745577	0.7776795399289737
+arg_reads	CS4_ita_i	Italy	29/11/22	clean surface	Illumina	4.802398938799919	0.8501364559883609
+arg_reads	DD1_ita_i	Italy	08/11/22	dirty drain	Illumina	4.916074821812891	0.8301966930818073
+arg_reads	DD2_ita_i	Italy	15/11/22	dirty drain	Illumina	4.992762363976766	0.8146062102381513
+arg_reads	DD3_ita_i	Italy	22/11/22	dirty drain	Illumina	4.8557567618850515	0.7945320644191136
+arg_reads	DD4_ita_i	Italy	29/11/22	dirty drain	Illumina	4.889737827827887	0.8027399561816475
+arg_reads	DS1_ita_i	Italy	08/11/22	dirty surface	Illumina	4.935095405606537	0.8289759259768182
+arg_reads	DS2_ita_i	Italy	15/11/22	dirty surface	Illumina	4.948709031114325	0.8196115976553773
+arg_reads	DS3_ita_i	Italy	22/11/22	dirty surface	Illumina	5.062088155355973	0.8224540806679514
+arg_reads	DS4_ita_i	Italy	29/11/22	dirty surface	Illumina	5.01117837952986	0.8196661573381582
+arg_contigs_gene	CAR1_ita_i	Italy	08/11/22	carcass	Illumina	3.3487863459940335	0.8517128323601905
+arg_contigs_gene	CAR2_ita_i	Italy	15/11/22	carcass	Illumina	2.802097211904644	0.893670030602908
+arg_contigs_gene	CAR3_ita_i	Italy	22/11/22	carcass	Illumina	2.649684903014765	0.935222512831067
+arg_contigs_gene	CAR4_ita_i	Italy	29/11/22	carcass	Illumina	2.3791841994249876	0.9015280466725757
+arg_contigs_gene	CD1_ita_i	Italy	08/11/22	clean drain	Illumina	2.3987589380634398	0.8299136370642652
+arg_contigs_gene	CD2_ita_i	Italy	15/11/22	clean drain	Illumina	3.0305581677164444	0.8523942284421169
+arg_contigs_gene	CD3_ita_i	Italy	22/11/22	clean drain	Illumina	2.3226336883863845	0.8377130260091697
+arg_contigs_gene	CD4_ita_i	Italy	29/11/22	clean drain	Illumina	1.9221697577765497	0.8748171568820109
+arg_contigs_gene	CS1_ita_i	Italy	08/11/22	clean surface	Illumina	1.8991450507215102	0.6237907880690864
+arg_contigs_gene	CS2_ita_i	Italy	15/11/22	clean surface	Illumina	2.6341098092891504	0.7670703623614927
+arg_contigs_gene	CS3_ita_i	Italy	22/11/22	clean surface	Illumina	2.8311282499734096	0.7963012906217085
+arg_contigs_gene	CS4_ita_i	Italy	29/11/22	clean surface	Illumina	2.9109805572490104	0.9283960858420501
+arg_contigs_gene	DD1_ita_i	Italy	08/11/22	dirty drain	Illumina	3.3425725085032636	0.8886983956414389
+arg_contigs_gene	DD2_ita_i	Italy	15/11/22	dirty drain	Illumina	3.4916076837070804	0.8427453882843197
+arg_contigs_gene	DD3_ita_i	Italy	22/11/22	dirty drain	Illumina	3.4619787828626785	0.8490366625662619
+arg_contigs_gene	DD4_ita_i	Italy	29/11/22	dirty drain	Illumina	3.672097922553376	0.87333326236943
+arg_contigs_gene	DS1_ita_i	Italy	08/11/22	dirty surface	Illumina	3.411840387092649	0.8813389894968252
+arg_contigs_gene	DS2_ita_i	Italy	15/11/22	dirty surface	Illumina	3.467358102374836	0.8503559194918353
+arg_contigs_gene	DS3_ita_i	Italy	22/11/22	dirty surface	Illumina	3.3718000706035944	0.8202149182900451
+arg_contigs_gene	DS4_ita_i	Italy	29/11/22	dirty surface	Illumina	3.5505726333533176	0.8602997387773516
