@@ -1,0 +1,202 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+## META SAMPLES
+
+```{r}
+meta_sample <- read_tsv("RAW/metadata_all2.txt", show_col_types = FALSE) %>%
+  rename(Technology = Tecnology) %>%
+  filter(Country == "Italy", Technology == "Illumina") %>%
+  select(-all_of(c("Reads_count", "Host", "Level"))) %>%
+  relocate(sample_id, .before = 1) %>%
+  column_to_rownames("sample_id") %>%
+  mutate(Surface_Type = case_when(
+    str_detect(Surface, "clean") ~ "clean",
+    str_detect(Surface, "dirty") ~ "dirty", 
+    str_detect(Surface, "carcass") ~ "carcass"
+  ))
+
+saveRDS(meta_sample, "R/ITALY-ILLUMINA/meta_sample.rds")
+```
+
+## ARG READS
+
+```{r}
+df_arg_reads_gene <- read_csv("RAW/matrix_Resfinder_all_nh_v2_idcorretto.csv", show_col_types = FALSE) %>%
+  mutate(Gene_Sum = rowSums(select(., -c(Antibiotic_Family, Gene)))) %>%
+  filter(Gene_Sum > 0) %>%
+  select(-Gene_Sum) 
+
+abun_arg_reads_gene <- df_arg_reads_gene %>%
+  select(-Antibiotic_Family) %>%
+  pivot_longer(-Gene, names_to = "sample_id", values_to = "counts") %>%
+  pivot_wider(names_from = "Gene", values_from = "counts") %>%
+  column_to_rownames("sample_id") %>%
+  as.matrix()
+abun_arg_reads_gene <- abun_arg_reads_gene[rownames(meta_sample), ]
+
+taxa_arg_reads_gene <- df_arg_reads_gene %>%
+  select(Gene, Antibiotic_Family) %>%
+  rename(taxa_id = Gene) %>%
+  column_to_rownames("taxa_id") 
+
+abun_arg_reads_gene <- abun_arg_reads_gene[rownames(meta_sample), ]
+taxa_arg_reads_gene <- taxa_arg_reads_gene[colnames(abun_arg_reads_gene), ,drop = FALSE]
+
+saveRDS(abun_arg_reads_gene, "R/ITALY-ILLUMINA/abun_arg_reads_gene.rds")
+saveRDS(taxa_arg_reads_gene, "R/ITALY-ILLUMINA/taxa_arg_reads_gene.rds")
+
+rm(abun_arg_reads_gene, df_arg_reads_gene, mg_arg_reads_gene, taxa_arg_reads_gene)
+```
+
+
+## ARG CONTIGS - ALL
+
+```{r}
+df_arg_contigs <- read_tsv("RAW/data_merged_contigs_final.txt", show_col_types = FALSE) %>%
+  select(-1) %>%
+  filter(Country == "Italy", Technology == "illumina") %>%
+  rename(sample_id = Sample) %>%
+  relocate(sample_id, .before = 1) %>%
+  mutate(plasmid_waafle = if_else(grepl("-", SYNTENY), "", "LGT"),
+         integron_platon = if_else(grepl("-", Platon_ID), "", "MGE")) %>%
+  mutate(family = str_extract(Diamond_nr, "f_[^;]+"),
+         family = str_remove(family, "f_"),
+         family = if_else(is.na(family), "Unkown", family)) %>%
+  mutate(genus = str_extract(Diamond_nr, "g_[^;]+"),
+         genus = str_remove(genus, "g_"),
+         genus = if_else(is.na(genus), "Unkown", genus))
+
+saveRDS(df_arg_contigs, "R/ITALY-ILLUMINA/arg_contigs_all.rds")
+```
+
+## ARG CONTIGS - Gene Aggregated
+
+```{r}
+abun_arg_contigs_gene <- df_arg_contigs %>%
+  select(sample_id, ARG, Contig_name, Contig_length) %>%
+  mutate(Contig_coverage = str_extract(Contig_name, "cov_\\d+\\.\\d+"),
+         Contig_coverage = as.numeric(str_replace(Contig_coverage, "cov_", ""))) %>%
+  reframe(Contig_coverage = sum(Contig_coverage * Contig_length) / sum(Contig_length),
+          .by = c(sample_id, ARG)) %>%
+  pivot_wider(names_from = ARG, values_from = Contig_coverage, values_fill = 0) %>%
+  column_to_rownames("sample_id") %>%
+  as.matrix()
+
+abun_arg_contigs_gene <- abun_arg_contigs_gene[rownames(meta_sample), ]
+
+saveRDS(abun_arg_contigs_gene, "R/ITALY-ILLUMINA/abun_arg_contigs_gene.rds")
+
+rm(abun_arg_contigs_gene)
+```
+
+## ARG CONTIGS - Genera Aggregated
+
+```{r}
+abun_arg_contigs_genus <- df_arg_contigs %>%
+  select(sample_id, ARG, Contig_name, Contig_length, genus) %>%
+  mutate(Contig_coverage = str_extract(Contig_name, "cov_\\d+\\.\\d+"),
+         Contig_coverage = as.numeric(str_replace(Contig_coverage, "cov_", ""))) %>%
+  reframe(Contig_coverage = sum(Contig_coverage * Contig_length) / sum(Contig_length),
+          .by = c(sample_id, genus)) %>%
+  pivot_wider(names_from = "genus", values_from = Contig_coverage, values_fill = 0) %>%
+  column_to_rownames("sample_id") %>% as.matrix()
+
+abun_arg_contigs_genus <- abun_arg_contigs_genus[rownames(meta_sample), ]
+
+saveRDS(abun_arg_contigs_genus, "R/ITALY-ILLUMINA/abun_arg_contigs_genus.rds")
+
+rm(abun_arg_contigs_genus)
+
+```
+
+## ARG CONTIGS - Families Aggregated
+
+```{r}
+abun_arg_contigs_family <- df_arg_contigs %>%
+  select(sample_id, ARG, Contig_name, Contig_length, family) %>%
+  mutate(Contig_coverage = str_extract(Contig_name, "cov_\\d+\\.\\d+"),
+         Contig_coverage = as.numeric(str_replace(Contig_coverage, "cov_", ""))) %>%
+  reframe(Contig_coverage = sum(Contig_coverage * Contig_length) / sum(Contig_length),
+          .by = c(sample_id, family)) %>%
+  pivot_wider(names_from = "family", values_from = Contig_coverage, values_fill = 0) %>%
+  column_to_rownames("sample_id") %>% as.matrix()
+
+abun_arg_contigs_family <- abun_arg_contigs_family[rownames(meta_sample), ]
+
+saveRDS(abun_arg_contigs_family, "R/ITALY-ILLUMINA/abun_arg_contigs_family.rds")
+
+rm(abun_arg_contigs_family)
+```
+
+
+## Bacteria
+
+```{r}
+df_bac_species <- read_tsv("RAW/matrix_bacteria_S_idcorretto.txt", show_col_types = FALSE) %>%
+  column_to_rownames("...1") %>%
+  t %>% as_tibble(rownames = "sample_id") %>%
+  column_to_rownames("sample_id") %>%
+  rename("Ochrobactrum quorumnocens" = "[Ochrobactrum] quorumnocens",
+         "Roseinatronobacter bogoriensis subsp. barguzinensis" = "Rhodobaca barguzinensis")
+
+df_bac_species <- df_bac_species[rownames(meta_sample), ]
+df_bac_species <- df_bac_species[, colSums(df_bac_species) >0]
+
+taxa_bacteria <- taxizedb::name2taxid(colnames(df_bac_species)) %>%
+  taxizedb::classification(verbose = T)
+
+# Assuming you already have `taxa_bacteria` as the result of `taxizedb::classification()`
+# Define the taxonomic ranks you expect in the final data frame
+expected_ranks <- c("superkingdom", "phylum", "class", "order", "family", "genus", "species")
+
+# Store the original names from colnames(df_bac_species)
+original_names <- colnames(df_bac_species)
+
+# Function to safely process each element and attach the original name
+process_taxa <- function(x, original_name) {
+  # Check if the element is a data frame and has the necessary columns
+  if (is.data.frame(x) && all(c("rank", "name") %in% colnames(x))) {
+    df <- as.data.frame(t(deframe(x[, c("rank", "name")])))
+    
+    # Ensure all expected ranks are present, fill missing ones with NA
+    missing_ranks <- setdiff(expected_ranks, colnames(df))
+    if (length(missing_ranks) > 0) {
+      df[missing_ranks] <- NA
+    }
+    
+    # Add the original name as a new column
+    df$original_name <- original_name
+    
+    return(df[, c("original_name", expected_ranks), drop = FALSE])  # Return data frame with original name and all expected ranks
+  } else {
+    # Return a data frame with NA for non-conforming elements, and include the original name
+    return(as.data.frame(matrix(NA, nrow = 1, ncol = length(expected_ranks) + 1, 
+                                dimnames = list(NULL, c("original_name", expected_ranks)))) %>%
+             mutate(original_name = original_name))
+  }
+}
+
+# Apply the function to each element of the list with corresponding original name
+taxa_bacteria <- map2(taxa_bacteria, original_names, process_taxa) %>%
+  bind_rows()
+
+# Display the resulting data frame
+taxa_bacteria <- taxa_bacteria %>%
+  column_to_rownames("original_name") %>%
+  select(-species)
+
+taxa_bacteria <- taxa_bacteria[colnames(df_bac_species), ]
+
+
+saveRDS(df_bac_species, "R/ITALY-ILLUMINA/abun_bac_sp.rds")
+saveRDS(taxa_bacteria, "R/ITALY-ILLUMINA/taxa_bac_sp.rds")
+```
+
+

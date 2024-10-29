@@ -1,0 +1,217 @@
+sample_id	family	Contig_coverage	experiment_id	Country	Time	Surface	Tecnology	Level	Host	Reads_count
+CAR1_ita_illumina_contigs	Bacteroidaceae	5.210138	CAR1_ita	Italy	08/11/22	carcass	Illumina	contigs	no	21976824
+CAR1_ita_illumina_contigs	Unkown	16.919442710978643	CAR1_ita	Italy	08/11/22	carcass	Illumina	contigs	no	21976824
+CAR1_ita_illumina_contigs	Moraxellaceae	10.438122883097812	CAR1_ita	Italy	08/11/22	carcass	Illumina	contigs	no	21976824
+CAR1_ita_illumina_contigs	Streptococcaceae	23.587811090749167	CAR1_ita	Italy	08/11/22	carcass	Illumina	contigs	no	21976824
+CAR1_ita_illumina_contigs	Enterobacteriaceae	6.74248390474981	CAR1_ita	Italy	08/11/22	carcass	Illumina	contigs	no	21976824
+CAR1_ita_illumina_contigs	Aeromonadaceae	16.85256565737794	CAR1_ita	Italy	08/11/22	carcass	Illumina	contigs	no	21976824
+CAR1_ita_illumina_contigs	Shewanellaceae	5.377989	CAR1_ita	Italy	08/11/22	carcass	Illumina	contigs	no	21976824
+CAR1_ita_illumina_contigs	Clostridiaceae	3.472958	CAR1_ita	Italy	08/11/22	carcass	Illumina	contigs	no	21976824
+CAR2_ita_illumina_contigs	Unkown	6.428560787748806	CAR2_ita	Italy	15/11/22	carcass	Illumina	contigs	no	4698521
+CAR2_ita_illumina_contigs	Staphylococcaceae	6.625361834680791	CAR2_ita	Italy	15/11/22	carcass	Illumina	contigs	no	4698521
+CAR2_ita_illumina_contigs	Streptococcaceae	36.201605	CAR2_ita	Italy	15/11/22	carcass	Illumina	contigs	no	4698521
+CAR2_ita_illumina_contigs	Moraxellaceae	10.784229298112338	CAR2_ita	Italy	15/11/22	carcass	Illumina	contigs	no	4698521
+CAR2_ita_illumina_contigs	Aeromonadaceae	9.714745873775843	CAR2_ita	Italy	15/11/22	carcass	Illumina	contigs	no	4698521
+CAR3_ita_illumina_contigs	Streptococcaceae	12.393203	CAR3_ita	Italy	22/11/22	carcass	Illumina	contigs	no	1431678
+CAR3_ita_illumina_contigs	Unkown	6.349031277271959	CAR3_ita	Italy	22/11/22	carcass	Illumina	contigs	no	1431678
+CAR3_ita_illumina_contigs	Staphylococcaceae	4.570279	CAR3_ita	Italy	22/11/22	carcass	Illumina	contigs	no	1431678
+CAR3_ita_illumina_contigs	Moraxellaceae	3.9469189999999994	CAR3_ita	Italy	22/11/22	carcass	Illumina	contigs	no	1431678
+CAR4_ita_illumina_contigs	Enterobacteriaceae	7.742491	CAR4_ita	Italy	29/11/22	carcass	Illumina	contigs	no	1978424
+CAR4_ita_illumina_contigs	Moraxellaceae	4.12132280437424	CAR4_ita	Italy	29/11/22	carcass	Illumina	contigs	no	1978424
+CAR4_ita_illumina_contigs	Unkown	3.8266139294359722	CAR4_ita	Italy	29/11/22	carcass	Illumina	contigs	no	1978424
+CAR4_ita_illumina_contigs	Streptococcaceae	20.967481	CAR4_ita	Italy	29/11/22	carcass	Illumina	contigs	no	1978424
+CAR4_ita_illumina_contigs	Aeromonadaceae	3.195582	CAR4_ita	Italy	29/11/22	carcass	Illumina	contigs	no	1978424
+CAR4_ita_illumina_contigs	Staphylococcaceae	6.199014	CAR4_ita	Italy	29/11/22	carcass	Illumina	contigs	no	1978424
+CD1_ita_illumina_contigs	Microbacteriaceae	4.619048	CD1_ita	Italy	08/11/22	clean drain	Illumina	contigs	no	31451000
+CD1_ita_illumina_contigs	Unkown	9.446549835728465	CD1_ita	Italy	08/11/22	clean drain	Illumina	contigs	no	31451000
+CD1_ita_illumina_contigs	Aeromonadaceae	7.648787257415324	CD1_ita	Italy	08/11/22	clean drain	Illumina	contigs	no	31451000
+CD1_ita_illumina_contigs	Mycobacteriaceae	3.7138539999999995	CD1_ita	Italy	08/11/22	clean drain	Illumina	contigs	no	31451000
+CD1_ita_illumina_contigs	Enterobacteriaceae	8.840669553018925	CD1_ita	Italy	08/11/22	clean drain	Illumina	contigs	no	31451000
+CD1_ita_illumina_contigs	Moraxellaceae	52.3583093184956	CD1_ita	Italy	08/11/22	clean drain	Illumina	contigs	no	31451000
+CD1_spa_illumina_contigs	Moraxellaceae	6.937277939497129	CD1_spa	Spain	07/03/23	clean drain	Illumina	contigs	no	5707875
+CD1_spa_illumina_contigs	Unkown	3.756667830192422	CD1_spa	Spain	07/03/23	clean drain	Illumina	contigs	no	5707875
+CD1_spa_illumina_contigs	Enterococcaceae	2.344174	CD1_spa	Spain	07/03/23	clean drain	Illumina	contigs	no	5707875
+CD1_spa_illumina_contigs	Clostridiaceae	3.138304	CD1_spa	Spain	07/03/23	clean drain	Illumina	contigs	no	5707875
+CD2_ita_illumina_contigs	Unkown	13.090974155378166	CD2_ita	Italy	15/11/22	clean drain	Illumina	contigs	no	37181228
+CD2_ita_illumina_contigs	Enterobacteriaceae	13.38538808761005	CD2_ita	Italy	15/11/22	clean drain	Illumina	contigs	no	37181228
+CD2_ita_illumina_contigs	Shewanellaceae	8.836851	CD2_ita	Italy	15/11/22	clean drain	Illumina	contigs	no	37181228
+CD2_ita_illumina_contigs	Aeromonadaceae	25.179857509186093	CD2_ita	Italy	15/11/22	clean drain	Illumina	contigs	no	37181228
+CD2_ita_illumina_contigs	Nocardiaceae	2.419837	CD2_ita	Italy	15/11/22	clean drain	Illumina	contigs	no	37181228
+CD2_ita_illumina_contigs	Weeksellaceae	3.579384	CD2_ita	Italy	15/11/22	clean drain	Illumina	contigs	no	37181228
+CD2_ita_illumina_contigs	Moraxellaceae	36.06997997221876	CD2_ita	Italy	15/11/22	clean drain	Illumina	contigs	no	37181228
+CD2_ita_illumina_contigs	Staphylococcaceae	3.74728	CD2_ita	Italy	15/11/22	clean drain	Illumina	contigs	no	37181228
+CD2_ita_illumina_contigs	Pseudomonadaceae	5.899482	CD2_ita	Italy	15/11/22	clean drain	Illumina	contigs	no	37181228
+CD2_ita_illumina_contigs	Microbacteriaceae	4.898413	CD2_ita	Italy	15/11/22	clean drain	Illumina	contigs	no	37181228
+CD2_spa_illumina_contigs	Aeromonadaceae	2.709677	CD2_spa	Spain	14/03/23	clean drain	Illumina	contigs	no	5979590
+CD2_spa_illumina_contigs	Unkown	5.087652073741852	CD2_spa	Spain	14/03/23	clean drain	Illumina	contigs	no	5979590
+CD2_spa_illumina_contigs	Enterobacteriaceae	6.47236497865269	CD2_spa	Spain	14/03/23	clean drain	Illumina	contigs	no	5979590
+CD2_spa_illumina_contigs	Moraxellaceae	44.14620970067925	CD2_spa	Spain	14/03/23	clean drain	Illumina	contigs	no	5979590
+CD2_spa_illumina_contigs	Pseudomonadaceae	2.0368563761569787	CD2_spa	Spain	14/03/23	clean drain	Illumina	contigs	no	5979590
+CD2_spa_illumina_contigs	Clostridiaceae	2.7308999999999997	CD2_spa	Spain	14/03/23	clean drain	Illumina	contigs	no	5979590
+CD3_ita_illumina_contigs	Unkown	6.480134338763776	CD3_ita	Italy	22/11/22	clean drain	Illumina	contigs	no	49794031
+CD3_ita_illumina_contigs	Enterobacteriaceae	22.930449	CD3_ita	Italy	22/11/22	clean drain	Illumina	contigs	no	49794031
+CD3_ita_illumina_contigs	Mycobacteriaceae	4.739428	CD3_ita	Italy	22/11/22	clean drain	Illumina	contigs	no	49794031
+CD3_ita_illumina_contigs	Moraxellaceae	22.331380721220775	CD3_ita	Italy	22/11/22	clean drain	Illumina	contigs	no	49794031
+CD3_ita_illumina_contigs	Flavobacteriaceae	3.260532	CD3_ita	Italy	22/11/22	clean drain	Illumina	contigs	no	49794031
+CD3_ita_illumina_contigs	Microbacteriaceae	3.069787	CD3_ita	Italy	22/11/22	clean drain	Illumina	contigs	no	49794031
+CD3_spa_illumina_contigs	Unkown	7.654842226400563	CD3_spa	Spain	21/03/23	clean drain	Illumina	contigs	no	2458742
+CD3_spa_illumina_contigs	Enterobacteriaceae	5.190268	CD3_spa	Spain	21/03/23	clean drain	Illumina	contigs	no	2458742
+CD3_spa_illumina_contigs	Moraxellaceae	3.519618	CD3_spa	Spain	21/03/23	clean drain	Illumina	contigs	no	2458742
+CD3_spa_illumina_contigs	Micrococcaceae	4.286631	CD3_spa	Spain	21/03/23	clean drain	Illumina	contigs	no	2458742
+CD3_spa_illumina_contigs	Bacteroidaceae	5.400641	CD3_spa	Spain	21/03/23	clean drain	Illumina	contigs	no	2458742
+CD4_ita_illumina_contigs	Moraxellaceae	8.884890115122678	CD4_ita	Italy	29/11/22	clean drain	Illumina	contigs	no	44642178
+CD4_ita_illumina_contigs	Mycobacteriaceae	15.521092420855798	CD4_ita	Italy	29/11/22	clean drain	Illumina	contigs	no	44642178
+CD4_ita_illumina_contigs	Unkown	11.605419020320994	CD4_ita	Italy	29/11/22	clean drain	Illumina	contigs	no	44642178
+CD4_ita_illumina_contigs	Microbacteriaceae	3.41391	CD4_ita	Italy	29/11/22	clean drain	Illumina	contigs	no	44642178
+CD4_spa_illumina_contigs	Unkown	9.897466950485843	CD4_spa	Spain	28/03/23	clean drain	Illumina	contigs	no	4958251
+CD4_spa_illumina_contigs	Moraxellaceae	93.70393188825798	CD4_spa	Spain	28/03/23	clean drain	Illumina	contigs	no	4958251
+CD4_spa_illumina_contigs	Clostridiaceae	3.424985	CD4_spa	Spain	28/03/23	clean drain	Illumina	contigs	no	4958251
+CS1_ita_illumina_contigs	Unkown	9.180310092847817	CS1_ita	Italy	08/11/22	clean surface	Illumina	contigs	no	13179744
+CS1_ita_illumina_contigs	Aeromonadaceae	9.172020203558992	CS1_ita	Italy	08/11/22	clean surface	Illumina	contigs	no	13179744
+CS1_ita_illumina_contigs	Moraxellaceae	184.22451167421477	CS1_ita	Italy	08/11/22	clean surface	Illumina	contigs	no	13179744
+CS1_ita_illumina_contigs	Lactobacillaceae	4.797626	CS1_ita	Italy	08/11/22	clean surface	Illumina	contigs	no	13179744
+CS1_spa_illumina_contigs	Unkown	2.8182922319517894	CS1_spa	Spain	07/03/23	clean surface	Illumina	contigs	no	650128
+CS1_spa_illumina_contigs	Moraxellaceae	4.678451316865417	CS1_spa	Spain	07/03/23	clean surface	Illumina	contigs	no	650128
+CS2_ita_illumina_contigs	Unkown	9.517871387481966	CS2_ita	Italy	15/11/22	clean surface	Illumina	contigs	no	17885380
+CS2_ita_illumina_contigs	Streptococcaceae	1.422819	CS2_ita	Italy	15/11/22	clean surface	Illumina	contigs	no	17885380
+CS2_ita_illumina_contigs	Moraxellaceae	54.722144003853074	CS2_ita	Italy	15/11/22	clean surface	Illumina	contigs	no	17885380
+CS2_ita_illumina_contigs	Enterococcaceae	2.551339	CS2_ita	Italy	15/11/22	clean surface	Illumina	contigs	no	17885380
+CS2_ita_illumina_contigs	Clostridiaceae	5.614865	CS2_ita	Italy	15/11/22	clean surface	Illumina	contigs	no	17885380
+CS2_ita_illumina_contigs	Staphylococcaceae	1.6701649999999997	CS2_ita	Italy	15/11/22	clean surface	Illumina	contigs	no	17885380
+CS2_spa_illumina_contigs	Unkown	2.5047502732458646	CS2_spa	Spain	14/03/23	clean surface	Illumina	contigs	no	621204
+CS2_spa_illumina_contigs	Moraxellaceae	4.566069404109589	CS2_spa	Spain	14/03/23	clean surface	Illumina	contigs	no	621204
+CS3_ita_illumina_contigs	Unkown	23.605496250429333	CS3_ita	Italy	22/11/22	clean surface	Illumina	contigs	no	21020065
+CS3_ita_illumina_contigs	Enterococcaceae	9.029807	CS3_ita	Italy	22/11/22	clean surface	Illumina	contigs	no	21020065
+CS3_ita_illumina_contigs	Moraxellaceae	65.83530310301313	CS3_ita	Italy	22/11/22	clean surface	Illumina	contigs	no	21020065
+CS3_ita_illumina_contigs	Campylobacteraceae	4.24653	CS3_ita	Italy	22/11/22	clean surface	Illumina	contigs	no	21020065
+CS3_ita_illumina_contigs	Corynebacteriaceae	2.022239	CS3_ita	Italy	22/11/22	clean surface	Illumina	contigs	no	21020065
+CS3_ita_illumina_contigs	Streptococcaceae	22.757106	CS3_ita	Italy	22/11/22	clean surface	Illumina	contigs	no	21020065
+CS3_ita_illumina_contigs	Prevotellaceae	19.176244	CS3_ita	Italy	22/11/22	clean surface	Illumina	contigs	no	21020065
+CS3_spa_illumina_contigs	Moraxellaceae	2.928274	CS3_spa	Spain	21/03/23	clean surface	Illumina	contigs	no	768268
+CS3_spa_illumina_contigs	Unkown	6.079829294572791	CS3_spa	Spain	21/03/23	clean surface	Illumina	contigs	no	768268
+CS4_ita_illumina_contigs	Lactobacillaceae	7.144024	CS4_ita	Italy	29/11/22	clean surface	Illumina	contigs	no	13131950
+CS4_ita_illumina_contigs	Unkown	7.578189832417714	CS4_ita	Italy	29/11/22	clean surface	Illumina	contigs	no	13131950
+CS4_ita_illumina_contigs	Aeromonadaceae	3.0797913062499997	CS4_ita	Italy	29/11/22	clean surface	Illumina	contigs	no	13131950
+CS4_ita_illumina_contigs	Moraxellaceae	18.087196	CS4_ita	Italy	29/11/22	clean surface	Illumina	contigs	no	13131950
+CS4_ita_illumina_contigs	Peptostreptococcaceae	3.522286	CS4_ita	Italy	29/11/22	clean surface	Illumina	contigs	no	13131950
+CS4_spa_illumina_contigs	Unkown	6.084043064632227	CS4_spa	Spain	28/03/23	clean surface	Illumina	contigs	no	879818
+CS4_spa_illumina_contigs	Moraxellaceae	4.4618396675627245	CS4_spa	Spain	28/03/23	clean surface	Illumina	contigs	no	879818
+CS4_spa_illumina_contigs	Peptostreptococcaceae	1.578373	CS4_spa	Spain	28/03/23	clean surface	Illumina	contigs	no	879818
+CS4_spa_illumina_contigs	Clostridiaceae	3.297008	CS4_spa	Spain	28/03/23	clean surface	Illumina	contigs	no	879818
+DD1_ita_illumina_contigs	Unkown	13.251102770705547	DD1_ita	Italy	08/11/22	dirty drain	Illumina	contigs	no	22168812
+DD1_ita_illumina_contigs	Enterobacteriaceae	6.104113188347565	DD1_ita	Italy	08/11/22	dirty drain	Illumina	contigs	no	22168812
+DD1_ita_illumina_contigs	Moraxellaceae	15.716201604928457	DD1_ita	Italy	08/11/22	dirty drain	Illumina	contigs	no	22168812
+DD1_ita_illumina_contigs	Corynebacteriaceae	10.932509	DD1_ita	Italy	08/11/22	dirty drain	Illumina	contigs	no	22168812
+DD1_ita_illumina_contigs	Aeromonadaceae	14.730582710901245	DD1_ita	Italy	08/11/22	dirty drain	Illumina	contigs	no	22168812
+DD1_ita_illumina_contigs	Microbacteriaceae	4.292925	DD1_ita	Italy	08/11/22	dirty drain	Illumina	contigs	no	22168812
+DD1_ita_illumina_contigs	Peptostreptococcaceae	2.442926	DD1_ita	Italy	08/11/22	dirty drain	Illumina	contigs	no	22168812
+DD1_spa_illumina_contigs	Unkown	9.029459314920528	DD1_spa	Spain	07/03/23	dirty drain	Illumina	contigs	no	15559491
+DD1_spa_illumina_contigs	Corynebacteriaceae	8.703042	DD1_spa	Spain	07/03/23	dirty drain	Illumina	contigs	no	15559491
+DD1_spa_illumina_contigs	Moraxellaceae	10.250815411289691	DD1_spa	Spain	07/03/23	dirty drain	Illumina	contigs	no	15559491
+DD1_spa_illumina_contigs	Rhizobiaceae	3.8613659999999994	DD1_spa	Spain	07/03/23	dirty drain	Illumina	contigs	no	15559491
+DD1_spa_illumina_contigs	Staphylococcaceae	5.313657171016103	DD1_spa	Spain	07/03/23	dirty drain	Illumina	contigs	no	15559491
+DD1_spa_illumina_contigs	Comamonadaceae	14.641217	DD1_spa	Spain	07/03/23	dirty drain	Illumina	contigs	no	15559491
+DD1_spa_illumina_contigs	Enterobacteriaceae	14.881412922216937	DD1_spa	Spain	07/03/23	dirty drain	Illumina	contigs	no	15559491
+DD1_spa_illumina_contigs	Aeromonadaceae	5.235901576906506	DD1_spa	Spain	07/03/23	dirty drain	Illumina	contigs	no	15559491
+DD1_spa_illumina_contigs	Mycobacteriaceae	77.142651	DD1_spa	Spain	07/03/23	dirty drain	Illumina	contigs	no	15559491
+DD1_spa_illumina_contigs	Clostridiaceae	4.188062	DD1_spa	Spain	07/03/23	dirty drain	Illumina	contigs	no	15559491
+DD1_spa_illumina_contigs	Prevotellaceae	1.87208	DD1_spa	Spain	07/03/23	dirty drain	Illumina	contigs	no	15559491
+DD1_spa_illumina_contigs	Streptococcaceae	2.7661020000000005	DD1_spa	Spain	07/03/23	dirty drain	Illumina	contigs	no	15559491
+DD2_ita_illumina_contigs	Unkown	27.14307950083452	DD2_ita	Italy	15/11/22	dirty drain	Illumina	contigs	no	37629195
+DD2_ita_illumina_contigs	Aeromonadaceae	6.1228573017404795	DD2_ita	Italy	15/11/22	dirty drain	Illumina	contigs	no	37629195
+DD2_ita_illumina_contigs	Yersiniaceae	4.464951	DD2_ita	Italy	15/11/22	dirty drain	Illumina	contigs	no	37629195
+DD2_ita_illumina_contigs	Enterobacteriaceae	10.3943065407857	DD2_ita	Italy	15/11/22	dirty drain	Illumina	contigs	no	37629195
+DD2_ita_illumina_contigs	Streptococcaceae	3.1202695186035827	DD2_ita	Italy	15/11/22	dirty drain	Illumina	contigs	no	37629195
+DD2_ita_illumina_contigs	Staphylococcaceae	7.194763	DD2_ita	Italy	15/11/22	dirty drain	Illumina	contigs	no	37629195
+DD2_ita_illumina_contigs	Moraxellaceae	35.431847463507744	DD2_ita	Italy	15/11/22	dirty drain	Illumina	contigs	no	37629195
+DD2_ita_illumina_contigs	Mycobacteriaceae	3.056847260869565	DD2_ita	Italy	15/11/22	dirty drain	Illumina	contigs	no	37629195
+DD2_ita_illumina_contigs	Clostridiaceae	2.977273	DD2_ita	Italy	15/11/22	dirty drain	Illumina	contigs	no	37629195
+DD2_spa_illumina_contigs	Unkown	25.207596445492445	DD2_spa	Spain	14/03/23	dirty drain	Illumina	contigs	no	11206438
+DD2_spa_illumina_contigs	Moraxellaceae	41.989788202678746	DD2_spa	Spain	14/03/23	dirty drain	Illumina	contigs	no	11206438
+DD2_spa_illumina_contigs	Mycobacteriaceae	13.917234	DD2_spa	Spain	14/03/23	dirty drain	Illumina	contigs	no	11206438
+DD2_spa_illumina_contigs	Enterococcaceae	18.896895	DD2_spa	Spain	14/03/23	dirty drain	Illumina	contigs	no	11206438
+DD2_spa_illumina_contigs	Enterobacteriaceae	2.642825	DD2_spa	Spain	14/03/23	dirty drain	Illumina	contigs	no	11206438
+DD2_spa_illumina_contigs	Lactobacillaceae	33.354595	DD2_spa	Spain	14/03/23	dirty drain	Illumina	contigs	no	11206438
+DD2_spa_illumina_contigs	Selenomonadaceae	6.056553	DD2_spa	Spain	14/03/23	dirty drain	Illumina	contigs	no	11206438
+DD2_spa_illumina_contigs	Aeromonadaceae	18.14382126358278	DD2_spa	Spain	14/03/23	dirty drain	Illumina	contigs	no	11206438
+DD2_spa_illumina_contigs	Clostridiaceae	18.830607	DD2_spa	Spain	14/03/23	dirty drain	Illumina	contigs	no	11206438
+DD3_ita_illumina_contigs	Unkown	17.081838472367256	DD3_ita	Italy	22/11/22	dirty drain	Illumina	contigs	no	32128177
+DD3_ita_illumina_contigs	Enterobacteriaceae	6.35468335670643	DD3_ita	Italy	22/11/22	dirty drain	Illumina	contigs	no	32128177
+DD3_ita_illumina_contigs	Pasteurellaceae	3.834401	DD3_ita	Italy	22/11/22	dirty drain	Illumina	contigs	no	32128177
+DD3_ita_illumina_contigs	Pseudomonadaceae	9.611722	DD3_ita	Italy	22/11/22	dirty drain	Illumina	contigs	no	32128177
+DD3_ita_illumina_contigs	Streptococcaceae	47.029456	DD3_ita	Italy	22/11/22	dirty drain	Illumina	contigs	no	32128177
+DD3_ita_illumina_contigs	Moraxellaceae	18.19188465969481	DD3_ita	Italy	22/11/22	dirty drain	Illumina	contigs	no	32128177
+DD3_ita_illumina_contigs	Aeromonadaceae	5.2556999651680325	DD3_ita	Italy	22/11/22	dirty drain	Illumina	contigs	no	32128177
+DD3_ita_illumina_contigs	Prevotellaceae	2.743482	DD3_ita	Italy	22/11/22	dirty drain	Illumina	contigs	no	32128177
+DD3_ita_illumina_contigs	Clostridiaceae	2.688463	DD3_ita	Italy	22/11/22	dirty drain	Illumina	contigs	no	32128177
+DD3_ita_illumina_contigs	Weeksellaceae	5.655067	DD3_ita	Italy	22/11/22	dirty drain	Illumina	contigs	no	32128177
+DD3_ita_illumina_contigs	Shewanellaceae	8.788961	DD3_ita	Italy	22/11/22	dirty drain	Illumina	contigs	no	32128177
+DD3_spa_illumina_contigs	Unkown	13.497309171543545	DD3_spa	Spain	21/03/23	dirty drain	Illumina	contigs	no	8584035
+DD3_spa_illumina_contigs	Enterococcaceae	10.153524768303548	DD3_spa	Spain	21/03/23	dirty drain	Illumina	contigs	no	8584035
+DD3_spa_illumina_contigs	Moraxellaceae	8.083241499065421	DD3_spa	Spain	21/03/23	dirty drain	Illumina	contigs	no	8584035
+DD3_spa_illumina_contigs	Streptococcaceae	7.854212	DD3_spa	Spain	21/03/23	dirty drain	Illumina	contigs	no	8584035
+DD3_spa_illumina_contigs	Aeromonadaceae	6.226069781962439	DD3_spa	Spain	21/03/23	dirty drain	Illumina	contigs	no	8584035
+DD3_spa_illumina_contigs	Enterobacteriaceae	5.5751834549960035	DD3_spa	Spain	21/03/23	dirty drain	Illumina	contigs	no	8584035
+DD3_spa_illumina_contigs	Clostridiaceae	3.42259	DD3_spa	Spain	21/03/23	dirty drain	Illumina	contigs	no	8584035
+DD3_spa_illumina_contigs	Staphylococcaceae	1.5203620000000002	DD3_spa	Spain	21/03/23	dirty drain	Illumina	contigs	no	8584035
+DD4_ita_illumina_contigs	Unkown	18.52167489281931	DD4_ita	Italy	29/11/22	dirty drain	Illumina	contigs	no	30430468
+DD4_ita_illumina_contigs	Aeromonadaceae	20.437578720596356	DD4_ita	Italy	29/11/22	dirty drain	Illumina	contigs	no	30430468
+DD4_ita_illumina_contigs	Moraxellaceae	22.8704588236495	DD4_ita	Italy	29/11/22	dirty drain	Illumina	contigs	no	30430468
+DD4_ita_illumina_contigs	Streptococcaceae	55.2152527017446	DD4_ita	Italy	29/11/22	dirty drain	Illumina	contigs	no	30430468
+DD4_ita_illumina_contigs	Shewanellaceae	7.128054	DD4_ita	Italy	29/11/22	dirty drain	Illumina	contigs	no	30430468
+DD4_ita_illumina_contigs	Enterobacteriaceae	5.274745186608124	DD4_ita	Italy	29/11/22	dirty drain	Illumina	contigs	no	30430468
+DD4_ita_illumina_contigs	Peptostreptococcaceae	5.847518	DD4_ita	Italy	29/11/22	dirty drain	Illumina	contigs	no	30430468
+DD4_ita_illumina_contigs	Pseudomonadaceae	5.230269999999999	DD4_ita	Italy	29/11/22	dirty drain	Illumina	contigs	no	30430468
+DD4_ita_illumina_contigs	Clostridiaceae	10.437606	DD4_ita	Italy	29/11/22	dirty drain	Illumina	contigs	no	30430468
+DD4_ita_illumina_contigs	Weeksellaceae	8.154503838092694	DD4_ita	Italy	29/11/22	dirty drain	Illumina	contigs	no	30430468
+DD4_ita_illumina_contigs	Corynebacteriaceae	3.7216759999999995	DD4_ita	Italy	29/11/22	dirty drain	Illumina	contigs	no	30430468
+DD4_ita_illumina_contigs	Carnobacteriaceae	3.5610510000000004	DD4_ita	Italy	29/11/22	dirty drain	Illumina	contigs	no	30430468
+DD4_spa_illumina_contigs	Unkown	19.50421140906038	DD4_spa	Spain	28/03/23	dirty drain	Illumina	contigs	no	16136146
+DD4_spa_illumina_contigs	Mycobacteriaceae	33.606472	DD4_spa	Spain	28/03/23	dirty drain	Illumina	contigs	no	16136146
+DD4_spa_illumina_contigs	Moraxellaceae	19.92426395318725	DD4_spa	Spain	28/03/23	dirty drain	Illumina	contigs	no	16136146
+DD4_spa_illumina_contigs	Enterococcaceae	5.57496	DD4_spa	Spain	28/03/23	dirty drain	Illumina	contigs	no	16136146
+DD4_spa_illumina_contigs	Enterobacteriaceae	7.369355743394393	DD4_spa	Spain	28/03/23	dirty drain	Illumina	contigs	no	16136146
+DD4_spa_illumina_contigs	Aeromonadaceae	9.71483673920175	DD4_spa	Spain	28/03/23	dirty drain	Illumina	contigs	no	16136146
+DD4_spa_illumina_contigs	Staphylococcaceae	1.982094	DD4_spa	Spain	28/03/23	dirty drain	Illumina	contigs	no	16136146
+DS1_ita_illumina_contigs	Enterobacteriaceae	6.71981767345716	DS1_ita	Italy	08/11/22	dirty surface	Illumina	contigs	no	19132959
+DS1_ita_illumina_contigs	Streptococcaceae	19.819983	DS1_ita	Italy	08/11/22	dirty surface	Illumina	contigs	no	19132959
+DS1_ita_illumina_contigs	Weeksellaceae	7.173685419701542	DS1_ita	Italy	08/11/22	dirty surface	Illumina	contigs	no	19132959
+DS1_ita_illumina_contigs	Unkown	11.962165498666517	DS1_ita	Italy	08/11/22	dirty surface	Illumina	contigs	no	19132959
+DS1_ita_illumina_contigs	Aeromonadaceae	7.595087632342039	DS1_ita	Italy	08/11/22	dirty surface	Illumina	contigs	no	19132959
+DS1_ita_illumina_contigs	Moraxellaceae	14.61897594643959	DS1_ita	Italy	08/11/22	dirty surface	Illumina	contigs	no	19132959
+DS1_ita_illumina_contigs	Paracoccaceae	2.704508	DS1_ita	Italy	08/11/22	dirty surface	Illumina	contigs	no	19132959
+DS1_spa_illumina_contigs	Unkown	5.07453163116625	DS1_spa	Spain	07/03/23	dirty surface	Illumina	contigs	no	4394625
+DS1_spa_illumina_contigs	Moraxellaceae	11.207405502359347	DS1_spa	Spain	07/03/23	dirty surface	Illumina	contigs	no	4394625
+DS2_ita_illumina_contigs	Unkown	25.689800058467583	DS2_ita	Italy	15/11/22	dirty surface	Illumina	contigs	no	20897059
+DS2_ita_illumina_contigs	Aerococcaceae	4.762422	DS2_ita	Italy	15/11/22	dirty surface	Illumina	contigs	no	20897059
+DS2_ita_illumina_contigs	Aeromonadaceae	8.776943073859925	DS2_ita	Italy	15/11/22	dirty surface	Illumina	contigs	no	20897059
+DS2_ita_illumina_contigs	Moraxellaceae	26.692345070659186	DS2_ita	Italy	15/11/22	dirty surface	Illumina	contigs	no	20897059
+DS2_ita_illumina_contigs	Enterobacteriaceae	7.313799460481101	DS2_ita	Italy	15/11/22	dirty surface	Illumina	contigs	no	20897059
+DS2_ita_illumina_contigs	Prevotellaceae	9.894517	DS2_ita	Italy	15/11/22	dirty surface	Illumina	contigs	no	20897059
+DS2_ita_illumina_contigs	Pseudomonadaceae	4.38646	DS2_ita	Italy	15/11/22	dirty surface	Illumina	contigs	no	20897059
+DS2_spa_illumina_contigs	Unkown	3.5450908266204846	DS2_spa	Spain	14/03/23	dirty surface	Illumina	contigs	no	1487664
+DS3_ita_illumina_contigs	Streptococcaceae	53.50857222481362	DS3_ita	Italy	22/11/22	dirty surface	Illumina	contigs	no	30817985
+DS3_ita_illumina_contigs	Unkown	14.591872177981623	DS3_ita	Italy	22/11/22	dirty surface	Illumina	contigs	no	30817985
+DS3_ita_illumina_contigs	Enterobacteriaceae	7.637471586445138	DS3_ita	Italy	22/11/22	dirty surface	Illumina	contigs	no	30817985
+DS3_ita_illumina_contigs	Moraxellaceae	20.71229672969275	DS3_ita	Italy	22/11/22	dirty surface	Illumina	contigs	no	30817985
+DS3_ita_illumina_contigs	Weeksellaceae	16.609996145851365	DS3_ita	Italy	22/11/22	dirty surface	Illumina	contigs	no	30817985
+DS3_ita_illumina_contigs	Pseudomonadaceae	16.313222	DS3_ita	Italy	22/11/22	dirty surface	Illumina	contigs	no	30817985
+DS3_ita_illumina_contigs	Aeromonadaceae	14.848026245438767	DS3_ita	Italy	22/11/22	dirty surface	Illumina	contigs	no	30817985
+DS3_spa_illumina_contigs	Unkown	7.480870635891908	DS3_spa	Spain	21/03/23	dirty surface	Illumina	contigs	no	8947201
+DS3_spa_illumina_contigs	Moraxellaceae	8.15660083507307	DS3_spa	Spain	21/03/23	dirty surface	Illumina	contigs	no	8947201
+DS3_spa_illumina_contigs	Streptococcaceae	7.551235	DS3_spa	Spain	21/03/23	dirty surface	Illumina	contigs	no	8947201
+DS3_spa_illumina_contigs	Clostridiaceae	10.990638	DS3_spa	Spain	21/03/23	dirty surface	Illumina	contigs	no	8947201
+DS4_ita_illumina_contigs	Unkown	16.20951647406356	DS4_ita	Italy	29/11/22	dirty surface	Illumina	contigs	no	32259250
+DS4_ita_illumina_contigs	Enterobacteriaceae	16.97068106413502	DS4_ita	Italy	29/11/22	dirty surface	Illumina	contigs	no	32259250
+DS4_ita_illumina_contigs	Shewanellaceae	6.246042	DS4_ita	Italy	29/11/22	dirty surface	Illumina	contigs	no	32259250
+DS4_ita_illumina_contigs	Aeromonadaceae	18.04702888495947	DS4_ita	Italy	29/11/22	dirty surface	Illumina	contigs	no	32259250
+DS4_ita_illumina_contigs	Weeksellaceae	8.411084879708287	DS4_ita	Italy	29/11/22	dirty surface	Illumina	contigs	no	32259250
+DS4_ita_illumina_contigs	Moraxellaceae	19.165656291250993	DS4_ita	Italy	29/11/22	dirty surface	Illumina	contigs	no	32259250
+DS4_ita_illumina_contigs	Prevotellaceae	5.604456	DS4_ita	Italy	29/11/22	dirty surface	Illumina	contigs	no	32259250
+DS4_ita_illumina_contigs	Streptococcaceae	41.476879	DS4_ita	Italy	29/11/22	dirty surface	Illumina	contigs	no	32259250
+DS4_spa_illumina_contigs	Enterobacteriaceae	5.6186872829729735	DS4_spa	Spain	28/03/23	dirty surface	Illumina	contigs	no	2686186
+DS4_spa_illumina_contigs	Streptococcaceae	6.019777	DS4_spa	Spain	28/03/23	dirty surface	Illumina	contigs	no	2686186
+DS4_spa_illumina_contigs	Unkown	5.011480239534119	DS4_spa	Spain	28/03/23	dirty surface	Illumina	contigs	no	2686186
+DS4_spa_illumina_contigs	Moraxellaceae	9.627807592829706	DS4_spa	Spain	28/03/23	dirty surface	Illumina	contigs	no	2686186
+DS4_spa_illumina_contigs	Staphylococcaceae	2.844957	DS4_spa	Spain	28/03/23	dirty surface	Illumina	contigs	no	2686186
+DS4_spa_illumina_contigs	Clostridiaceae	4.388842	DS4_spa	Spain	28/03/23	dirty surface	Illumina	contigs	no	2686186

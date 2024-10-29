@@ -1,0 +1,21 @@
+sample_id	V1	V2	Country	Time	Surface	Technology	Surface_Type
+CAR1_ita_i	-12.901826597258815	4.237026368392219	Italy	08/11/22	carcass	Illumina	carcass
+CAR2_ita_i	13.638563376912495	-20.029514663953805	Italy	15/11/22	carcass	Illumina	carcass
+CAR3_ita_i	6.691805926144722	-13.939905194796506	Italy	22/11/22	carcass	Illumina	carcass
+CAR4_ita_i	10.422892838436233	-14.777941731661981	Italy	29/11/22	carcass	Illumina	carcass
+CD1_ita_i	10.050327051009402	-2.2506779528478775	Italy	08/11/22	clean drain	Illumina	clean
+CD2_ita_i	13.450560436385906	5.183118597786387	Italy	15/11/22	clean drain	Illumina	clean
+CD3_ita_i	15.475292617851085	-5.69441387891048	Italy	22/11/22	clean drain	Illumina	clean
+CD4_ita_i	9.761375710856761	-6.845010604384638	Italy	29/11/22	clean drain	Illumina	clean
+CS1_ita_i	16.72666309124047	7.997338640553799	Italy	08/11/22	clean surface	Illumina	clean
+CS2_ita_i	3.2463457058137375	-24.990463169094614	Italy	15/11/22	clean surface	Illumina	clean
+CS3_ita_i	-4.485555138661151	-25.382625510929508	Italy	22/11/22	clean surface	Illumina	clean
+CS4_ita_i	0.46345279490416486	-21.88843821026932	Italy	29/11/22	clean surface	Illumina	clean
+DD1_ita_i	-11.295484193658185	7.707028042837872	Italy	08/11/22	dirty drain	Illumina	dirty
+DD2_ita_i	-18.71929220597565	5.873734682729768	Italy	15/11/22	dirty drain	Illumina	dirty
+DD3_ita_i	-12.989149631693936	16.63269127180979	Italy	22/11/22	dirty drain	Illumina	dirty
+DD4_ita_i	-13.211891111572259	22.179168243717967	Italy	29/11/22	dirty drain	Illumina	dirty
+DS1_ita_i	-15.44378464055826	33.22360777730492	Italy	08/11/22	dirty surface	Illumina	dirty
+DS2_ita_i	13.860417787758974	-25.844458037173077	Italy	15/11/22	dirty surface	Illumina	dirty
+DS3_ita_i	-10.87618073783422	30.972939029887968	Italy	22/11/22	dirty surface	Illumina	dirty
+DS4_ita_i	-13.864533080101493	27.63679629900111	Italy	29/11/22	dirty surface	Illumina	dirty

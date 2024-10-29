@@ -10,11 +10,9 @@ library(mgnet)
 
 ```{r}
 arg <- readRDS("../data/R/arg.rds") %>%
-  filter_sample(Country == "Italy", Tecnology == "Illumina") 
+  filter_meta(Country == "Italy", Tecnology == "Illumina") 
 arg
 ```
-
-83% of zeros is too high, I filter the dataset before.
 
 ```{r}
 arg %>%
@@ -22,7 +20,7 @@ arg %>%
   filter_taxa(sum(abun) > 0) %>%
   mutate_taxa(prevalence = sum(abun>0) / length(abun),
               sum_taxa = sum(abun)) %>%
-  taxa(.fmt = "tbl") %>%
+  gather_taxa() %>%
   select(-Antibiotic_Family) %>%
   pivot_longer(-c(mgnet, taxa_id), names_to = "measurments", values_to = "values") %>%
   ggplot(aes(x = values, fill = measurments)) +
@@ -37,11 +35,11 @@ arg %>%
 arg %>%
   split_sample(Level) %>%
   filter_taxa(sum(abun) > 0) %>%
-  mutate_sample(
+  mutate_meta(
     richness = sum(abun>0),
     pielou = vegan::diversity(abun) / log(length(abun>0))
   ) %>%
-  meta(.fmt = "tbl") %>%
+  gather_meta() %>%
   select(Level, sample_id, Surface, richness, pielou) %>%
   pivot_longer(-c(Level, sample_id, Surface), names_to = "measurments", values_to = "values") %>%
   ggplot(aes(x = Level, y = values, group = Level)) +
@@ -56,27 +54,28 @@ arg %>%
 p_shannon <- arg %>%
   split_sample(Level) %>%
   filter_taxa(sum(abun) > 0) %>%
-  mutate_sample(
-    pielou = vegan::diversity(abun) / log(length(abun>0))) %>%
-  meta(.fmt = "tbl") %>%
+  mutate_meta(
+    pielou = vegan::diversity(abun[abun>0]) / log(length(abun[abun>0]))) %>%
+  gather_meta() %>%
   select(Level, sample_id, Surface, pielou) %>%
   ggplot(aes(x = Surface, y = pielou, fill = Level)) +
   geom_boxplot() +
   facet_wrap(~Surface, scales = "free_x", ncol = 5) +
   theme_bw() +
   theme(legend.position = "top")
-  
+p_shannon
 ```
 
 ## Filtering
 
 ```{r, fig.width=10, fig.height=5}
 processed_data  <- arg %>%
+  filter_meta(!(Level == "contigs" & Surface == "carcass")) %>%
   split_sample(Level, Surface) %>%
   filter_taxa(sum(abun) > 0) %>%
   mutate_taxa(prevalence = sum(abun>0) / length(abun),
               sum_taxa = sum(abun)) %>%
-  mgnet_longer() %>%
+  gather_mgnet() %>%
   select(Level, Surface, sample_id, prevalence, sum_taxa) %>%
   pivot_longer(-c(Level, Surface, sample_id), names_to = "measurments", values_to = "values") %>%
   mutate(draw_line_sum = measurments == "sum_taxa")
@@ -90,14 +89,14 @@ processed_data %>%
   scale_x_log10() +
   theme(legend.position = "top", axis.text.y = element_blank()) +
   geom_vline(data = filter(processed_data, draw_line_sum), 
-             aes(xintercept = 5), linetype = "dashed", color = "black") +
+             aes(xintercept = 5), linetype = "dashed", color = "black") 
 
 rm(processed_data)
 ```
 
 ```{r}
 arg_split_filt <- arg %>%
-  mutate_sample(sum_orig = sum(abun)) %>%
+  mutate_meta(sum_orig = sum(abun)) %>%
   split_sample(Level, Surface) %>%
   mutate_taxa(
     prev = sum(abun>0) / length(abun),
@@ -118,13 +117,13 @@ for(name in names(arg_split_filt)){
 rm(name)
 
 arg_split_filt <- arg_split_filt %>%
-  mutate_sample(percentage_preserved_counts = sum(abun)/sum_orig)
+  mutate_meta(percentage_preserved_counts = sum(abun)/sum_orig)
 
 ntaxa(arg_split_filt)
 ```
 
 ```{r}
-meta(arg_split_filt, "tbl") %>%
+gather_meta(arg_split_filt) %>%
   filter(Level == "read") %>%
   ggplot(aes(x = percentage_preserved_counts, fill = Surface)) +
   geom_histogram(bins = 10, position = "stack",color = "black")
@@ -133,7 +132,7 @@ meta(arg_split_filt, "tbl") %>%
 ## Make CLR
 
 ```{r}
-arg_split_filt <-arg_split_filt %>%
+arg_split_filt <- arg_split_filt %>%
   set_norm_CLR()
 
 union_filt_taxa <- reduce(taxa_id(arg_split_filt), union) %>% unique
@@ -218,8 +217,8 @@ gen <- readRDS("../data/R/gen.rds")
 
 ```{r}
 fam <- bac %>%
-  filter_sample(Country == "Italy", Tecnology == "Illumina") %>%
-  mgnet_longer() %>%
+  filter_meta(Country == "Italy", Tecnology == "Illumina") %>%
+  gather_mgnet() %>%
   select(sample_id,experiment_id, rela, Surface, family) %>%
   group_by(experiment_id, sample_id, family, Surface) %>%
   summarize(rela = sum(rela), .groups = "drop") 
@@ -287,6 +286,7 @@ bac %>%
   theme(axis.text = element_blank(),
         axis.title = element_blank())
 ```
+
 ```{r, warning=FALSE}
 custom.config <- umap.defaults
 custom.config$random_state <- 42
@@ -317,9 +317,9 @@ umap_arg$layout %>%
 ```{r, warning=FALSE}
 set.seed(3)
 sub_bac <- bac %>%
-  filter_sample(Tecnology == "Illumina" & Country == "Italy")
+  filter_meta(Tecnology == "Illumina" & Country == "Italy")
 
-sub_bac %>%
+tsne_bac <- sub_bac %>%
   filter_taxa(sum(abun) >= 50) %>%
   set_norm_CLR() %>%
   norm %>% dist %>%
@@ -341,6 +341,7 @@ sub_bac %>%
   theme_bw() +
   theme(axis.text = element_blank(),
         axis.title = element_blank())
+tsne_bac
 ```
 
 
@@ -349,9 +350,9 @@ sub_bac %>%
 set.seed(42)
 
 sub_arg <- arg[, union_filt_taxa] %>%
-  filter_sample(Level == "contigs", Tecnology == "Illumina", Country == "Italy")
+  filter_meta(Level == "contigs", Tecnology == "Illumina", Country == "Italy")
 
-sub_arg %>%
+tsne_contigs <- sub_arg %>%
   set_norm_CLR() %>%
   norm %>% dist %>%
   Rtsne::Rtsne(is_distance=TRUE,
@@ -372,107 +373,188 @@ sub_arg %>%
   theme_bw() +
   theme(axis.text = element_blank(),
         axis.title = element_blank())
+
+tsne_contigs
 ```
 
-## Correlation
+```{r, warning=FALSE}
+set.seed(42)
 
-```{r}
-my_func <- function(amr_level, surface_type){
-  
-  sub_bac <- bac %>%
-    filter_sample(Tecnology == "Illumina", Country == "Italy", 
-                  str_detect(Surface, {{surface_type}})) %>%
-    filter_taxa(sum(abun)>0) %>%
-    abun(.var = "family") %>%
-    zero_dealing(method = "const") %>% clr
-  
-  sub_arg <- arg %>%
-    filter_sample(Tecnology == "Illumina", Country == "Italy", 
-                  str_detect(Surface, {{surface_type}}),
-                  Level == {{amr_level}}) %>%
-    filter_taxa(sum(abun)>0) %>%
-    abun(.var = "Antibiotic_Family") %>%
-    zero_dealing(method = "const") %>% clr
-  
-  #mat <- cbind(sub_bac, sub_arg)
-  
-  mat_cor <- matrix(NA, nrow = ncol(sub_bac), ncol = ncol(sub_arg))
-  mat_pval <- matrix(NA, nrow = ncol(sub_bac), ncol = ncol(sub_arg))
-  
-  # Loop through bacterial families and AMR families
-  for (i in 1:ncol(sub_bac)) {
-    for (j in 1:ncol(sub_arg)) {
-      # Perform Kendall's correlation test for each pair
-      result <- cor.test(sub_bac[, i], sub_arg[, j], method = "pearson")
-      
-      # Store the Kendall's tau and p-value
-      mat_cor[i, j] <- result$estimate
-      mat_pval[i, j] <- result$p.value
-    }
-  }
-  
-  mat_padj <- p.adjust(as.vector(mat_pval), method = "fdr")
-  mat_padj <- matrix(mat_padj, nrow = nrow(mat_pval), ncol = ncol(mat_pval))
-  
-  rownames(mat_cor) <- rownames(mat_pval) <- rownames(mat_padj) <- colnames(sub_bac)
-  colnames(mat_cor) <- colnames(mat_pval) <- colnames(mat_padj) <- colnames(sub_arg)
+sub_arg <- arg[, union_filt_taxa] %>%
+  filter_meta(Level == "read", Tecnology == "Illumina", Country == "Italy")
 
-  out <- mat_cor %>%
-    as_tibble(rownames = "families") %>%
-    pivot_longer(-families, names_to = "antibiotic", values_to = "corr") 
-  
-  out <- mat_pval %>%
-    as_tibble(rownames = "families") %>%
-    pivot_longer(-families, names_to = "antibiotic", values_to = "pval") %>%
-    right_join(out, by = join_by(families, antibiotic))
-  
-  out <- mat_padj %>%
-    as_tibble(rownames = "families") %>%
-    pivot_longer(-families, names_to = "antibiotic", values_to = "padj") %>%
-    right_join(out, by = join_by(families, antibiotic))
-  
-  out <- out %>%
-    mutate(source = paste(surface_type, amr_level, sep = "_"))
-  
-  return(out)
-}
+tsne_read <- sub_arg %>%
+  set_norm_CLR() %>%
+  norm %>% dist %>%
+  Rtsne::Rtsne(is_distance=TRUE,
+               perplexity = 4, theta = .25, 
+               pca = TRUE, max_iter = 10000) %>%
+  .$Y %>% as_tibble() %>%
+  cbind(tibble(sample_id = sample_id(sub_arg))) %>%
+  relocate(sample_id) %>%
+  left_join(meta(sub_arg,"tbl"), by = "sample_id") %>%
+  mutate(Surface_Type = case_when(
+    str_detect(Surface, "clean") ~ "clean",
+    str_detect(Surface, "dirty") ~ "dirty", 
+    str_detect(Surface, "carcass") ~ "carcass"
+  )) %>%
+  ggplot(aes(x = V1, y = V2, fill = Surface)) +
+  geom_point(size = 3, shape = 21) +
+  stat_ellipse(aes(group = Surface_Type, color = Surface_Type)) +
+  theme_bw() +
+  theme(axis.text = element_blank(),
+        axis.title = element_blank())
+
+tsne_read
 ```
+
 
 
 ```{r}
-out <- 
-  bind_rows(
-    my_func("read", "clean"),
-    my_func("read", "dirty"),
-    my_func("contigs", "clean"),
-    my_func("contigs", "dirty")
-  )
+df_arg_families <- read_tsv("../data/RAW/df_arg_families.tsv")
+
+arg_fam <- df_arg_families %>%
+  filter(Country == "Italy") %>%
+  group_by(sample_id) %>%
+  mutate(rela = Contig_coverage/sum(Contig_coverage)) %>%
+  ungroup() %>%
+  select(sample_id,experiment_id, rela, Surface, family) %>%
+  group_by(experiment_id, sample_id, family, Surface) %>%
+  summarize(rela = sum(rela), .groups = "drop") 
+
+top_families <- arg_fam %>%
+  group_by(family) %>%
+  summarize(max_rela = max(rela), .groups = "drop") %>%
+  filter(max_rela > .075) %>%
+  pull(family)
+
+arg_fam <- arg_fam %>%
+  mutate(family = ifelse(!family %in% top_families, "Other", family)) %>%
+  group_by(experiment_id, sample_id, family, Surface) %>%
+  summarize(rela = sum(rela), .groups = "drop") 
+
+palette_arg_fam <- colormap_categories(c(top_families, "Other"), colorspace = "rainbow")
+
+arg_fam %>%
+  mutate(family = ifelse(!family %in% top_families, "Other", family)) %>%
+  ggplot(aes(x = experiment_id, y = rela, fill = family)) +
+  geom_bar(stat = "identity") +
+  #theme(legend.position = "none") +
+  facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = palette_arg_fam, breaks = names(palette_arg_fam)) +
+  theme_bw() +
+  theme(legend.position = "top",
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank())
 ```
+
+
+
+
+
+## Save Results
+
 
 ```{r}
-union_significant_corr <- rbind(
-  filter(clean_read, corr>=.9),
-  filter(dirty_read, corr>=.9),
-  filter(clean_contig, corr>=.9),
-  filter(dirty_contig, corr>=.9))
+p_shannon <- bind_rows(
+  gather_mgnet(bac), gather_mgnet(arg)
+) %>%
+  filter(Country == "Italy" & Tecnology == "Illumina") %>%
+  mutate(from = case_when(
+    is.na(Antibiotic_Family) ~ "bacteria",
+    !is.na(Antibiotic_Family) & Level == "read" ~ "arg read",
+    !is.na(Antibiotic_Family) & Level == "contigs" ~ "arg contig"
+  )) %>%
+  group_by(sample_id) %>%
+  mutate(Pielou = vegan::diversity(abun[abun>0]) / log(length(abun[abun>0]))) %>% 
+  ungroup() %>%
+  select(sample_id, from, Pielou, Surface) %>%
+  distinct() %>%
+  ggplot(aes(x = from, y = Pielou, fill = from)) +
+  geom_boxplot() +
+  facet_wrap(~Surface, scales = "free_x", ncol = 5) +
+  theme_bw() +
+  theme(legend.position = "top",
+        axis.text.x = element_text(angle = 45, hjust = 1))
+```
 
-sub_significant_corr <- 
 
+```{r, fig.height=10}
+fam <- bac %>%
+  filter_meta(Country == "Italy", Tecnology == "Illumina") %>%
+  gather_mgnet() %>%
+  select(sample_id,experiment_id, rela, Surface, family) %>%
+  group_by(experiment_id, sample_id, family, Surface) %>%
+  summarize(rela = sum(rela), .groups = "drop") 
+
+df_arg_families <- read_tsv("../data/RAW/df_arg_families.tsv")
+
+arg_fam <- df_arg_families %>%
+  filter(Country == "Italy") %>%
+  group_by(sample_id) %>%
+  mutate(rela = Contig_coverage/sum(Contig_coverage)) %>%
+  ungroup() %>%
+  select(sample_id,experiment_id, rela, Surface, family) %>%
+  group_by(experiment_id, sample_id, family, Surface) %>%
+  summarize(rela = sum(rela), .groups = "drop") 
+
+top_families <- bind_rows(cbind(fam, "from" = "bac"),
+                          cbind(arg_fam, "from" = "arg")) %>%
+  group_by(family, from) %>%
+  summarize(max_rela = max(rela), .groups = "drop") %>%
+  filter(max_rela > .075) %>%
+  pull(family)
+
+palette_arg_fam <- colormap_categories(c(top_families, "Other"), colorspace = "pretty")
+
+
+p_composition <- bind_rows(cbind(fam, "from" = "bac"),
+          cbind(arg_fam, "from" = "arg")) %>%
+  mutate(family = ifelse(!family %in% top_families, "Other", family)) %>%
+  group_by(experiment_id, sample_id, family, Surface, from) %>%
+  summarize(rela = sum(rela), .groups = "drop") %>%
+  ggplot(aes(x = experiment_id, y = rela, fill = family)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ from + Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = palette_arg_fam, breaks = names(palette_arg_fam)) +
+  theme_bw() +
+  theme(legend.position = "top",
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank()) +
+  guides(fill=guide_legend(ncol=8))
 ```
 
 
 
 
+```{r}
+library(ggpubr)
+```
+
+```{r, fig.width=16, fig.height=16, warning=FALSE}
+p_beta <- ggarrange(
+  tsne_bac + ggtitle("bacteria"),
+  tsne_read + ggtitle("arg read"),
+  tsne_contigs + ggtitle("arg contig"),
+  ncol = 3, common.legend = T
+)
+
+p <- ggarrange(
+  p_shannon,
+  p_beta,
+  p_composition,
+  ncol = 1, heights = c(6,6,12)
+)
+```
 
 
-
-
-
-
-
-
-
-
+```{r, fig.width=14, fig.height=14, warning=FALSE}
+png(filename = "results.png", width = 4200, height = 4200, res = 300)
+p
+dev.off()
+```
 
 
 
