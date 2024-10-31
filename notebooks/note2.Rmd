@@ -32,7 +32,8 @@ library(tidyverse, quietly = TRUE)
 ```{r}
 meta_sample <- readRDS("../data/R/ITALY-ILLUMINA/meta_sample.rds") %>% as_tibble(rownames = "sample_id")
 abun_bac_sp_reads <- readRDS("../data/R/ITALY-ILLUMINA/abun_bac_sp.rds")
-taxa_bac_sp_reads <- readRDS("../data/R/ITALY-ILLUMINA/taxa_bac_sp.rds")
+taxa_bac_sp_reads <- readRDS("../data/R/ITALY-ILLUMINA/taxa_bac_sp.rds") %>%
+  mutate(across(everything(), ~ifelse(is.na(.), "Unknown", .)))
 abun_arg_reads_gene <- readRDS("../data/R/ITALY-ILLUMINA/abun_arg_reads_gene.rds")
 abun_arg_contigs_gene <- readRDS("../data/R/ITALY-ILLUMINA/abun_arg_contigs_gene.rds")
 abun_arg_contigs_genus <- readRDS("../data/R/ITALY-ILLUMINA/abun_arg_contigs_genus.rds")
@@ -163,9 +164,10 @@ df_composition_bac_sp_reads <- as_tibble(abun_bac_sp_reads, rownames = "sample_i
   mutate(rela = rela/sum(rela)) %>%
   ungroup() %>%
   group_by(genus) %>%
-  mutate(top_genus = any(max(rela) >= .05)) %>%
+  mutate(top_genus = any(max(rela) >= .05 | genus == "Unknown")) %>%
   mutate(Genus = if_else(top_genus, genus, "Other")) %>%
-  left_join(meta_sample, by = "sample_id")
+  left_join(meta_sample, by = "sample_id") %>%
+  mutate(Genus = if_else(Genus == "Unkown", "Unknown", Genus))
 
 df_composition_arg_contigs <- as_tibble(abun_arg_contigs_genus, rownames = "sample_id") %>%
   pivot_longer(-sample_id, names_to = "genus", values_to = "rela") %>%
@@ -173,23 +175,22 @@ df_composition_arg_contigs <- as_tibble(abun_arg_contigs_genus, rownames = "samp
   mutate(rela = rela/sum(rela)) %>%
   ungroup() %>%
   group_by(genus) %>%
-  mutate(top_genus = any(max(rela) >= .05)) %>%
+  mutate(top_genus = any(max(rela) >= .05 | genus == "Unknown")) %>%
   mutate(Genus = if_else(top_genus, genus, "Other")) %>%
-  left_join(meta_sample, by = "sample_id") %>%
-  mutate(Genus = if_else(Genus == "Unkown", "Other", Genus))
+  left_join(meta_sample, by = "sample_id")  %>%
+  mutate(Genus = if_else(Genus == "Unkown", "Unknown", Genus))
 
 wanted_genus <- c(df_composition_bac_sp_reads$Genus, df_composition_arg_contigs$Genus) %>%
   unique()
-wanted_genus <- wanted_genus[-which(wanted_genus=="Other")]
-wanted_genus <- c(wanted_genus, "Other")
+wanted_genus <- wanted_genus[-which(wanted_genus %in% c("Other", "Unknown"))]
+wanted_genus <- c(wanted_genus, c("Unknown","Other"))
 
 palette_colors <- rownames(qualpalr::qualpal(n = length(wanted_genus), 
                                              colorspace = list(h = c(0, 360), 
                                                                s = c(.1, .53), 
-                                                               l = c(.52,0.85)))$RGB)
+                                                               l = c(.55,0.85)))$RGB)
 names(palette_colors) <- wanted_genus
 ```
-
 
 ```{r}
 df_composition_bac_sp_reads <- df_composition_bac_sp_reads %>%
@@ -214,7 +215,7 @@ p_composition_bac_sp_reads <- df_composition_bac_sp_reads %>%
 p_composition_bac_sp_reads
 ```
 
-```{r}
+```{r, fig.width=12}
 p_composition_arg_contigs <- df_composition_arg_contigs %>%
   ggplot(aes(x = sample_id, y = rela, fill = Genus)) +
   geom_bar(stat = "identity") +
@@ -246,6 +247,8 @@ pdf(file = "../plots/composition_arg_genus_level.pdf", width = 10, height = 5)
 p_composition_arg_contigs
 dev.off()
 ```
+
+## MOBILE
 
 ```{r}
 df_arg_contigs_all <- readRDS("../data/R/ITALY-ILLUMINA/arg_contigs_all.rds")
@@ -314,6 +317,186 @@ dev.off()
 
 pdf(file = "../plots/heatmap_integron_platon.pdf", width = 9, height = 5)
 p_integron_platon
+dev.off()
+```
+
+## DEPENDENCIES BACTERIA GENERA VS ARG GENES
+
+```{r, warning=FALSE, message=FALSE}
+clr_bac_reads_genus <- abun_bac_sp_reads %>%
+  as_tibble(rownames = "sample_id") %>%
+  pivot_longer(-sample_id, names_to = "taxa_id", values_to = "abun") %>%
+  left_join(as_tibble(taxa_bac_sp_reads, rownames = "taxa_id"), by = "taxa_id") %>%
+  reframe(abun = sum(abun), .by = c("sample_id", "genus")) %>%
+  pivot_wider(names_from = "genus", values_from = "abun", values_fill = 0) %>%
+  column_to_rownames("sample_id") %>%
+  zCompositions::cmultRepl(method = "CZM", suppress.print = TRUE, z.delete = FALSE) %>%
+  vegan::decostand("clr")
+```
+
+```{r, warning=FALSE, message=FALSE}
+clr_arg_contigs_gene <- abun_arg_contigs_gene %>%
+  zCompositions::cmultRepl(method = "CZM", suppress.print = TRUE, z.delete = FALSE) %>%
+  vegan::decostand("clr")
+```
+
+```{r}
+ggpubr::ggarrange(
+  
+  tibble("mean_CLR_bac" = colMeans(clr_bac_reads_genus)) %>%
+    ggplot(aes(mean_CLR_bac)) +
+    geom_histogram(bins = 20, color = "darkblue", fill = "lightblue") +
+    theme_bw(),
+
+  tibble("mean_CLR_gene" = colMeans(clr_arg_contigs_gene)) %>%
+    ggplot(aes(mean_CLR_gene)) +
+    geom_histogram(bins = 20, color = "darkblue", fill = "lightblue") +
+    theme_bw(),
+  
+  ncol = 2
+)
+
+```
+
+```{r}
+# There are a lot of bacteria genera. I make the analysis on a subset
+sub_genera <- abun_bac_sp_reads %>%
+  as_tibble(rownames = "sample_id") %>%
+  pivot_longer(-sample_id, names_to = "taxa_id", values_to = "abun") %>%
+  left_join(as_tibble(taxa_bac_sp_reads, rownames = "taxa_id"), by = "taxa_id") %>%
+  reframe(abun = sum(abun), .by = c("sample_id", "genus")) %>%
+  group_by(sample_id) %>%
+  mutate(rela = abun/sum(abun)) %>%
+  ungroup() %>%
+  group_by(genus) %>%
+  mutate(pass_genus = any(rela>.01)) %>%
+  filter(pass_genus) %>%
+  pull(genus) %>%
+  unique()
+
+clr_bac_reads_genus_subgroup <- clr_bac_reads_genus[, sub_genera]
+```
+
+### Correlation
+
+```{r}
+result <- psych::corr.test(x = clr_bac_reads_genus_subgroup, y = clr_arg_contigs_gene, 
+                           method = "spearman", adjust = "bonferroni", alpha = .01)
+```
+
+```{r}
+result_corr <- result$r %>%
+  as_tibble(rownames = "genus") %>%
+  pivot_longer(-genus, names_to = "gene", values_to = "r") 
+
+result_corr <- result$p %>%
+  as_tibble(rownames = "genus") %>%
+  pivot_longer(-genus, names_to = "gene", values_to = "p") %>%
+  right_join(result_corr, by = c("genus", "gene"))
+```
+
+```{r}
+result_corr <- result_corr %>%
+  mutate(p_lgl = if_else(r > 0 & p < .01, TRUE, FALSE)) 
+
+p_corr <- result_corr %>%
+  group_by(gene) %>%
+  dplyr::filter(any(p_lgl)) %>%
+  group_by(genus) %>%
+  dplyr::filter(any(p_lgl)) %>%
+  ungroup() %>%
+  ggplot(aes(x = gene, y = genus, fill = p_lgl)) +
+  geom_tile(color = "grey") +
+  theme_minimal() +
+  theme(axis.title = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
+        legend.position = "top") +
+  scale_fill_viridis_d(name = "bonferroni corrected p-value <= .01",
+                       option = "E")
+p_corr
+```
+
+### GLM
+
+```{r}
+library(glmnet)
+result_glm_lasso <- apply(clr_bac_reads_genus_subgroup, 2, \(y){
+  
+  X <-  as.matrix(clr_arg_contigs_gene)
+  lamba.min <- cv.glmnet(x = X,y = y, alpha = 1, nfolds = 5)$lambda.min
+  res <- glmnet(x = X, y = y, lambda = lamba.min, intercept = TRUE)
+  par <- as.numeric(res$beta)
+  return(par)
+  
+})
+rownames(result_glm_lasso) <- colnames(clr_arg_contigs_gene)
+
+df_lasso <- result_glm_lasso %>% 
+  as_tibble(rownames = "gene") %>%
+  pivot_longer(-gene, names_to = "genus", values_to = "par") %>%
+  mutate(par_lgl = par > 0)
+```
+
+```{r}
+p_lasso <- df_lasso %>% 
+  group_by(gene) %>%
+  dplyr::filter(any(par_lgl)) %>%
+  group_by(genus) %>%
+  dplyr::filter(any(par_lgl)) %>%
+  ungroup() %>%
+  ggplot(aes(x = gene, y = genus, fill = par_lgl)) +
+  geom_tile(color = "grey") +
+  theme_minimal() +
+  theme(axis.title = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
+        legend.position = "top") +
+  scale_fill_viridis_d(name = "glm-lasso significant positive parameter",
+                       option = "E")
+
+p_lasso
+```
+
+```{r}
+df_corr_glm <- result_corr %>%
+  left_join(df_lasso, by = c("genus", "gene"))
+
+df_corr_glm <- clr_arg_contigs_gene %>%
+  as_tibble(rownames = "sample_id") %>%
+  pivot_longer(-sample_id, names_to = "gene", values_to = "clr") %>%
+  reframe(sum_clr = sum(clr), mean_clr = mean(clr), .by = "gene") %>%
+  right_join(df_corr_glm, by = "gene") %>%
+  mutate(significant = p_lgl & par_lgl)
+```
+
+```{r}
+df_corr_glm_filt <- df_corr_glm %>%
+  select(genus, gene, significant, mean_clr) %>%
+  group_by(gene) %>%
+  dplyr::filter(any(significant)) %>%
+  group_by(genus) %>%
+  dplyr::filter(any(significant)) %>%
+  ungroup() 
+  
+p_corr_glm <- df_corr_glm_filt %>%
+  ggplot(aes(x = gene, y = genus, fill = mean_clr)) +
+  geom_tile(aes(alpha = significant), color = "white") +  
+  scale_fill_gradientn(colors = RColorBrewer::brewer.pal(11, "Spectral"), 
+                       guide = "colourbar", name = "Mean AMR Gene CLR Abundance") +
+  scale_alpha_manual(values = c(0, 1), guide = "none") + 
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title = element_blank(),
+        legend.position = "top")
+p_corr_glm
+```
+
+```{r}
+png(filename = "../plots/gene_genera_relationship.png", width = 3200, height = 2000, res = 300)
+p_corr_glm
+dev.off()
+
+pdf(file = "../plots/gene_genera_relationship.pdf", width = 10.6, height = 6.66)
+p_corr_glm
 dev.off()
 ```
 
