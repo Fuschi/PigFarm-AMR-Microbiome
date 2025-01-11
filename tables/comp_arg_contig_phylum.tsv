@@ -1,0 +1,90 @@
+sample_id	phylum_diamond	Surface	abun	rela	highlight
+CAR1_ita_i	Acidobacteriota	carcass	7.034562	0.008485842576998782	FALSE
+CAR1_ita_i	Actinomycetota	carcass	24.255435	0.0292595051471046	TRUE
+CAR1_ita_i	Bacillota	carcass	228.308705	0.27541042776912833	TRUE
+CAR1_ita_i	Bacteroidota	carcass	14.362889	0.0173260559797337	TRUE
+CAR1_ita_i	Pseudomonadota	carcass	504.43122	0.6084989973566854	TRUE
+CAR1_ita_i	Unknown	carcass	50.583444	0.06101917117034914	TRUE
+CAR2_ita_i	Bacillota	carcass	111.026141	0.47518292225236436	TRUE
+CAR2_ita_i	Bacteroidota	carcass	4.183596	0.01790545321036874	TRUE
+CAR2_ita_i	Pseudomonadota	carcass	102.141975	0.43715940883803167	TRUE
+CAR2_ita_i	Unknown	carcass	16.297553999999998	0.06975221569923527	TRUE
+CAR3_ita_i	Bacillota	carcass	73.867562	0.6969537126318297	TRUE
+CAR3_ita_i	Bacteroidota	carcass	4.4207	0.041710098370804895	TRUE
+CAR3_ita_i	Pseudomonadota	carcass	18.537212	0.17490192413881622	TRUE
+CAR3_ita_i	Unknown	carcass	9.16085	0.0864342648585491	TRUE
+CAR4_ita_i	Bacillota	carcass	55.737409	0.5515907929180446	TRUE
+CAR4_ita_i	Bacteroidota	carcass	4.001833	0.03960310099085512	TRUE
+CAR4_ita_i	Pseudomonadota	carcass	34.723882	0.3436358802680013	TRUE
+CAR4_ita_i	Unknown	carcass	6.585352	0.065170225823099	TRUE
+CD1_ita_i	Actinomycetota	clean drain	8.332902	0.03471185623365599	TRUE
+CD1_ita_i	Pseudomonadota	clean drain	231.72634300000001	0.9652881437663441	TRUE
+CD2_ita_i	Actinomycetota	clean drain	7.318249999999999	0.011787056070207117	TRUE
+CD2_ita_i	Bacillota	clean drain	10.423628	0.0167886978022042	TRUE
+CD2_ita_i	Bacteroidota	clean drain	9.312487	0.014999051196949392	TRUE
+CD2_ita_i	Pseudomonadota	clean drain	586.935683	0.9453412776451079	TRUE
+CD2_ita_i	Unknown	clean drain	6.881691	0.011083917285531335	TRUE
+CD3_ita_i	Actinomycetota	clean drain	7.809215	0.03926424856403726	TRUE
+CD3_ita_i	Bacteroidota	clean drain	18.172297	0.09136918197123636	TRUE
+CD3_ita_i	Pseudomonadota	clean drain	172.90717899999999	0.8693665694647263	TRUE
+CD4_ita_i	Actinomycetota	clean drain	57.364136	0.5201480450771175	TRUE
+CD4_ita_i	Pseudomonadota	clean drain	52.920111999999996	0.4798519549228826	TRUE
+CS1_ita_i	Bacillota	clean surface	8.569447	0.014631126097598843	TRUE
+CS1_ita_i	Bacteroidota	clean surface	4.005353	0.006838577192716849	TRUE
+CS1_ita_i	Pseudomonadota	clean surface	570.967216	0.9748462572778565	TRUE
+CS1_ita_i	Unknown	clean surface	2.157741	0.003684039431827868	TRUE
+CS2_ita_i	Bacillota	clean surface	56.137678	0.14939438071920358	TRUE
+CS2_ita_i	Bacteroidota	clean surface	13.708248	0.03648058298216861	TRUE
+CS2_ita_i	Pseudomonadota	clean surface	281.431216	0.7489487226274735	TRUE
+CS2_ita_i	Unknown	clean surface	24.491195	0.06517631367115426	TRUE
+CS3_ita_i	Actinomycetota	clean surface	2.022239	0.0017189508540662595	TRUE
+CS3_ita_i	Bacillota	clean surface	496.668475	0.42217992002381355	TRUE
+CS3_ita_i	Bacteroidota	clean surface	148.181985	0.12595818282259597	TRUE
+CS3_ita_i	Campylobacterota	clean surface	4.24653	0.003609650674484071	FALSE
+CS3_ita_i	Pseudomonadota	clean surface	192.678497	0.16378126768317355	TRUE
+CS3_ita_i	Unknown	clean surface	332.640213	0.28275202794186666	TRUE
+CS4_ita_i	Actinomycetota	clean surface	3.318404	0.02131368742623571	TRUE
+CS4_ita_i	Bacillota	clean surface	38.676332	0.24841316821017512	TRUE
+CS4_ita_i	Bacteroidota	clean surface	22.643054	0.14543345997997117	TRUE
+CS4_ita_i	Pseudomonadota	clean surface	54.970005	0.3530653604529811	TRUE
+CS4_ita_i	Unknown	clean surface	36.085771	0.23177432393063693	TRUE
+DD1_ita_i	Actinomycetota	dirty drain	28.871492	0.047336042725668444	TRUE
+DD1_ita_i	Bacillota	dirty drain	146.504446	0.2402002887608436	TRUE
+DD1_ita_i	Bacteroidota	dirty drain	26.516871000000002	0.04347554115343393	TRUE
+DD1_ita_i	Pseudomonadota	dirty drain	382.710633	0.6274704083618406	TRUE
+DD1_ita_i	Unknown	dirty drain	25.322744	0.041517718998213334	TRUE
+DD2_ita_i	Actinomycetota	dirty drain	74.188756	0.06054040162983304	TRUE
+DD2_ita_i	Bacillota	dirty drain	234.973188	0.19174564908140887	TRUE
+DD2_ita_i	Bacteroidota	dirty drain	48.187105	0.03932222141693461	TRUE
+DD2_ita_i	Pseudomonadota	dirty drain	737.746722	0.6020249598331692	TRUE
+DD2_ita_i	Unknown	dirty drain	130.346314	0.10636676803865441	TRUE
+DD3_ita_i	Actinomycetota	dirty drain	8.470544	0.008309587106624187	TRUE
+DD3_ita_i	Bacillota	dirty drain	277.275151	0.27200638114114917	TRUE
+DD3_ita_i	Bacteroidota	dirty drain	71.515559	0.07015662358750764	TRUE
+DD3_ita_i	Pseudomonadota	dirty drain	547.290314	0.5368907282453999	TRUE
+DD3_ita_i	Unknown	dirty drain	114.818455	0.11263667991931915	TRUE
+DD4_ita_i	Actinomycetota	dirty drain	17.654256	0.012239826149622227	TRUE
+DD4_ita_i	Bacillota	dirty drain	539.398936	0.3739692684829769	TRUE
+DD4_ita_i	Bacteroidota	dirty drain	105.755119	0.07332080553225298	TRUE
+DD4_ita_i	Pseudomonadota	dirty drain	710.836958	0.4928285160613008	TRUE
+DD4_ita_i	Unknown	dirty drain	68.716394	0.047641583773847154	TRUE
+DS1_ita_i	Actinomycetota	dirty surface	7.913762	0.011913545805011774	TRUE
+DS1_ita_i	Bacillota	dirty surface	140.068431	0.21086199819436457	TRUE
+DS1_ita_i	Bacteroidota	dirty surface	22.005778	0.033127966721506204	TRUE
+DS1_ita_i	Pseudomonadota	dirty surface	417.580078	0.6286339400292035	TRUE
+DS1_ita_i	Unknown	dirty surface	76.697832	0.11546254924991399	TRUE
+DS2_ita_i	Actinomycetota	dirty surface	4.088235	0.002550999429833858	TRUE
+DS2_ita_i	Bacillota	dirty surface	592.698314	0.36983516384882203	TRUE
+DS2_ita_i	Bacteroidota	dirty surface	28.777172	0.017956538546397373	TRUE
+DS2_ita_i	Pseudomonadota	dirty surface	722.326179	0.45072107420025254	TRUE
+DS2_ita_i	Unknown	dirty surface	254.711399	0.15893622397469429	TRUE
+DS3_ita_i	Actinomycetota	dirty surface	13.921273	0.011220380449936717	TRUE
+DS3_ita_i	Bacillota	dirty surface	260.213305	0.20972882869515025	TRUE
+DS3_ita_i	Bacteroidota	dirty surface	37.355275	0.030107907323705944	TRUE
+DS3_ita_i	Pseudomonadota	dirty surface	830.172203	0.6691089210463795	TRUE
+DS3_ita_i	Unknown	dirty surface	99.051043	0.07983396248482745	TRUE
+DS4_ita_i	Actinomycetota	dirty surface	4.493349	0.003500076164948988	TRUE
+DS4_ita_i	Bacillota	dirty surface	276.769731	0.21558867086719571	TRUE
+DS4_ita_i	Bacteroidota	dirty surface	77.712288	0.060533674760729975	TRUE
+DS4_ita_i	Pseudomonadota	dirty surface	822.497031	0.640680760373701	TRUE
+DS4_ita_i	Unknown	dirty surface	102.313664	0.07969681783342432	TRUE
