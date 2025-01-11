@@ -1,0 +1,346 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+```{r}
+bac_reads <- readRDS("../data/R/bac_reads.rds") 
+arg_reads <- readRDS("../data/R/arg_reads.rds")
+arg_contigs <- readRDS("../data/R/arg_contigs.rds")
+```
+
+```{r}
+bac_reads_sp <- bac_reads %>%
+  mutate(rela = abun / sum(abun), .by = "sample_id", .after = "abun")
+
+bac_reads_gen <- bac_reads_sp %>%
+  group_by(sample_id, genus, Surface) %>%
+  summarise(rela = sum(rela), .groups = "drop") %>%
+  mutate(highlight = any(rela >= .05), .by = genus)
+
+bac_reads_fam <- bac_reads_sp %>%
+  group_by(sample_id, family, Surface) %>%
+  summarise(rela = sum(rela), .groups = "drop") %>%
+  mutate(highlight = any(rela >= .05), .by = family)
+
+bac_reads_phy <- bac_reads_sp %>%
+  group_by(sample_id, phylum, Surface) %>%
+  summarise(rela = sum(rela), .groups = "drop") %>%
+  mutate(highlight = any(rela >= .05), .by = phylum) 
+```
+
+```{r}
+arg_contigs_gen <- arg_contigs %>%
+  group_by(sample_id, genus_diamond, Surface) %>%
+  summarise(abun = sum(abun), .groups = "drop") %>%
+  mutate(rela = abun / sum(abun), .by = "sample_id") %>%
+  mutate(highlight = any(rela >= .05), .by = genus_diamond)
+    
+arg_contigs_fam <- arg_contigs %>%
+  group_by(sample_id, family_diamond, Surface) %>%
+  summarise(abun = sum(abun), .groups = "drop") %>%
+  mutate(rela = abun / sum(abun), .by = "sample_id") %>%
+  mutate(highlight = any(rela >= .05), .by = family_diamond)
+
+arg_contigs_phy <- arg_contigs %>%
+  group_by(sample_id, phylum_diamond, Surface) %>%
+  summarise(abun = sum(abun), .groups = "drop") %>%
+  mutate(rela = abun / sum(abun), .by = "sample_id") %>%
+  mutate(highlight = any(rela >= .05), .by = phylum_diamond)
+```
+
+```{r}
+arg_contigs_abf <- arg_contigs %>%
+  group_by(sample_id, Antibiotic_Family, Surface) %>%
+  summarise(abun = sum(abun), .groups = "drop") %>%
+  mutate(rela = abun / sum(abun), .by = "sample_id") %>%
+  mutate(highlight = any(rela >= .05), .by = Antibiotic_Family)
+
+arg_reads_abf <- arg_reads %>%
+  group_by(sample_id, Antibiotic_Family, Surface) %>%
+  summarise(abun = sum(abun), .groups = "drop") %>%
+  mutate(rela = abun / sum(abun), .by = "sample_id") %>%
+  mutate(highlight = any(rela >= .05), .by = Antibiotic_Family)
+```
+
+```{r}
+shared_genus <- union(
+  filter(arg_contigs_gen, highlight) %>% pull(genus_diamond) %>% unique,
+  filter(bac_reads_gen, highlight) %>% pull(genus) %>% unique
+)
+shared_genus <- shared_genus[c(setdiff(1:length(shared_genus), 
+                                         which(shared_genus == "Unknown")), 
+                                 which(shared_genus == "Unknown"))]
+shared_genus <- c(shared_genus, "Others")
+
+
+shared_family <- union(
+  filter(arg_contigs_fam, highlight) %>% pull(family_diamond) %>% unique,
+  filter(bac_reads_fam, highlight) %>% pull(family) %>% unique
+)
+shared_family <- shared_family[c(setdiff(1:length(shared_family), 
+                                         which(shared_family == "Unknown")), 
+                                 which(shared_family == "Unknown"))]
+shared_family <- c(shared_family, "Others")
+
+shared_phylum <- union(
+  filter(arg_contigs_phy, highlight) %>% pull(phylum_diamond) %>% unique,
+  filter(bac_reads_phy, highlight) %>% pull(phylum) %>% unique
+)
+shared_phylum <- shared_phylum[c(setdiff(1:length(shared_phylum), 
+                                         which(shared_phylum == "Unknown")), 
+                                 which(shared_phylum == "Unknown"))]
+shared_phylum <- c(shared_phylum, "Others")
+```
+
+```{r}
+col_Unknown <- "#F0F0F0"
+col_Other <- "#F5F5DC"
+```
+
+
+```{r}
+color_genus <- rownames(qualpalr::qualpal(
+  n = length(shared_genus) - 2,
+  colorspace = list(h = c(0, 360), 
+                    s = c(.1, .6), 
+                    l = c(.5,0.8)))$RGB)
+color_genus <- c(color_genus, col_Unknown, col_Other)
+names(color_genus) <- shared_genus
+
+color_family <- rownames(qualpalr::qualpal(
+  n = length(shared_family) - 2,
+  colorspace = list(h = c(0, 360), 
+                    s = c(.1, .6), 
+                    l = c(.55,0.8)))$RGB)
+color_family <- c(color_family, col_Unknown, col_Other)
+names(color_family) <- shared_family
+
+color_phylum <- rownames(qualpalr::qualpal(
+  n = length(shared_phylum) - 2,
+  colorspace = list(h = c(0, 360), 
+                    s = c(.1, .5), 
+                    l = c(.55,0.8)))$RGB)
+color_phylum <- c(color_phylum, col_Unknown, col_Other)
+names(color_phylum) <- shared_phylum
+```
+
+```{r}
+shared_abf <- union(
+  filter(arg_contigs_abf, highlight) %>% pull(Antibiotic_Family) %>% unique,
+  filter(arg_reads_abf, highlight) %>% pull(Antibiotic_Family) %>% unique
+)
+shared_abf <- shared_abf[c(setdiff(1:length(shared_abf), 
+                                         which(shared_abf == "Unknown")), 
+                                 which(shared_abf == "Unknown"))]
+shared_abf <- c(shared_abf, "Others")
+
+color_abf <- rownames(qualpalr::qualpal(
+  n = length(shared_abf) - 2,
+  colorspace = list(h = c(0, 360), 
+                    s = c(.1, .5), 
+                    l = c(.55,0.8)))$RGB)
+color_abf <- c(color_abf, col_Unknown, col_Other)
+names(color_abf) <- shared_abf
+```
+
+## Plots
+
+## Bacteria Reads
+
+```{r, fig.width=12, fig.height=5}
+p_bac_reads_genus <- bac_reads_gen %>%
+  mutate(genus_fct = if_else(genus %in% shared_genus, genus, "Others")) %>%
+  ggplot(aes(x = sample_id, y = rela, fill = genus_fct)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = color_genus, breaks = names(color_genus)) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.title = element_text(hjust = .5),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank()) +
+  guides(fill=guide_legend(nrow=3, title.position = "top"))
+p_bac_reads_genus
+```
+
+```{r, fig.width=12, fig.height=5}
+p_bac_reads_family <- bac_reads_fam %>%
+  mutate(family_fct = if_else(family %in% shared_family, family, "Others")) %>%
+  ggplot(aes(x = sample_id, y = rela, fill = family_fct)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = color_family, breaks = names(color_family)) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.title = element_text(hjust = .5),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank()) +
+  guides(fill=guide_legend(nrow=3, title.position = "top"))
+p_bac_reads_family
+```
+
+```{r, fig.width=11, fig.height=5}
+p_bac_reads_phylum <- bac_reads_phy %>%
+  mutate(phylum_fct = if_else(phylum %in% shared_phylum, phylum, "Others")) %>%
+  ggplot(aes(x = sample_id, y = rela, fill = phylum_fct)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = color_phylum, breaks = names(color_phylum)) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.title = element_text(hjust = .5),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank()) +
+  guides(fill=guide_legend(nrow=3, title.position = "top"))
+p_bac_reads_phylum
+```
+
+### AMR Reads antibiotic family
+
+```{r, fig.width=12, fig.height=5}
+p_arg_reads_abf <- arg_reads_abf %>%
+  mutate(abf = if_else(Antibiotic_Family %in% shared_abf, Antibiotic_Family, "Others")) %>%
+  ggplot(aes(x = sample_id, y = rela, fill = abf)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = color_abf, breaks = names(color_abf)) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.title = element_text(hjust = .5),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank()) +
+  guides(fill=guide_legend(nrow=3, title.position = "top"))
+p_arg_reads_abf
+```
+
+### AMR contigs antibiotic family
+
+```{r, fig.width=12, fig.height=5}
+p_arg_contigs_abf <- arg_contigs_abf %>%
+  mutate(abf = if_else(Antibiotic_Family %in% shared_abf, Antibiotic_Family, "Others")) %>%
+  ggplot(aes(x = sample_id, y = rela, fill = abf)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = color_abf, breaks = names(color_abf)) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.title = element_text(hjust = .5),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank()) +
+  guides(fill=guide_legend(nrow=3, title.position = "top"))
+p_arg_contigs_abf
+```
+
+### AMR contigs taxonomy
+
+```{r, fig.width=12, fig.height=5}
+p_arg_contigs_gen <- arg_contigs_gen %>%
+  mutate(genus_fct = if_else(genus_diamond %in% shared_genus, genus_diamond, "Others")) %>%
+  ggplot(aes(x = sample_id, y = rela, fill = genus_fct)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = color_genus, breaks = names(color_genus)) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.title = element_text(hjust = .5),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank()) +
+  guides(fill=guide_legend(nrow=3, title.position = "top"))
+p_arg_contigs_gen
+```
+
+```{r, fig.width=12, fig.height=5}
+p_arg_contigs_fam <- arg_contigs_fam %>%
+  mutate(family_fct = if_else(family_diamond %in% shared_family, family_diamond, "Others")) %>%
+  ggplot(aes(x = sample_id, y = rela, fill = family_fct)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = color_family, breaks = names(color_family)) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.title = element_text(hjust = .5),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank()) +
+  guides(fill=guide_legend(nrow=3, title.position = "top"))
+p_arg_contigs_fam
+```
+
+```{r, fig.width=12, fig.height=5}
+p_arg_contigs_phy <- arg_contigs_phy %>%
+  mutate(phylum_fct = if_else(phylum_diamond %in% shared_phylum, phylum_diamond, "Others")) %>%
+  ggplot(aes(x = sample_id, y = rela, fill = phylum_fct)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = color_phylum, breaks = names(color_phylum)) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.title = element_text(hjust = .5),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank()) +
+  guides(fill=guide_legend(nrow=3, title.position = "top"))
+p_arg_contigs_phy
+```
+
+# Save Plots
+
+```{r}
+# Bacteria Reads
+png(filename = "../plots/composition_bac_read_genus.png", width = 3600, height = 1500, res = 300)
+p_bac_reads_genus
+dev.off()
+
+png(filename = "../plots/composition_bac_read_family.png", width = 3600, height = 1500, res = 300)
+p_bac_reads_family
+dev.off()
+
+png(filename = "../plots/composition_bac_read_phylum.png", width = 3600, height = 1500, res = 300)
+p_bac_reads_phylum
+dev.off()
+```
+
+```{r}
+# ARG reads antibiotic family
+png(filename = "../plots/composition_arg_read_abf", width = 3600, height = 1500, res = 300)
+p_arg_reads_abf
+dev.off()
+```
+
+```{r}
+# ARG contigs antibiotic family
+png(filename = "../plots/composition_arg_contigs_abf", width = 3600, height = 1500, res = 300)
+p_arg_contigs_abf
+dev.off()
+```
+
+```{r}
+# ARG contigs taxonomy
+png(filename = "../plots/composition_arg_contigs_genus", width = 3600, height = 1500, res = 300)
+p_arg_contigs_gen
+dev.off()
+
+png(filename = "../plots/composition_arg_contigs_family", width = 3600, height = 1500, res = 300)
+p_arg_contigs_fam
+dev.off()
+
+png(filename = "../plots/composition_arg_contigs_phylum", width = 3600, height = 1500, res = 300)
+p_arg_contigs_phy
+dev.off()
+```
+
+
+
+
+
