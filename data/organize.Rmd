@@ -13,7 +13,7 @@ library(tidyverse)
 meta_sample <- read_tsv("RAW/metadata_all2.txt", show_col_types = FALSE) %>%
   rename(Technology = Tecnology) %>%
   filter(Country == "Italy", Technology == "Illumina") %>%
-  select(-all_of(c("Reads_count", "Host", "Level"))) %>%
+  #select(-all_of(c("Reads_count", "Host", "Level"))) %>%
   relocate(sample_id, .before = 1) %>%
   column_to_rownames("sample_id") %>%
   mutate(Surface_Type = case_when(
@@ -26,7 +26,8 @@ meta_sample <- read_tsv("RAW/metadata_all2.txt", show_col_types = FALSE) %>%
                                               "dirty surface",
                                               "clean drain",
                                               "clean surface", 
-                                              "carcass")))
+                                              "carcass"))) %>%
+  mutate(Surface_Type = factor(Surface_Type, levels = c("dirty", "clean", "carcass")))
 
 saveRDS(meta_sample, "R/meta_sample.rds")
 ```

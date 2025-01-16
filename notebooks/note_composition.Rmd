@@ -340,6 +340,39 @@ p_arg_contigs_phy
 dev.off()
 ```
 
+## Write Tables
+
+```{r}
+my_write <- function(who, to){
+  who %>%
+    select(-highlight) %>%
+    write_tsv(to)
+}
+```
+
+
+```{r}
+# bacteria reads
+my_write(bac_reads_gen, "../tables/comp_bac_read_genus.tsv")
+my_write(bac_reads_fam, "../tables/comp_bac_read_family.tsv")
+my_write(bac_reads_phy, "../tables/comp_bac_read_phylum.tsv")
+```
+
+```{r}
+# arg reads
+my_write(bac_reads_gen, "../tables/comp_arg_read_abf.tsv")
+```
+
+```{r}
+# contigs abf
+my_write(arg_contigs_abf, "../tables/comp_arg_contig_abf.tsv")
+
+# contigs taxonomy
+my_write(arg_contigs_gen, "../tables/comp_arg_contig_genus.tsv")
+my_write(arg_contigs_fam, "../tables/comp_arg_contig_family")
+my_write(arg_contigs_phy, "../tables/comp_arg_contig_phylum.tsv")
+```
+
 
 
 

@@ -1,0 +1,114 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+## MOBILE
+
+```{r, message=FALSE}
+library(tidyverse)
+library(ggnewscale)
+```
+
+```{r}
+meta_sample <- readRDS("../data/R/meta_sample.rds")
+arg_contigs <- readRDS("../data/R/arg_contigs.rds") 
+
+dict_antFam <- arg_contigs %>%
+  select(ARG, Antibiotic_Family) %>%
+  distinct()
+```
+
+
+```{r, fig.width=12, fig.height=7.5}
+df_integron_platon <- arg_contigs %>%
+  group_by(sample_id, ARG) %>%
+  mutate(is_mobile = if_else(integron_platon == "MGE", TRUE, FALSE)) %>%
+  ungroup() %>%
+  select(sample_id, ARG, is_mobile) %>%
+  pivot_wider(names_from = "ARG", values_from = "is_mobile", values_fill = FALSE, values_fn = any) %>%
+  pivot_longer(-sample_id, names_to = "ARG", values_to = "is_mobile") %>%
+  group_by(ARG) %>%
+  filter(any(is_mobile)) %>%
+  ungroup() %>%
+  left_join(meta_sample, by = "sample_id") %>%
+  left_join(dict_antFam, by = "ARG") %>%
+  mutate(Antibiotic_Family = fct_infreq(Antibiotic_Family)) %>%
+  arrange(Antibiotic_Family) %>%  
+  mutate(ARG = factor(ARG, levels = unique(ARG)))
+
+library(RColorBrewer)
+antibiotic_families <- levels(df_integron_platon$Antibiotic_Family)
+antibiotic_family_colors <- setNames(brewer.pal(n = length(antibiotic_families), name = "Paired"), antibiotic_families)
+
+p_integron_platon <- df_integron_platon %>%
+  ggplot() +
+  geom_tile(aes(y = sample_id, x = ARG, fill = is_mobile), color = "gray") +
+  scale_fill_viridis_d(name = "MGE", option = "E") +
+  ggnewscale::new_scale_fill() +
+  geom_tile(aes(y = sample_id, x = 0, fill = Surface), width = .75) +
+  ggnewscale::new_scale_fill() +
+  geom_tile(aes(y = .2, x = ARG, fill = Antibiotic_Family), height = .45, ) +
+  #scale_fill_brewer(type = "qualitative", palette = "Paired") +
+  scale_fill_manual(values = antibiotic_family_colors, name = "Antibiotic Family") +
+  theme_minimal() +
+  theme(legend.position = "right",
+        axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
+        axis.title = element_blank(), 
+        panel.grid = element_blank())
+p_integron_platon
+```
+
+```{r}
+png(filename = "../plots/mobile_integron.png", width = 3600, height = 2250, res = 300)
+p_integron_platon
+dev.off()
+
+pdf(file = "../plots/mobile_integron.pdf", width = 12, height = 7.5)
+p_integron_platon
+dev.off()
+```
+
+
+
+```{r, fig.width=7, fig.height=7.5}
+p_plasmid_waafle <- arg_contigs %>%
+  group_by(sample_id, ARG) %>%
+  mutate(is_plasmid = if_else(plasmid_waafle == "LGT", TRUE, FALSE)) %>%
+  ungroup() %>%
+  select(sample_id, ARG, is_plasmid) %>%
+  pivot_wider(names_from = "ARG", values_from = "is_plasmid", values_fill = FALSE, values_fn = any) %>%
+  pivot_longer(-sample_id, names_to = "ARG", values_to = "is_plasmid") %>%
+  group_by(ARG) %>%
+  filter(any(is_plasmid)) %>%
+  ungroup() %>%
+  left_join(meta_sample, by = "sample_id") %>%
+  left_join(dict_antFam, by = "ARG") %>%
+  mutate(Antibiotic_Family = factor(Antibiotic_Family, levels = levels(df_integron_platon$Antibiotic_Family))) %>%
+  arrange(Antibiotic_Family) %>%  
+  mutate(ARG = factor(ARG, levels = unique(ARG))) %>%
+  ggplot() +
+  geom_tile(aes(y = sample_id, x = ARG, fill = is_plasmid), color = "gray") +
+  scale_fill_viridis_d(name = "LGT", option = "E") +
+  ggnewscale::new_scale_fill() +
+  geom_tile(aes(y = sample_id, x = 0.4, fill = Surface), width = 0.15) +
+  ggnewscale::new_scale_fill() +
+  geom_tile(aes(y = .275, x = ARG, fill = Antibiotic_Family), height = .35, ) +
+  scale_fill_manual(values = antibiotic_family_colors, name = "Antibiotic Family") +
+  theme_minimal() +
+  theme(legend.position = "right",
+        axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
+        axis.title = element_blank())
+p_plasmid_waafle
+```
+
+
+```{r}
+png(filename = "../plots/plasmid_waafle.png", width = 2100, height = 2250, res = 300)
+p_plasmid_waafle
+dev.off()
+
+pdf(file = "../plots/plasmid_waafle.pdf", width = 7, height = 7.5)
+p_plasmid_waafle
+dev.off()
+```
