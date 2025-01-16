@@ -1,136 +1,136 @@
-sample_id	genus_diamond	Surface	abun	rela	highlight
-CAR1_ita_i	Acinetobacter	carcass	53.422975	0.06444451777451696	TRUE
-CAR1_ita_i	Aeromonas	carcass	37.756451999999996	0.045545878753788904	TRUE
-CAR1_ita_i	Bacteroides	carcass	5.210138	0.006285026825044584	FALSE
-CAR1_ita_i	Moraxella	carcass	8.2109	0.009904867540506332	FALSE
-CAR1_ita_i	Shewanella	carcass	5.377989	0.006487506689802593	FALSE
-CAR1_ita_i	Streptococcus	carcass	26.934941	0.03249181244642526	TRUE
-CAR1_ita_i	Unknown	carcass	692.06286	0.8348403899699153	TRUE
-CAR2_ita_i	Acinetobacter	carcass	31.957806	0.13677683027688176	TRUE
-CAR2_ita_i	Aeromonas	carcass	15.195795	0.06503677610525856	TRUE
-CAR2_ita_i	Macrococcus	carcass	3.854779	0.016498142990100384	FALSE
-CAR2_ita_i	Mammaliicoccus	carcass	6.954617	0.029765199433581784	TRUE
-CAR2_ita_i	Moraxella	carcass	4.358255	0.018652979633156645	FALSE
-CAR2_ita_i	Streptococcus	carcass	72.40321	0.30987989493619894	TRUE
-CAR2_ita_i	Unknown	carcass	98.924804	0.42339017662482187	TRUE
-CAR3_ita_i	Acinetobacter	carcass	3.946919	0.037239889554052275	TRUE
-CAR3_ita_i	Mammaliicoccus	carcass	4.570279	0.04312140309725244	TRUE
-CAR3_ita_i	Streptococcus	carcass	24.786406	0.23386419176119363	TRUE
-CAR3_ita_i	Unknown	carcass	72.68272	0.6857745155875017	TRUE
-CAR4_ita_i	Acinetobacter	carcass	8.300827	0.08214697864419053	TRUE
-CAR4_ita_i	Aeromonas	carcass	3.195582	0.03162424735628867	TRUE
-CAR4_ita_i	Mammaliicoccus	carcass	6.199014	0.06134693213977813	TRUE
-CAR4_ita_i	Streptococcus	carcass	41.934962	0.4149984607387844	TRUE
-CAR4_ita_i	Unknown	carcass	41.418091000000004	0.40988338112095823	TRUE
-CD1_ita_i	Acinetobacter	clean drain	103.45922	0.43097369568083077	TRUE
-CD1_ita_i	Aeromonas	clean drain	28.978344	0.12071330141857273	TRUE
-CD1_ita_i	Microbacterium	clean drain	4.619048	0.0192412835423189	FALSE
-CD1_ita_i	Mycolicibacterium	clean drain	3.713854	0.01547057269133709	TRUE
-CD1_ita_i	Unknown	clean drain	99.288779	0.4136011466669405	TRUE
-CD2_ita_i	Acinetobacter	clean drain	148.885989	0.23980152364448337	TRUE
-CD2_ita_i	Aeromonas	clean drain	155.85228999999998	0.25102171706353027	TRUE
-CD2_ita_i	Empedobacter	clean drain	3.579384	0.005765094101021726	FALSE
-CD2_ita_i	Microbacterium	clean drain	4.898413	0.007889573147409758	FALSE
-CD2_ita_i	Prescottella	clean drain	2.419837	0.0038974829227973605	FALSE
-CD2_ita_i	Pseudomonas	clean drain	5.899482	0.00950193353864348	FALSE
-CD2_ita_i	Shewanella	clean drain	8.836851	0.01423297348697651	FALSE
-CD2_ita_i	Staphylococcus	clean drain	3.74728	0.006035513882521879	FALSE
-CD2_ita_i	Unknown	clean drain	286.752213	0.4618541882126157	TRUE
-CD3_ita_i	Acinetobacter	clean drain	90.880947	0.45694376358482847	TRUE
-CD3_ita_i	Candidatus Accumulibacter	clean drain	5.405567	0.027178855533822176	FALSE
-CD3_ita_i	Flavobacterium	clean drain	3.260532	0.016393752624175095	FALSE
-CD3_ita_i	Microbacterium	clean drain	3.069787	0.015434698597317428	FALSE
-CD3_ita_i	Mycolicibacterium	clean drain	4.739428	0.023829549966719824	TRUE
-CD3_ita_i	Unknown	clean drain	91.53243	0.460219379693137	TRUE
-CD4_ita_i	Acinetobacter	clean drain	30.493403999999998	0.2764982719925696	TRUE
-CD4_ita_i	Microbacterium	clean drain	3.41391	0.030955554051563194	FALSE
-CD4_ita_i	Mycolicibacterium	clean drain	53.950226	0.4891924910255543	TRUE
-CD4_ita_i	Unknown	clean drain	22.426707999999998	0.20335368293031295	TRUE
-CS1_ita_i	Acinetobacter	clean surface	402.412956	0.6870635529391214	TRUE
-CS1_ita_i	Aeromonas	clean surface	51.55259	0.08801880039024843	TRUE
-CS1_ita_i	Lactobacillus	clean surface	4.797626	0.008191271965987857	FALSE
-CS1_ita_i	Unknown	clean surface	126.93658500000001	0.21672637470464243	TRUE
-CS2_ita_i	Acinetobacter	clean surface	112.332833	0.2989417200417288	TRUE
-CS2_ita_i	Clostridium	clean surface	5.614865	0.014942357956040347	FALSE
-CS2_ita_i	Enterococcus	clean surface	2.551339	0.006789659342692304	FALSE
-CS2_ita_i	Staphylococcus	clean surface	1.670165	0.004444666661736324	FALSE
-CS2_ita_i	Streptococcus	clean surface	1.422819	0.0037864259968236765	TRUE
-CS2_ita_i	Unknown	clean surface	252.17631599999999	0.6710951700009785	TRUE
-CS3_ita_i	Acinetobacter	clean surface	132.08149600000002	0.11227238736645336	TRUE
-CS3_ita_i	Campylobacter	clean surface	4.24653	0.003609650674484071	FALSE
-CS3_ita_i	Corynebacterium	clean surface	2.022239	0.0017189508540662595	FALSE
-CS3_ita_i	Enterococcus	clean surface	9.029807	0.007675548960683425	FALSE
-CS3_ita_i	Prevotella	clean surface	19.176244	0.016300259762363888	FALSE
-CS3_ita_i	Streptococcus	clean surface	22.757106	0.01934407693392146	TRUE
-CS3_ita_i	Unknown	clean surface	987.124517	0.8390791254480277	TRUE
-CS4_ita_i	Acinetobacter	clean surface	18.087196	0.11617176267900498	TRUE
-CS4_ita_i	Aeromonas	clean surface	6.167275	0.03961162402818881	TRUE
-CS4_ita_i	Clostridioides	clean surface	3.522286	0.022623195617473363	FALSE
-CS4_ita_i	Lactobacillus	clean surface	7.144024	0.0458851587996899	FALSE
-CS4_ita_i	Unknown	clean surface	120.772785	0.7757082588756429	TRUE
-DD1_ita_i	Acinetobacter	dirty drain	49.692355	0.08147273578445768	TRUE
-DD1_ita_i	Aeromonas	dirty drain	26.159107	0.04288897181404177	TRUE
-DD1_ita_i	Clostridioides	dirty drain	2.442926	0.004005281386623397	FALSE
-DD1_ita_i	Corynebacterium	dirty drain	10.932509	0.01792431486127405	FALSE
-DD1_ita_i	Microbacterium	dirty drain	4.292925	0.007038433663840103	FALSE
-DD1_ita_i	Moraxella	dirty drain	4.7787	0.00783488249838809	FALSE
-DD1_ita_i	Unknown	dirty drain	511.627664	0.8388353799913748	TRUE
-DD2_ita_i	Acinetobacter	dirty drain	71.2367	0.05813142936085795	TRUE
-DD2_ita_i	Aeromonas	dirty drain	16.597866	0.013544390390346352	TRUE
-DD2_ita_i	Lactococcus	dirty drain	2.756224	0.0022491670832408208	FALSE
-DD2_ita_i	Mycolicibacterium	dirty drain	2.849344	0.002325155986461816	TRUE
-DD2_ita_i	Serratia	dirty drain	4.464951	0.0036435430565451813	FALSE
-DD2_ita_i	Streptococcus	dirty drain	3.440617	0.002807653696665722	TRUE
-DD2_ita_i	Unknown	dirty drain	1124.096383	0.917298660425882	TRUE
-DD3_ita_i	Acinetobacter	dirty drain	98.952381	0.09707209233874048	TRUE
-DD3_ita_i	Actinobacillus	dirty drain	3.834401	0.0037615398858948006	FALSE
-DD3_ita_i	Aeromonas	dirty drain	28.183969	0.027648418497784294	TRUE
-DD3_ita_i	Clostridium	dirty drain	2.688463	0.0026373769478602767	FALSE
-DD3_ita_i	Empedobacter	dirty drain	5.655067	0.005547609673038227	FALSE
-DD3_ita_i	Moraxella	dirty drain	7.226745	0.0070894227188786	FALSE
-DD3_ita_i	Pseudomonas	dirty drain	9.611722	0.009429080493963085	FALSE
-DD3_ita_i	Segatella	dirty drain	2.743482	0.0026913504793146152	FALSE
-DD3_ita_i	Shewanella	dirty drain	8.788961	0.008621953561214347	FALSE
-DD3_ita_i	Streptococcus	dirty drain	94.058912	0.09227160881500633	TRUE
-DD3_ita_i	Unknown	dirty drain	757.62592	0.743229546588305	TRUE
-DD4_ita_i	Acinetobacter	dirty drain	145.641747	0.10097449948654105	TRUE
-DD4_ita_i	Aeromonas	dirty drain	55.084361	0.03819039455432337	TRUE
-DD4_ita_i	Alkalibacterium	dirty drain	3.561051	0.002468902974440745	FALSE
-DD4_ita_i	Clostridioides	dirty drain	5.847518	0.004054127442515088	FALSE
-DD4_ita_i	Corynebacterium	dirty drain	3.721676	0.0025802654739583157	FALSE
-DD4_ita_i	Empedobacter	dirty drain	15.342993	0.010637410431505623	FALSE
-DD4_ita_i	Moraxella	dirty drain	16.820466	0.011661753380920245	FALSE
-DD4_ita_i	Pseudomonas	dirty drain	5.23027	0.0036261848426568997	FALSE
-DD4_ita_i	Shewanella	dirty drain	7.128054	0.004941932514466727	FALSE
-DD4_ita_i	Streptococcus	dirty drain	114.124391	0.0791232836587116	TRUE
-DD4_ita_i	Unknown	dirty drain	1069.859136	0.7417412452399603	TRUE
-DS1_ita_i	Acinetobacter	dirty surface	59.91411599999999	0.09019598584501134	TRUE
-DS1_ita_i	Aeromonas	dirty surface	27.341264	0.04116012094259587	TRUE
-DS1_ita_i	Empedobacter	dirty surface	6.889172	0.01037110620468553	FALSE
-DS1_ita_i	Epilithonimonas	dirty surface	13.551964	0.020401415137562964	FALSE
-DS1_ita_i	Moraxella	dirty surface	12.163156	0.018310674005549293	FALSE
-DS1_ita_i	Paracoccus	dirty surface	2.704508	0.004071423924300577	FALSE
-DS1_ita_i	Streptococcus	dirty surface	39.639966	0.05967484878242602	TRUE
-DS1_ita_i	Unknown	dirty surface	502.061735	0.7558144251578683	TRUE
-DS2_ita_i	Acinetobacter	dirty surface	156.51766899999998	0.09766475860069795	TRUE
-DS2_ita_i	Aerococcus	dirty surface	4.762422	0.002971682353540885	FALSE
-DS2_ita_i	Aeromonas	dirty surface	23.348315	0.01456901040487675	TRUE
-DS2_ita_i	Moraxella	dirty surface	21.41494	0.01336261240606919	FALSE
-DS2_ita_i	Pseudomonas	dirty surface	4.38646	0.0027370875106223157	FALSE
-DS2_ita_i	Segatella	dirty surface	9.894517	0.006174035305084325	FALSE
-DS2_ita_i	Unknown	dirty surface	1382.276976	0.8625208134191086	TRUE
-DS3_ita_i	Acinetobacter	dirty surface	79.174896	0.06381402442177327	TRUE
-DS3_ita_i	Aeromonas	dirty surface	34.583223000000004	0.02787366638417348	TRUE
-DS3_ita_i	Empedobacter	dirty surface	30.306333000000002	0.024426543916096756	FALSE
-DS3_ita_i	Moraxella	dirty surface	16.872662	0.013599164878326152	FALSE
-DS3_ita_i	Pseudomonas	dirty surface	16.313222	0.013148262892644771	FALSE
-DS3_ita_i	Streptococcus	dirty surface	108.68256500000001	0.08759685465366397	TRUE
-DS3_ita_i	Unknown	dirty surface	954.7801979999999	0.7695414828533215	TRUE
-DS4_ita_i	Acinetobacter	dirty surface	43.762093	0.03408830665892655	TRUE
-DS4_ita_i	Aeromonas	dirty surface	125.804814	0.09799515482043365	TRUE
-DS4_ita_i	Empedobacter	dirty surface	16.814493	0.013097581820375315	FALSE
-DS4_ita_i	Moraxella	dirty surface	19.084396	0.014865713649673732	FALSE
-DS4_ita_i	Segatella	dirty surface	5.604456	0.004365568502047214	FALSE
-DS4_ita_i	Shewanella	dirty surface	6.246042	0.00486532934109287	FALSE
-DS4_ita_i	Streptococcus	dirty surface	82.953758	0.06461649677528863	TRUE
-DS4_ita_i	Unknown	dirty surface	983.516011	0.766105848432162	TRUE
+sample_id	genus_diamond	Surface	abun	rela
+CAR1_ita_i	Acinetobacter	carcass	53.422975	0.06444451777451696
+CAR1_ita_i	Aeromonas	carcass	37.756451999999996	0.045545878753788904
+CAR1_ita_i	Bacteroides	carcass	5.210138	0.006285026825044584
+CAR1_ita_i	Moraxella	carcass	8.2109	0.009904867540506332
+CAR1_ita_i	Shewanella	carcass	5.377989	0.006487506689802593
+CAR1_ita_i	Streptococcus	carcass	26.934941	0.03249181244642526
+CAR1_ita_i	Unknown	carcass	692.06286	0.8348403899699153
+CAR2_ita_i	Acinetobacter	carcass	31.957806	0.13677683027688176
+CAR2_ita_i	Aeromonas	carcass	15.195795	0.06503677610525856
+CAR2_ita_i	Macrococcus	carcass	3.854779	0.016498142990100384
+CAR2_ita_i	Mammaliicoccus	carcass	6.954617	0.029765199433581784
+CAR2_ita_i	Moraxella	carcass	4.358255	0.018652979633156645
+CAR2_ita_i	Streptococcus	carcass	72.40321	0.30987989493619894
+CAR2_ita_i	Unknown	carcass	98.924804	0.42339017662482187
+CAR3_ita_i	Acinetobacter	carcass	3.946919	0.037239889554052275
+CAR3_ita_i	Mammaliicoccus	carcass	4.570279	0.04312140309725244
+CAR3_ita_i	Streptococcus	carcass	24.786406	0.23386419176119363
+CAR3_ita_i	Unknown	carcass	72.68272	0.6857745155875017
+CAR4_ita_i	Acinetobacter	carcass	8.300827	0.08214697864419053
+CAR4_ita_i	Aeromonas	carcass	3.195582	0.03162424735628867
+CAR4_ita_i	Mammaliicoccus	carcass	6.199014	0.06134693213977813
+CAR4_ita_i	Streptococcus	carcass	41.934962	0.4149984607387844
+CAR4_ita_i	Unknown	carcass	41.418091000000004	0.40988338112095823
+CD1_ita_i	Acinetobacter	clean drain	103.45922	0.43097369568083077
+CD1_ita_i	Aeromonas	clean drain	28.978344	0.12071330141857273
+CD1_ita_i	Microbacterium	clean drain	4.619048	0.0192412835423189
+CD1_ita_i	Mycolicibacterium	clean drain	3.713854	0.01547057269133709
+CD1_ita_i	Unknown	clean drain	99.288779	0.4136011466669405
+CD2_ita_i	Acinetobacter	clean drain	148.885989	0.23980152364448337
+CD2_ita_i	Aeromonas	clean drain	155.85228999999998	0.25102171706353027
+CD2_ita_i	Empedobacter	clean drain	3.579384	0.005765094101021726
+CD2_ita_i	Microbacterium	clean drain	4.898413	0.007889573147409758
+CD2_ita_i	Prescottella	clean drain	2.419837	0.0038974829227973605
+CD2_ita_i	Pseudomonas	clean drain	5.899482	0.00950193353864348
+CD2_ita_i	Shewanella	clean drain	8.836851	0.01423297348697651
+CD2_ita_i	Staphylococcus	clean drain	3.74728	0.006035513882521879
+CD2_ita_i	Unknown	clean drain	286.752213	0.4618541882126157
+CD3_ita_i	Acinetobacter	clean drain	90.880947	0.45694376358482847
+CD3_ita_i	Candidatus Accumulibacter	clean drain	5.405567	0.027178855533822176
+CD3_ita_i	Flavobacterium	clean drain	3.260532	0.016393752624175095
+CD3_ita_i	Microbacterium	clean drain	3.069787	0.015434698597317428
+CD3_ita_i	Mycolicibacterium	clean drain	4.739428	0.023829549966719824
+CD3_ita_i	Unknown	clean drain	91.53243	0.460219379693137
+CD4_ita_i	Acinetobacter	clean drain	30.493403999999998	0.2764982719925696
+CD4_ita_i	Microbacterium	clean drain	3.41391	0.030955554051563194
+CD4_ita_i	Mycolicibacterium	clean drain	53.950226	0.4891924910255543
+CD4_ita_i	Unknown	clean drain	22.426707999999998	0.20335368293031295
+CS1_ita_i	Acinetobacter	clean surface	402.412956	0.6870635529391214
+CS1_ita_i	Aeromonas	clean surface	51.55259	0.08801880039024843
+CS1_ita_i	Lactobacillus	clean surface	4.797626	0.008191271965987857
+CS1_ita_i	Unknown	clean surface	126.93658500000001	0.21672637470464243
+CS2_ita_i	Acinetobacter	clean surface	112.332833	0.2989417200417288
+CS2_ita_i	Clostridium	clean surface	5.614865	0.014942357956040347
+CS2_ita_i	Enterococcus	clean surface	2.551339	0.006789659342692304
+CS2_ita_i	Staphylococcus	clean surface	1.670165	0.004444666661736324
+CS2_ita_i	Streptococcus	clean surface	1.422819	0.0037864259968236765
+CS2_ita_i	Unknown	clean surface	252.17631599999999	0.6710951700009785
+CS3_ita_i	Acinetobacter	clean surface	132.08149600000002	0.11227238736645336
+CS3_ita_i	Campylobacter	clean surface	4.24653	0.003609650674484071
+CS3_ita_i	Corynebacterium	clean surface	2.022239	0.0017189508540662595
+CS3_ita_i	Enterococcus	clean surface	9.029807	0.007675548960683425
+CS3_ita_i	Prevotella	clean surface	19.176244	0.016300259762363888
+CS3_ita_i	Streptococcus	clean surface	22.757106	0.01934407693392146
+CS3_ita_i	Unknown	clean surface	987.124517	0.8390791254480277
+CS4_ita_i	Acinetobacter	clean surface	18.087196	0.11617176267900498
+CS4_ita_i	Aeromonas	clean surface	6.167275	0.03961162402818881
+CS4_ita_i	Clostridioides	clean surface	3.522286	0.022623195617473363
+CS4_ita_i	Lactobacillus	clean surface	7.144024	0.0458851587996899
+CS4_ita_i	Unknown	clean surface	120.772785	0.7757082588756429
+DD1_ita_i	Acinetobacter	dirty drain	49.692355	0.08147273578445768
+DD1_ita_i	Aeromonas	dirty drain	26.159107	0.04288897181404177
+DD1_ita_i	Clostridioides	dirty drain	2.442926	0.004005281386623397
+DD1_ita_i	Corynebacterium	dirty drain	10.932509	0.01792431486127405
+DD1_ita_i	Microbacterium	dirty drain	4.292925	0.007038433663840103
+DD1_ita_i	Moraxella	dirty drain	4.7787	0.00783488249838809
+DD1_ita_i	Unknown	dirty drain	511.627664	0.8388353799913748
+DD2_ita_i	Acinetobacter	dirty drain	71.2367	0.05813142936085795
+DD2_ita_i	Aeromonas	dirty drain	16.597866	0.013544390390346352
+DD2_ita_i	Lactococcus	dirty drain	2.756224	0.0022491670832408208
+DD2_ita_i	Mycolicibacterium	dirty drain	2.849344	0.002325155986461816
+DD2_ita_i	Serratia	dirty drain	4.464951	0.0036435430565451813
+DD2_ita_i	Streptococcus	dirty drain	3.440617	0.002807653696665722
+DD2_ita_i	Unknown	dirty drain	1124.096383	0.917298660425882
+DD3_ita_i	Acinetobacter	dirty drain	98.952381	0.09707209233874048
+DD3_ita_i	Actinobacillus	dirty drain	3.834401	0.0037615398858948006
+DD3_ita_i	Aeromonas	dirty drain	28.183969	0.027648418497784294
+DD3_ita_i	Clostridium	dirty drain	2.688463	0.0026373769478602767
+DD3_ita_i	Empedobacter	dirty drain	5.655067	0.005547609673038227
+DD3_ita_i	Moraxella	dirty drain	7.226745	0.0070894227188786
+DD3_ita_i	Pseudomonas	dirty drain	9.611722	0.009429080493963085
+DD3_ita_i	Segatella	dirty drain	2.743482	0.0026913504793146152
+DD3_ita_i	Shewanella	dirty drain	8.788961	0.008621953561214347
+DD3_ita_i	Streptococcus	dirty drain	94.058912	0.09227160881500633
+DD3_ita_i	Unknown	dirty drain	757.62592	0.743229546588305
+DD4_ita_i	Acinetobacter	dirty drain	145.641747	0.10097449948654105
+DD4_ita_i	Aeromonas	dirty drain	55.084361	0.03819039455432337
+DD4_ita_i	Alkalibacterium	dirty drain	3.561051	0.002468902974440745
+DD4_ita_i	Clostridioides	dirty drain	5.847518	0.004054127442515088
+DD4_ita_i	Corynebacterium	dirty drain	3.721676	0.0025802654739583157
+DD4_ita_i	Empedobacter	dirty drain	15.342993	0.010637410431505623
+DD4_ita_i	Moraxella	dirty drain	16.820466	0.011661753380920245
+DD4_ita_i	Pseudomonas	dirty drain	5.23027	0.0036261848426568997
+DD4_ita_i	Shewanella	dirty drain	7.128054	0.004941932514466727
+DD4_ita_i	Streptococcus	dirty drain	114.124391	0.0791232836587116
+DD4_ita_i	Unknown	dirty drain	1069.859136	0.7417412452399603
+DS1_ita_i	Acinetobacter	dirty surface	59.91411599999999	0.09019598584501134
+DS1_ita_i	Aeromonas	dirty surface	27.341264	0.04116012094259587
+DS1_ita_i	Empedobacter	dirty surface	6.889172	0.01037110620468553
+DS1_ita_i	Epilithonimonas	dirty surface	13.551964	0.020401415137562964
+DS1_ita_i	Moraxella	dirty surface	12.163156	0.018310674005549293
+DS1_ita_i	Paracoccus	dirty surface	2.704508	0.004071423924300577
+DS1_ita_i	Streptococcus	dirty surface	39.639966	0.05967484878242602
+DS1_ita_i	Unknown	dirty surface	502.061735	0.7558144251578683
+DS2_ita_i	Acinetobacter	dirty surface	156.51766899999998	0.09766475860069795
+DS2_ita_i	Aerococcus	dirty surface	4.762422	0.002971682353540885
+DS2_ita_i	Aeromonas	dirty surface	23.348315	0.01456901040487675
+DS2_ita_i	Moraxella	dirty surface	21.41494	0.01336261240606919
+DS2_ita_i	Pseudomonas	dirty surface	4.38646	0.0027370875106223157
+DS2_ita_i	Segatella	dirty surface	9.894517	0.006174035305084325
+DS2_ita_i	Unknown	dirty surface	1382.276976	0.8625208134191086
+DS3_ita_i	Acinetobacter	dirty surface	79.174896	0.06381402442177327
+DS3_ita_i	Aeromonas	dirty surface	34.583223000000004	0.02787366638417348
+DS3_ita_i	Empedobacter	dirty surface	30.306333000000002	0.024426543916096756
+DS3_ita_i	Moraxella	dirty surface	16.872662	0.013599164878326152
+DS3_ita_i	Pseudomonas	dirty surface	16.313222	0.013148262892644771
+DS3_ita_i	Streptococcus	dirty surface	108.68256500000001	0.08759685465366397
+DS3_ita_i	Unknown	dirty surface	954.7801979999999	0.7695414828533215
+DS4_ita_i	Acinetobacter	dirty surface	43.762093	0.03408830665892655
+DS4_ita_i	Aeromonas	dirty surface	125.804814	0.09799515482043365
+DS4_ita_i	Empedobacter	dirty surface	16.814493	0.013097581820375315
+DS4_ita_i	Moraxella	dirty surface	19.084396	0.014865713649673732
+DS4_ita_i	Segatella	dirty surface	5.604456	0.004365568502047214
+DS4_ita_i	Shewanella	dirty surface	6.246042	0.00486532934109287
+DS4_ita_i	Streptococcus	dirty surface	82.953758	0.06461649677528863
+DS4_ita_i	Unknown	dirty surface	983.516011	0.766105848432162

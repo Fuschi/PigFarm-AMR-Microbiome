@@ -1,187 +1,187 @@
-sample_id	Antibiotic_Family	Surface	abun	rela	highlight
-CAR1_ita_i	Aminoglycoside	carcass	263.101412	0.31738111967995997	TRUE
-CAR1_ita_i	Amphenicol	carcass	13.18004	0.01589917675024359	TRUE
-CAR1_ita_i	Beta-lactam	carcass	57.211527	0.06901467521527502	TRUE
-CAR1_ita_i	Folate pathway antagonist	carcass	83.163745	0.10032102186087347	TRUE
-CAR1_ita_i	Lincosamide	carcass	14.509856000000001	0.01750334332555762	TRUE
-CAR1_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	carcass	80.2041	0.09675078087731234	TRUE
-CAR1_ita_i	Macrolide	carcass	99.28482	0.11976799021824817	TRUE
-CAR1_ita_i	Macrolide, Lincosamide, Streptogramin B	carcass	9.091557	0.01096721039374041	TRUE
-CAR1_ita_i	Macrolide, Streptogramin B	carcass	48.989469	0.059096347699368064	TRUE
-CAR1_ita_i	Oxazolidinone, Amphenicol	carcass	2.019231	0.0024358128327813203	FALSE
-CAR1_ita_i	Tetracycline	carcass	158.220498	0.1908625211466401	TRUE
-CAR2_ita_i	Aminoglycoside	carcass	43.337502	0.1854810106700699	TRUE
-CAR2_ita_i	Beta-lactam	carcass	37.373532	0.15995570043862237	TRUE
-CAR2_ita_i	Folate pathway antagonist	carcass	11.324731	0.04846893462956566	TRUE
-CAR2_ita_i	Fosfomycin	carcass	6.954617	0.029765199433581784	TRUE
-CAR2_ita_i	Lincosamide	carcass	9.36387	0.040076607816093034	TRUE
-CAR2_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	carcass	9.056317	0.038760305799548284	TRUE
-CAR2_ita_i	Macrolide	carcass	47.289365000000004	0.20239466534425152	TRUE
-CAR2_ita_i	Macrolide, Lincosamide, Streptogramin B	carcass	1.480717	0.006337349247225968	TRUE
-CAR2_ita_i	Macrolide, Streptogramin B	carcass	39.530007	0.16918523938354676	TRUE
-CAR2_ita_i	Tetracycline	carcass	27.938608000000002	0.11957498723749468	TRUE
-CAR3_ita_i	Aminoglycoside	carcass	13.817586	0.13037140527677893	TRUE
-CAR3_ita_i	Beta-lactam	carcass	3.946919	0.037239889554052275	TRUE
-CAR3_ita_i	Folate pathway antagonist	carcass	4.863431	0.045887344861588	TRUE
-CAR3_ita_i	Fosfomycin	carcass	4.570279	0.04312140309725244	TRUE
-CAR3_ita_i	Lincosamide	carcass	22.358948	0.21096068960746298	TRUE
-CAR3_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	carcass	4.219819	0.03981475006152681	TRUE
-CAR3_ita_i	Macrolide	carcass	12.393203	0.11693209588059682	TRUE
-CAR3_ita_i	Macrolide, Lincosamide, Streptogramin B	carcass	1.310139	0.01236139674020584	TRUE
-CAR3_ita_i	Macrolide, Streptogramin B	carcass	12.393203	0.11693209588059682	TRUE
-CAR3_ita_i	Tetracycline	carcass	26.112797	0.24637892903993916	TRUE
-CAR4_ita_i	Aminoglycoside	carcass	15.484982	0.15324310284501472	TRUE
-CAR4_ita_i	Beta-lactam	carcass	7.462784	0.07385350373814643	TRUE
-CAR4_ita_i	Folate pathway antagonist	carcass	7.742491	0.07662155142250736	TRUE
-CAR4_ita_i	Fosfomycin	carcass	6.199014	0.06134693213977815	TRUE
-CAR4_ita_i	Lincosamide	carcass	10.2045	0.10098618409643308	TRUE
-CAR4_ita_i	Macrolide	carcass	20.967481	0.20749923036939222	TRUE
-CAR4_ita_i	Macrolide, Streptogramin B	carcass	20.967481	0.20749923036939222	TRUE
-CAR4_ita_i	Tetracycline	carcass	12.019743	0.11895026501933588	TRUE
-CD1_ita_i	Aminoglycoside	clean drain	60.367670000000004	0.251469881945184	TRUE
-CD1_ita_i	Beta-lactam	clean drain	107.001597	0.44572995720285635	TRUE
-CD1_ita_i	Folate pathway antagonist	clean drain	28.583610999999998	0.11906898649123052	TRUE
-CD1_ita_i	Macrolide	clean drain	4.213115	0.01755031346532811	TRUE
-CD1_ita_i	Tetracycline	clean drain	39.893252	0.16618086089540104	TRUE
-CD2_ita_i	Aminoglycoside	clean drain	139.173003	0.22415741329144312	TRUE
-CD2_ita_i	Amphenicol	clean drain	5.782664	0.009313781956501647	TRUE
-CD2_ita_i	Beta-lactam	clean drain	251.02783699999998	0.4043151286033974	TRUE
-CD2_ita_i	Folate pathway antagonist	clean drain	79.656971	0.1282985937293564	TRUE
-CD2_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	clean drain	3.226337	0.00519646296865833	TRUE
-CD2_ita_i	Macrolide	clean drain	15.097532	0.02431666808400181	TRUE
-CD2_ita_i	Macrolide, Lincosamide, Streptogramin B	clean drain	2.419837	0.0038974829227973605	TRUE
-CD2_ita_i	Macrolide, Streptogramin B	clean drain	15.097532	0.02431666808400181	TRUE
-CD2_ita_i	Tetracycline	clean drain	109.390026	0.17618780035984213	TRUE
-CD3_ita_i	Aminoglycoside	clean drain	62.928262	0.31639939749012674	TRUE
-CD3_ita_i	Amphenicol	clean drain	3.456195	0.017377534049937512	TRUE
-CD3_ita_i	Beta-lactam	clean drain	68.410285	0.3439626690488903	TRUE
-CD3_ita_i	Folate pathway antagonist	clean drain	14.770168	0.07426348841523624	TRUE
-CD3_ita_i	Macrolide	clean drain	2.149016	0.010805119130679984	TRUE
-CD3_ita_i	Tetracycline	clean drain	47.174765	0.23719179186512923	TRUE
-CD4_ita_i	Aminoglycoside	clean drain	44.216445	0.4009316452880923	TRUE
-CD4_ita_i	Beta-lactam	clean drain	8.363033999999999	0.07583162737800958	TRUE
-CD4_ita_i	Folate pathway antagonist	clean drain	3.442051	0.031210721951878385	TRUE
-CD4_ita_i	Macrolide	clean drain	3.081841	0.02794452567695796	TRUE
-CD4_ita_i	Tetracycline	clean drain	51.180877	0.4640814797050618	TRUE
-CS1_ita_i	Aminoglycoside	clean surface	60.350381	0.10303979176825918	TRUE
-CS1_ita_i	Beta-lactam	clean surface	285.636981	0.48768499147593125	TRUE
-CS1_ita_i	Folate pathway antagonist	clean surface	28.39418	0.048479070821946746	TRUE
-CS1_ita_i	Lincosamide	clean surface	6.955367000000001	0.011875311397815726	TRUE
-CS1_ita_i	Macrolide	clean surface	12.15624	0.020755070929626494	TRUE
-CS1_ita_i	Macrolide, Streptogramin B	clean surface	12.15624	0.020755070929626494	TRUE
-CS1_ita_i	Tetracycline	clean surface	180.050368	0.3074106926767941	TRUE
-CS2_ita_i	Aminoglycoside	clean surface	122.045396	0.324788929728265	TRUE
-CS2_ita_i	Amphenicol	clean surface	6.8083919999999996	0.01811858884746854	TRUE
-CS2_ita_i	Beta-lactam	clean surface	86.333863	0.22975289426793827	TRUE
-CS2_ita_i	Folate pathway antagonist	clean surface	51.393214	0.136768346184527	TRUE
-CS2_ita_i	Lincosamide	clean surface	14.165265	0.03769680307045136	TRUE
-CS2_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	clean surface	2.551339	0.006789659342692304	TRUE
-CS2_ita_i	Macrolide	clean surface	8.916184999999999	0.023727877317135423	TRUE
-CS2_ita_i	Macrolide, Lincosamide, Streptogramin B	clean surface	9.405533	0.025030137118764215	TRUE
-CS2_ita_i	Macrolide, Streptogramin B	clean surface	4.389486	0.01168136207282414	TRUE
-CS2_ita_i	Oxazolidinone, Amphenicol, Lincosamide, Streptogramin A, Pleuromutilin	clean surface	3.360167	0.008942123827745499	FALSE
-CS2_ita_i	Tetracycline	clean surface	66.399497	0.17670327822218826	TRUE
-CS3_ita_i	Aminoglycoside	clean surface	154.941619	0.13170403118051774	TRUE
-CS3_ita_i	Amphenicol	clean surface	50.313708	0.04276783868664406	TRUE
-CS3_ita_i	Beta-lactam	clean surface	113.034629	0.09608210110605758	TRUE
-CS3_ita_i	Folate pathway antagonist	clean surface	45.143874000000004	0.03837335783167055	TRUE
-CS3_ita_i	Lincosamide	clean surface	426.200159	0.3622801890954658	TRUE
-CS3_ita_i	Macrolide	clean surface	36.236525	0.030801901059737926	TRUE
-CS3_ita_i	Macrolide, Lincosamide, Streptogramin B	clean surface	42.833397	0.03640939787814851	TRUE
-CS3_ita_i	Oxazolidinone, Amphenicol, Lincosamide, Streptogramin A, Pleuromutilin	clean surface	26.043608	0.022137681161606946	FALSE
-CS3_ita_i	Tetracycline	clean surface	281.69042	0.23944350200015102	TRUE
-CS4_ita_i	Aminoglycoside	clean surface	34.656431	0.2225938546490739	TRUE
-CS4_ita_i	Amphenicol	clean surface	5.199572	0.03339619056576814	TRUE
-CS4_ita_i	Beta-lactam	clean surface	8.966842	0.057592887300172695	TRUE
-CS4_ita_i	Folate pathway antagonist	clean surface	17.975851	0.11545660788577479	TRUE
-CS4_ita_i	Lincosamide	clean surface	19.30949	0.12402240179918546	TRUE
-CS4_ita_i	Macrolide, Lincosamide, Streptogramin B	clean surface	8.891169999999999	0.0571068556551656	TRUE
-CS4_ita_i	Oxazolidinone, Amphenicol, Lincosamide, Streptogramin A, Pleuromutilin	clean surface	3.522286	0.022623195617473363	FALSE
-CS4_ita_i	Tetracycline	clean surface	57.171924	0.36720800652738594	TRUE
-DD1_ita_i	Aminoglycoside	dirty drain	188.194217	0.30855244670541165	TRUE
-DD1_ita_i	Amphenicol	dirty drain	15.339887	0.025150399100916775	TRUE
-DD1_ita_i	Beta-lactam	dirty drain	55.958304	0.091746026460979	TRUE
-DD1_ita_i	Folate pathway antagonist	dirty drain	59.321741	0.09726052489899163	TRUE
-DD1_ita_i	Lincosamide	dirty drain	57.531842	0.09432590913550315	TRUE
-DD1_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	dirty drain	49.250359	0.08074806448792149	TRUE
-DD1_ita_i	Macrolide	dirty drain	37.863129	0.062078215149791914	TRUE
-DD1_ita_i	Macrolide, Lincosamide, Streptogramin B	dirty drain	3.352853	0.005497145518523449	TRUE
-DD1_ita_i	Macrolide, Streptogramin B	dirty drain	27.815013	0.045603900338196	TRUE
-DD1_ita_i	Oxazolidinone, Amphenicol, Lincosamide, Streptogramin A, Pleuromutilin	dirty drain	2.442926	0.004005281386623397	FALSE
-DD1_ita_i	Tetracycline	dirty drain	112.85591500000001	0.1850320868171415	TRUE
-DD2_ita_i	Aminoglycoside	dirty drain	349.93619	0.28555914170354285	TRUE
-DD2_ita_i	Amphenicol	dirty drain	79.77096499999999	0.06509566300719956	TRUE
-DD2_ita_i	Beta-lactam	dirty drain	54.413607999999996	0.044403247339102114	TRUE
-DD2_ita_i	Folate pathway antagonist	dirty drain	163.870161	0.13372330117094028	TRUE
-DD2_ita_i	Lincosamide	dirty drain	37.213224000000004	0.03036718295830358	TRUE
-DD2_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	dirty drain	90.447836	0.07380833179072678	TRUE
-DD2_ita_i	Macrolide	dirty drain	119.907079	0.09784801784410727	TRUE
-DD2_ita_i	Macrolide, Lincosamide, Streptogramin A, Streptogramin B, Tetracycline	dirty drain	2.756224	0.002249167083240821	FALSE
-DD2_ita_i	Macrolide, Lincosamide, Streptogramin B	dirty drain	25.849188	0.021093765520546818	TRUE
-DD2_ita_i	Macrolide, Streptogramin B	dirty drain	57.127678	0.04661801540788442	TRUE
-DD2_ita_i	Tetracycline	dirty drain	244.149932	0.19923416617440556	TRUE
-DD3_ita_i	Aminoglycoside	dirty drain	251.510696	0.24673150114793987	TRUE
-DD3_ita_i	Amphenicol	dirty drain	28.806999	0.0282596097099473	TRUE
-DD3_ita_i	Beta-lactam	dirty drain	52.46315	0.051466247600259286	TRUE
-DD3_ita_i	Folate pathway antagonist	dirty drain	39.864779	0.03910727027530022	TRUE
-DD3_ita_i	Lincosamide	dirty drain	93.56341	0.0917855223215643	TRUE
-DD3_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	dirty drain	33.349971	0.03271625636179807	TRUE
-DD3_ita_i	Macrolide	dirty drain	149.828927	0.14698188451633523	TRUE
-DD3_ita_i	Macrolide, Lincosamide, Streptogramin B	dirty drain	14.83309	0.014551232295752925	TRUE
-DD3_ita_i	Macrolide, Streptogramin B	dirty drain	96.603579	0.0947679221679447	TRUE
-DD3_ita_i	Oxazolidinone, Amphenicol	dirty drain	3.543772	0.0034764334049874257	FALSE
-DD3_ita_i	Oxazolidinone, Amphenicol, Lincosamide, Streptogramin A, Pleuromutilin	dirty drain	3.225959	0.0031646594732166263	FALSE
-DD3_ita_i	Tetracycline	dirty drain	251.775691	0.24699146072495407	TRUE
-DD4_ita_i	Aminoglycoside	dirty drain	324.35472400000003	0.224877527128229	TRUE
-DD4_ita_i	Amphenicol	dirty drain	58.53297	0.040581340659218555	TRUE
-DD4_ita_i	Beta-lactam	dirty drain	138.63212	0.09611467328634897	TRUE
-DD4_ita_i	Folate pathway antagonist	dirty drain	89.934479	0.06235223890583952	TRUE
-DD4_ita_i	Lincosamide	dirty drain	164.04297400000002	0.11373220615057349	TRUE
-DD4_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	dirty drain	83.933829	0.058191943916080076	TRUE
-DD4_ita_i	Macrolide	dirty drain	161.750729	0.11214297575239976	TRUE
-DD4_ita_i	Macrolide, Lincosamide, Streptogramin B	dirty drain	29.295515	0.020310797043140767	TRUE
-DD4_ita_i	Macrolide, Streptogramin B	dirty drain	93.441833	0.06478391335335983	TRUE
-DD4_ita_i	Oxazolidinone, Amphenicol, Lincosamide, Streptogramin A, Pleuromutilin	dirty drain	5.847518	0.004054127442515088	FALSE
-DD4_ita_i	Tetracycline	dirty drain	292.594972	0.20285825636229488	TRUE
-DS1_ita_i	Aminoglycoside	dirty surface	215.794533	0.32486168441338326	TRUE
-DS1_ita_i	Amphenicol	dirty surface	11.134741	0.016762476168785793	TRUE
-DS1_ita_i	Beta-lactam	dirty surface	74.747686	0.11252675794137318	TRUE
-DS1_ita_i	Folate pathway antagonist	dirty surface	62.612014	0.09425745893457985	TRUE
-DS1_ita_i	Lincosamide	dirty surface	42.080309	0.06334859309144616	TRUE
-DS1_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	dirty surface	28.991334	0.04364417145188283	TRUE
-DS1_ita_i	Macrolide	dirty surface	73.841501	0.11116256774898241	TRUE
-DS1_ita_i	Macrolide, Lincosamide, Streptogramin B	dirty surface	14.179134	0.021345570208505107	TRUE
-DS1_ita_i	Macrolide, Streptogramin B	dirty surface	32.069736	0.04827846336428048	TRUE
-DS1_ita_i	Tetracycline	dirty surface	108.814893	0.1638122566767809	TRUE
-DS2_ita_i	Aminoglycoside	dirty surface	417.972868	0.26080901610451024	TRUE
-DS2_ita_i	Amphenicol	dirty surface	62.820915	0.03919934112071377	TRUE
-DS2_ita_i	Beta-lactam	dirty surface	169.166864	0.10555767308160656	TRUE
-DS2_ita_i	Folate pathway antagonist	dirty surface	142.420841	0.08886854209394972	TRUE
-DS2_ita_i	Lincosamide	dirty surface	219.979328	0.13726391469747587	TRUE
-DS2_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	dirty surface	57.855325	0.03610088487766788	TRUE
-DS2_ita_i	Macrolide	dirty surface	103.335836	0.0644800650445498	TRUE
-DS2_ita_i	Macrolide, Lincosamide, Streptogramin B	dirty surface	76.393768	0.0476686048162251	TRUE
-DS2_ita_i	Macrolide, Streptogramin B	dirty surface	62.391389000000004	0.038931323117566	TRUE
-DS2_ita_i	Tetracycline	dirty surface	290.264165	0.1811206350457351	TRUE
-DS3_ita_i	Aminoglycoside	dirty surface	476.648102	0.3841727006704231	TRUE
-DS3_ita_i	Amphenicol	dirty surface	45.326872	0.036532919686697043	TRUE
-DS3_ita_i	Beta-lactam	dirty surface	112.558278	0.09072063323158322	TRUE
-DS3_ita_i	Folate pathway antagonist	dirty surface	141.70843399999998	0.11421531223795033	TRUE
-DS3_ita_i	Lincosamide	dirty surface	19.368079	0.01561044129832307	TRUE
-DS3_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	dirty surface	72.662415	0.058565042199171614	TRUE
-DS3_ita_i	Macrolide	dirty surface	116.25592300000001	0.09370089111955124	TRUE
-DS3_ita_i	Macrolide, Lincosamide, Streptogramin B	dirty surface	24.46876	0.01972152951373007	TRUE
-DS3_ita_i	Macrolide, Streptogramin B	dirty surface	72.679765	0.058579026092800204	TRUE
-DS3_ita_i	Oxazolidinone, Amphenicol, Lincosamide, Streptogramin A, Pleuromutilin	dirty surface	6.778061	0.005463036543632074	FALSE
-DS3_ita_i	Tetracycline	dirty surface	152.25841	0.12271846740613802	TRUE
-DS4_ita_i	Aminoglycoside	dirty surface	425.385918	0.33135265310946127	TRUE
-DS4_ita_i	Amphenicol	dirty surface	27.607347	0.021504632115639348	TRUE
-DS4_ita_i	Beta-lactam	dirty surface	184.751595	0.14391151323785636	TRUE
-DS4_ita_i	Folate pathway antagonist	dirty surface	114.540302	0.08922070841954606	TRUE
-DS4_ita_i	Lincosamide	dirty surface	82.390373	0.06417765029125418	TRUE
-DS4_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	dirty surface	48.386964	0.03769083135777896	TRUE
-DS4_ita_i	Macrolide	dirty surface	143.889216	0.11208192715829475	TRUE
-DS4_ita_i	Macrolide, Lincosamide, Streptogramin B	dirty surface	17.647237	0.013746244416114993	TRUE
-DS4_ita_i	Macrolide, Streptogramin B	dirty surface	54.840125	0.04271749521244023	TRUE
-DS4_ita_i	Oxazolidinone, Amphenicol, Lincosamide, Streptogramin A, Pleuromutilin	dirty surface	8.728997	0.006799417170491591	FALSE
-DS4_ita_i	Tetracycline	dirty surface	175.617989	0.13679692751112224	TRUE
+sample_id	Antibiotic_Family	Surface	abun	rela
+CAR1_ita_i	Aminoglycoside	carcass	263.101412	0.31738111967995997
+CAR1_ita_i	Amphenicol	carcass	13.18004	0.01589917675024359
+CAR1_ita_i	Beta-lactam	carcass	57.211527	0.06901467521527502
+CAR1_ita_i	Folate pathway antagonist	carcass	83.163745	0.10032102186087347
+CAR1_ita_i	Lincosamide	carcass	14.509856000000001	0.01750334332555762
+CAR1_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	carcass	80.2041	0.09675078087731234
+CAR1_ita_i	Macrolide	carcass	99.28482	0.11976799021824817
+CAR1_ita_i	Macrolide, Lincosamide, Streptogramin B	carcass	9.091557	0.01096721039374041
+CAR1_ita_i	Macrolide, Streptogramin B	carcass	48.989469	0.059096347699368064
+CAR1_ita_i	Oxazolidinone, Amphenicol	carcass	2.019231	0.0024358128327813203
+CAR1_ita_i	Tetracycline	carcass	158.220498	0.1908625211466401
+CAR2_ita_i	Aminoglycoside	carcass	43.337502	0.1854810106700699
+CAR2_ita_i	Beta-lactam	carcass	37.373532	0.15995570043862237
+CAR2_ita_i	Folate pathway antagonist	carcass	11.324731	0.04846893462956566
+CAR2_ita_i	Fosfomycin	carcass	6.954617	0.029765199433581784
+CAR2_ita_i	Lincosamide	carcass	9.36387	0.040076607816093034
+CAR2_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	carcass	9.056317	0.038760305799548284
+CAR2_ita_i	Macrolide	carcass	47.289365000000004	0.20239466534425152
+CAR2_ita_i	Macrolide, Lincosamide, Streptogramin B	carcass	1.480717	0.006337349247225968
+CAR2_ita_i	Macrolide, Streptogramin B	carcass	39.530007	0.16918523938354676
+CAR2_ita_i	Tetracycline	carcass	27.938608000000002	0.11957498723749468
+CAR3_ita_i	Aminoglycoside	carcass	13.817586	0.13037140527677893
+CAR3_ita_i	Beta-lactam	carcass	3.946919	0.037239889554052275
+CAR3_ita_i	Folate pathway antagonist	carcass	4.863431	0.045887344861588
+CAR3_ita_i	Fosfomycin	carcass	4.570279	0.04312140309725244
+CAR3_ita_i	Lincosamide	carcass	22.358948	0.21096068960746298
+CAR3_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	carcass	4.219819	0.03981475006152681
+CAR3_ita_i	Macrolide	carcass	12.393203	0.11693209588059682
+CAR3_ita_i	Macrolide, Lincosamide, Streptogramin B	carcass	1.310139	0.01236139674020584
+CAR3_ita_i	Macrolide, Streptogramin B	carcass	12.393203	0.11693209588059682
+CAR3_ita_i	Tetracycline	carcass	26.112797	0.24637892903993916
+CAR4_ita_i	Aminoglycoside	carcass	15.484982	0.15324310284501472
+CAR4_ita_i	Beta-lactam	carcass	7.462784	0.07385350373814643
+CAR4_ita_i	Folate pathway antagonist	carcass	7.742491	0.07662155142250736
+CAR4_ita_i	Fosfomycin	carcass	6.199014	0.06134693213977815
+CAR4_ita_i	Lincosamide	carcass	10.2045	0.10098618409643308
+CAR4_ita_i	Macrolide	carcass	20.967481	0.20749923036939222
+CAR4_ita_i	Macrolide, Streptogramin B	carcass	20.967481	0.20749923036939222
+CAR4_ita_i	Tetracycline	carcass	12.019743	0.11895026501933588
+CD1_ita_i	Aminoglycoside	clean drain	60.367670000000004	0.251469881945184
+CD1_ita_i	Beta-lactam	clean drain	107.001597	0.44572995720285635
+CD1_ita_i	Folate pathway antagonist	clean drain	28.583610999999998	0.11906898649123052
+CD1_ita_i	Macrolide	clean drain	4.213115	0.01755031346532811
+CD1_ita_i	Tetracycline	clean drain	39.893252	0.16618086089540104
+CD2_ita_i	Aminoglycoside	clean drain	139.173003	0.22415741329144312
+CD2_ita_i	Amphenicol	clean drain	5.782664	0.009313781956501647
+CD2_ita_i	Beta-lactam	clean drain	251.02783699999998	0.4043151286033974
+CD2_ita_i	Folate pathway antagonist	clean drain	79.656971	0.1282985937293564
+CD2_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	clean drain	3.226337	0.00519646296865833
+CD2_ita_i	Macrolide	clean drain	15.097532	0.02431666808400181
+CD2_ita_i	Macrolide, Lincosamide, Streptogramin B	clean drain	2.419837	0.0038974829227973605
+CD2_ita_i	Macrolide, Streptogramin B	clean drain	15.097532	0.02431666808400181
+CD2_ita_i	Tetracycline	clean drain	109.390026	0.17618780035984213
+CD3_ita_i	Aminoglycoside	clean drain	62.928262	0.31639939749012674
+CD3_ita_i	Amphenicol	clean drain	3.456195	0.017377534049937512
+CD3_ita_i	Beta-lactam	clean drain	68.410285	0.3439626690488903
+CD3_ita_i	Folate pathway antagonist	clean drain	14.770168	0.07426348841523624
+CD3_ita_i	Macrolide	clean drain	2.149016	0.010805119130679984
+CD3_ita_i	Tetracycline	clean drain	47.174765	0.23719179186512923
+CD4_ita_i	Aminoglycoside	clean drain	44.216445	0.4009316452880923
+CD4_ita_i	Beta-lactam	clean drain	8.363033999999999	0.07583162737800958
+CD4_ita_i	Folate pathway antagonist	clean drain	3.442051	0.031210721951878385
+CD4_ita_i	Macrolide	clean drain	3.081841	0.02794452567695796
+CD4_ita_i	Tetracycline	clean drain	51.180877	0.4640814797050618
+CS1_ita_i	Aminoglycoside	clean surface	60.350381	0.10303979176825918
+CS1_ita_i	Beta-lactam	clean surface	285.636981	0.48768499147593125
+CS1_ita_i	Folate pathway antagonist	clean surface	28.39418	0.048479070821946746
+CS1_ita_i	Lincosamide	clean surface	6.955367000000001	0.011875311397815726
+CS1_ita_i	Macrolide	clean surface	12.15624	0.020755070929626494
+CS1_ita_i	Macrolide, Streptogramin B	clean surface	12.15624	0.020755070929626494
+CS1_ita_i	Tetracycline	clean surface	180.050368	0.3074106926767941
+CS2_ita_i	Aminoglycoside	clean surface	122.045396	0.324788929728265
+CS2_ita_i	Amphenicol	clean surface	6.8083919999999996	0.01811858884746854
+CS2_ita_i	Beta-lactam	clean surface	86.333863	0.22975289426793827
+CS2_ita_i	Folate pathway antagonist	clean surface	51.393214	0.136768346184527
+CS2_ita_i	Lincosamide	clean surface	14.165265	0.03769680307045136
+CS2_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	clean surface	2.551339	0.006789659342692304
+CS2_ita_i	Macrolide	clean surface	8.916184999999999	0.023727877317135423
+CS2_ita_i	Macrolide, Lincosamide, Streptogramin B	clean surface	9.405533	0.025030137118764215
+CS2_ita_i	Macrolide, Streptogramin B	clean surface	4.389486	0.01168136207282414
+CS2_ita_i	Oxazolidinone, Amphenicol, Lincosamide, Streptogramin A, Pleuromutilin	clean surface	3.360167	0.008942123827745499
+CS2_ita_i	Tetracycline	clean surface	66.399497	0.17670327822218826
+CS3_ita_i	Aminoglycoside	clean surface	154.941619	0.13170403118051774
+CS3_ita_i	Amphenicol	clean surface	50.313708	0.04276783868664406
+CS3_ita_i	Beta-lactam	clean surface	113.034629	0.09608210110605758
+CS3_ita_i	Folate pathway antagonist	clean surface	45.143874000000004	0.03837335783167055
+CS3_ita_i	Lincosamide	clean surface	426.200159	0.3622801890954658
+CS3_ita_i	Macrolide	clean surface	36.236525	0.030801901059737926
+CS3_ita_i	Macrolide, Lincosamide, Streptogramin B	clean surface	42.833397	0.03640939787814851
+CS3_ita_i	Oxazolidinone, Amphenicol, Lincosamide, Streptogramin A, Pleuromutilin	clean surface	26.043608	0.022137681161606946
+CS3_ita_i	Tetracycline	clean surface	281.69042	0.23944350200015102
+CS4_ita_i	Aminoglycoside	clean surface	34.656431	0.2225938546490739
+CS4_ita_i	Amphenicol	clean surface	5.199572	0.03339619056576814
+CS4_ita_i	Beta-lactam	clean surface	8.966842	0.057592887300172695
+CS4_ita_i	Folate pathway antagonist	clean surface	17.975851	0.11545660788577479
+CS4_ita_i	Lincosamide	clean surface	19.30949	0.12402240179918546
+CS4_ita_i	Macrolide, Lincosamide, Streptogramin B	clean surface	8.891169999999999	0.0571068556551656
+CS4_ita_i	Oxazolidinone, Amphenicol, Lincosamide, Streptogramin A, Pleuromutilin	clean surface	3.522286	0.022623195617473363
+CS4_ita_i	Tetracycline	clean surface	57.171924	0.36720800652738594
+DD1_ita_i	Aminoglycoside	dirty drain	188.194217	0.30855244670541165
+DD1_ita_i	Amphenicol	dirty drain	15.339887	0.025150399100916775
+DD1_ita_i	Beta-lactam	dirty drain	55.958304	0.091746026460979
+DD1_ita_i	Folate pathway antagonist	dirty drain	59.321741	0.09726052489899163
+DD1_ita_i	Lincosamide	dirty drain	57.531842	0.09432590913550315
+DD1_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	dirty drain	49.250359	0.08074806448792149
+DD1_ita_i	Macrolide	dirty drain	37.863129	0.062078215149791914
+DD1_ita_i	Macrolide, Lincosamide, Streptogramin B	dirty drain	3.352853	0.005497145518523449
+DD1_ita_i	Macrolide, Streptogramin B	dirty drain	27.815013	0.045603900338196
+DD1_ita_i	Oxazolidinone, Amphenicol, Lincosamide, Streptogramin A, Pleuromutilin	dirty drain	2.442926	0.004005281386623397
+DD1_ita_i	Tetracycline	dirty drain	112.85591500000001	0.1850320868171415
+DD2_ita_i	Aminoglycoside	dirty drain	349.93619	0.28555914170354285
+DD2_ita_i	Amphenicol	dirty drain	79.77096499999999	0.06509566300719956
+DD2_ita_i	Beta-lactam	dirty drain	54.413607999999996	0.044403247339102114
+DD2_ita_i	Folate pathway antagonist	dirty drain	163.870161	0.13372330117094028
+DD2_ita_i	Lincosamide	dirty drain	37.213224000000004	0.03036718295830358
+DD2_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	dirty drain	90.447836	0.07380833179072678
+DD2_ita_i	Macrolide	dirty drain	119.907079	0.09784801784410727
+DD2_ita_i	Macrolide, Lincosamide, Streptogramin A, Streptogramin B, Tetracycline	dirty drain	2.756224	0.002249167083240821
+DD2_ita_i	Macrolide, Lincosamide, Streptogramin B	dirty drain	25.849188	0.021093765520546818
+DD2_ita_i	Macrolide, Streptogramin B	dirty drain	57.127678	0.04661801540788442
+DD2_ita_i	Tetracycline	dirty drain	244.149932	0.19923416617440556
+DD3_ita_i	Aminoglycoside	dirty drain	251.510696	0.24673150114793987
+DD3_ita_i	Amphenicol	dirty drain	28.806999	0.0282596097099473
+DD3_ita_i	Beta-lactam	dirty drain	52.46315	0.051466247600259286
+DD3_ita_i	Folate pathway antagonist	dirty drain	39.864779	0.03910727027530022
+DD3_ita_i	Lincosamide	dirty drain	93.56341	0.0917855223215643
+DD3_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	dirty drain	33.349971	0.03271625636179807
+DD3_ita_i	Macrolide	dirty drain	149.828927	0.14698188451633523
+DD3_ita_i	Macrolide, Lincosamide, Streptogramin B	dirty drain	14.83309	0.014551232295752925
+DD3_ita_i	Macrolide, Streptogramin B	dirty drain	96.603579	0.0947679221679447
+DD3_ita_i	Oxazolidinone, Amphenicol	dirty drain	3.543772	0.0034764334049874257
+DD3_ita_i	Oxazolidinone, Amphenicol, Lincosamide, Streptogramin A, Pleuromutilin	dirty drain	3.225959	0.0031646594732166263
+DD3_ita_i	Tetracycline	dirty drain	251.775691	0.24699146072495407
+DD4_ita_i	Aminoglycoside	dirty drain	324.35472400000003	0.224877527128229
+DD4_ita_i	Amphenicol	dirty drain	58.53297	0.040581340659218555
+DD4_ita_i	Beta-lactam	dirty drain	138.63212	0.09611467328634897
+DD4_ita_i	Folate pathway antagonist	dirty drain	89.934479	0.06235223890583952
+DD4_ita_i	Lincosamide	dirty drain	164.04297400000002	0.11373220615057349
+DD4_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	dirty drain	83.933829	0.058191943916080076
+DD4_ita_i	Macrolide	dirty drain	161.750729	0.11214297575239976
+DD4_ita_i	Macrolide, Lincosamide, Streptogramin B	dirty drain	29.295515	0.020310797043140767
+DD4_ita_i	Macrolide, Streptogramin B	dirty drain	93.441833	0.06478391335335983
+DD4_ita_i	Oxazolidinone, Amphenicol, Lincosamide, Streptogramin A, Pleuromutilin	dirty drain	5.847518	0.004054127442515088
+DD4_ita_i	Tetracycline	dirty drain	292.594972	0.20285825636229488
+DS1_ita_i	Aminoglycoside	dirty surface	215.794533	0.32486168441338326
+DS1_ita_i	Amphenicol	dirty surface	11.134741	0.016762476168785793
+DS1_ita_i	Beta-lactam	dirty surface	74.747686	0.11252675794137318
+DS1_ita_i	Folate pathway antagonist	dirty surface	62.612014	0.09425745893457985
+DS1_ita_i	Lincosamide	dirty surface	42.080309	0.06334859309144616
+DS1_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	dirty surface	28.991334	0.04364417145188283
+DS1_ita_i	Macrolide	dirty surface	73.841501	0.11116256774898241
+DS1_ita_i	Macrolide, Lincosamide, Streptogramin B	dirty surface	14.179134	0.021345570208505107
+DS1_ita_i	Macrolide, Streptogramin B	dirty surface	32.069736	0.04827846336428048
+DS1_ita_i	Tetracycline	dirty surface	108.814893	0.1638122566767809
+DS2_ita_i	Aminoglycoside	dirty surface	417.972868	0.26080901610451024
+DS2_ita_i	Amphenicol	dirty surface	62.820915	0.03919934112071377
+DS2_ita_i	Beta-lactam	dirty surface	169.166864	0.10555767308160656
+DS2_ita_i	Folate pathway antagonist	dirty surface	142.420841	0.08886854209394972
+DS2_ita_i	Lincosamide	dirty surface	219.979328	0.13726391469747587
+DS2_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	dirty surface	57.855325	0.03610088487766788
+DS2_ita_i	Macrolide	dirty surface	103.335836	0.0644800650445498
+DS2_ita_i	Macrolide, Lincosamide, Streptogramin B	dirty surface	76.393768	0.0476686048162251
+DS2_ita_i	Macrolide, Streptogramin B	dirty surface	62.391389000000004	0.038931323117566
+DS2_ita_i	Tetracycline	dirty surface	290.264165	0.1811206350457351
+DS3_ita_i	Aminoglycoside	dirty surface	476.648102	0.3841727006704231
+DS3_ita_i	Amphenicol	dirty surface	45.326872	0.036532919686697043
+DS3_ita_i	Beta-lactam	dirty surface	112.558278	0.09072063323158322
+DS3_ita_i	Folate pathway antagonist	dirty surface	141.70843399999998	0.11421531223795033
+DS3_ita_i	Lincosamide	dirty surface	19.368079	0.01561044129832307
+DS3_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	dirty surface	72.662415	0.058565042199171614
+DS3_ita_i	Macrolide	dirty surface	116.25592300000001	0.09370089111955124
+DS3_ita_i	Macrolide, Lincosamide, Streptogramin B	dirty surface	24.46876	0.01972152951373007
+DS3_ita_i	Macrolide, Streptogramin B	dirty surface	72.679765	0.058579026092800204
+DS3_ita_i	Oxazolidinone, Amphenicol, Lincosamide, Streptogramin A, Pleuromutilin	dirty surface	6.778061	0.005463036543632074
+DS3_ita_i	Tetracycline	dirty surface	152.25841	0.12271846740613802
+DS4_ita_i	Aminoglycoside	dirty surface	425.385918	0.33135265310946127
+DS4_ita_i	Amphenicol	dirty surface	27.607347	0.021504632115639348
+DS4_ita_i	Beta-lactam	dirty surface	184.751595	0.14391151323785636
+DS4_ita_i	Folate pathway antagonist	dirty surface	114.540302	0.08922070841954606
+DS4_ita_i	Lincosamide	dirty surface	82.390373	0.06417765029125418
+DS4_ita_i	Lincosamide, Streptogramin A, Pleuromutilin	dirty surface	48.386964	0.03769083135777896
+DS4_ita_i	Macrolide	dirty surface	143.889216	0.11208192715829475
+DS4_ita_i	Macrolide, Lincosamide, Streptogramin B	dirty surface	17.647237	0.013746244416114993
+DS4_ita_i	Macrolide, Streptogramin B	dirty surface	54.840125	0.04271749521244023
+DS4_ita_i	Oxazolidinone, Amphenicol, Lincosamide, Streptogramin A, Pleuromutilin	dirty surface	8.728997	0.006799417170491591
+DS4_ita_i	Tetracycline	dirty surface	175.617989	0.13679692751112224
