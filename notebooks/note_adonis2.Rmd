@@ -1,0 +1,83 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+# Bacteria Reads
+
+```{r}
+meta_sample <- readRDS("../data/R/meta_sample.rds")
+bac_reads <- readRDS("../data/R/bac_reads.rds") 
+
+abun_bac_sp_reads <- bac_reads %>%
+  dplyr::select(sample_id, species, abun) %>%
+  pivot_wider(names_from = "species", values_from = "abun",values_fill = 0) %>%
+  column_to_rownames("sample_id")
+
+all(rownames(abun_bac_sp_reads) == meta_sample$sample_id)
+```
+
+```{r, warning=FALSE}
+dist_aitch_bac_sp_reads <- abun_bac_sp_reads %>%
+  zCompositions::cmultRepl(method = "CZM", z.delete = FALSE) %>%
+  vegan::vegdist(method = "aitchison")
+
+vegan::adonis2(dist_aitch_bac_sp_reads ~ Surface, data = meta_sample)
+```
+
+# ARG READS
+
+```{r}
+arg_reads <- readRDS("../data/R/arg_reads.rds")
+meta_sample <- readRDS("../data/R/meta_sample.rds")
+
+abun_arg_reads_gene <- arg_reads %>%
+  dplyr::select(sample_id, Gene, abun) %>%
+  pivot_wider(names_from = "Gene", values_from = "abun",values_fill = 0) %>%
+  column_to_rownames("sample_id")
+abun_arg_reads_gene <- abun_arg_reads_gene[meta_sample$sample_id, ]
+
+all(rownames(abun_arg_reads_gene) == meta_sample$sample_id)
+```
+
+```{r, message=FALSE, warning=FALSE}
+dist_aitch_arg_reads_gene <- abun_arg_reads_gene %>%
+  zCompositions::cmultRepl(method = "CZM", z.delete = FALSE) %>%
+  vegan::vegdist(method = "aitchison")
+
+vegan::adonis2(dist_aitch_arg_reads_gene ~ Surface, data = meta_sample)
+```
+
+# ARG CONTIGS
+
+```{r}
+arg_contigs <- readRDS("../data/R/arg_contigs.rds")
+meta_sample <- readRDS("../data/R/meta_sample.rds")
+
+abun_arg_contigs_gene <- arg_contigs %>%
+  dplyr::select(sample_id, Gene, abun) %>%
+  group_by(sample_id, Gene) %>%
+  summarise(abun = sum(abun), .groups = "drop") %>%
+  pivot_wider(names_from = "Gene", values_from = "abun", values_fill = 0) %>%
+  column_to_rownames("sample_id")
+
+abun_arg_contigs_gene <- abun_arg_contigs_gene[meta_sample$sample_id, ]
+
+all(rownames(abun_arg_contigs_gene) == meta_sample$sample_id)
+```
+
+
+```{r, message=FALSE, warning=FALSE}
+dist_aitch_arg_contigs_gene <- abun_arg_contigs_gene %>%
+  zCompositions::cmultRepl(method = "CZM", z.delete = FALSE) %>%
+  vegan::vegdist(method = "aitchison")
+
+vegan::adonis2(dist_aitch_arg_contigs_gene ~ Surface, data = meta_sample)
+```
+
+
+

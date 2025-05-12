@@ -1,0 +1,118 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+```{r}
+arg_contigs <- readRDS("../data/R/arg_contigs.rds")
+meta_sample <- readRDS("../data/R/meta_sample.rds")
+
+color_genus <- readRDS("cache/color_shared_genus.rds")
+color_family <- readRDS("cache/color_shared_family.rds")
+color_phylum <- readRDS("cache/color_shared_phylum.rds")
+```
+
+```{r, fig.width=12, fig.height=4.5}
+p_arg_contigs_gen <- arg_contigs %>%
+  group_by(sample_id, genus_diamond) %>%
+  summarise(abun = sum(abun), .groups = "drop") %>%
+  group_by(sample_id) %>%
+  mutate(rela = abun/sum(abun)) %>%
+  ungroup() %>%
+  left_join(meta_sample, by = "sample_id") %>%
+  mutate(genus_fct = if_else(genus_diamond %in% names(color_genus), genus_diamond, "Others")) %>%
+  # Commentare anche le 3 righe sotto se vuoi anche le contigs sconosciute
+  filter(!genus_fct %in% "Unknown") %>%
+  group_by(sample_id) %>%
+  mutate(rela = rela / sum(rela), .groups = "drop") %>%
+  ggplot(aes(x = sample_id, y = rela, fill = genus_fct)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = color_genus, breaks = names(color_genus)) +
+  theme_bw() +
+  theme(
+    axis.title = element_blank(),
+    legend.position = "right",
+    axis.text.x = element_text(angle = 30, hjust = 1, vjust = 1)) +
+  guides(fill=guide_legend(ncol=2)) +
+  labs(fill = "Genera")
+p_arg_contigs_gen
+```
+
+```{r, fig.width=12, fig.height=4.5}
+p_arg_contigs_fam <- arg_contigs %>%
+  group_by(sample_id, family_diamond) %>%
+  summarise(abun = sum(abun), .groups = "drop") %>%
+  group_by(sample_id) %>%
+  mutate(rela = abun/sum(abun)) %>%
+  ungroup() %>%
+  left_join(meta_sample, by = "sample_id") %>%
+  mutate(family_fct = if_else(family_diamond %in% names(color_family), family_diamond, "Others")) %>%
+  # Commentare anche le 3 righe sotto se vuoi anche le contigs sconosciute
+  filter(!family_fct %in% "Unknown") %>%
+  group_by(sample_id) %>%
+  mutate(rela = rela / sum(rela), .groups = "drop") %>%
+  ggplot(aes(x = sample_id, y = rela, fill = family_fct)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = color_family, breaks = names(color_family)) +
+  theme_bw() +
+  theme(
+    axis.title = element_blank(),
+    legend.position = "right",
+    axis.text.x = element_text(angle = 30, hjust = 1, vjust = 1)) +
+  guides(fill=guide_legend(ncol=2)) +
+  labs(fill = "Families")
+p_arg_contigs_fam
+```
+
+```{r, fig.width=12, fig.height=4.5}
+p_arg_contigs_phy <- arg_contigs %>%
+  group_by(sample_id, phylum_diamond) %>%
+  summarise(abun = sum(abun), .groups = "drop") %>%
+  group_by(sample_id) %>%
+  mutate(rela = abun/sum(abun)) %>%
+  ungroup() %>%
+  left_join(meta_sample, by = "sample_id") %>%
+  mutate(phylum_fct = if_else(phylum_diamond %in% names(color_phylum), phylum_diamond, "Others")) %>%
+  # Commentare anche le 3 righe sotto se vuoi anche le contigs sconosciute
+  filter(!phylum_fct %in% "Unknown") %>%
+  group_by(sample_id) %>%
+  mutate(rela = rela / sum(rela), .groups = "drop") %>%
+  ggplot(aes(x = sample_id, y = rela, fill = phylum_fct)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = color_phylum, breaks = names(color_phylum)) +
+  theme_bw() +
+  theme(
+    axis.title = element_blank(),
+    legend.position = "right",
+    axis.text.x = element_text(angle = 30, hjust = 1, vjust = 1)) +
+  guides(fill=guide_legend(ncol=2)) +
+  labs(fill = "Phyla")
+p_arg_contigs_phy
+```
+
+```{r, fig.width=12, fig.height=13}
+pall <- ggpubr::ggarrange(
+  
+  p_arg_contigs_gen,
+  p_arg_contigs_fam,
+  p_arg_contigs_phy,
+  labels = c("a", "b", "c"),
+  nrow = 3
+  
+)
+pall
+```
+
+```{r}
+png("../plots/fig3.png", width = 3600, height = 2700, res = 300)
+pall
+dev.off()
+```
+

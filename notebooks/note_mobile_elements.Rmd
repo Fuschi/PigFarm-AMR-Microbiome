@@ -15,27 +15,28 @@ meta_sample <- readRDS("../data/R/meta_sample.rds")
 arg_contigs <- readRDS("../data/R/arg_contigs.rds") 
 
 dict_antFam <- arg_contigs %>%
-  select(ARG, Antibiotic_Family) %>%
+  dplyr::select(Gene, Antibiotic_Family) %>%
   distinct()
 ```
 
 
 ```{r, fig.width=12, fig.height=7.5}
 df_integron_platon <- arg_contigs %>%
-  group_by(sample_id, ARG) %>%
+  group_by(sample_id, Gene) %>%
   mutate(is_mobile = if_else(integron_platon == "MGE", TRUE, FALSE)) %>%
   ungroup() %>%
-  select(sample_id, ARG, is_mobile) %>%
-  pivot_wider(names_from = "ARG", values_from = "is_mobile", values_fill = FALSE, values_fn = any) %>%
-  pivot_longer(-sample_id, names_to = "ARG", values_to = "is_mobile") %>%
-  group_by(ARG) %>%
+  dplyr::select(sample_id, Gene, is_mobile) %>%
+  pivot_wider(names_from = "Gene", values_from = "is_mobile", 
+              values_fill = FALSE, values_fn = any) %>%
+  pivot_longer(-sample_id, names_to = "Gene", values_to = "is_mobile") %>%
+  group_by(Gene) %>%
   filter(any(is_mobile)) %>%
   ungroup() %>%
   left_join(meta_sample, by = "sample_id") %>%
-  left_join(dict_antFam, by = "ARG") %>%
+  left_join(dict_antFam, by = "Gene") %>%
   mutate(Antibiotic_Family = fct_infreq(Antibiotic_Family)) %>%
   arrange(Antibiotic_Family) %>%  
-  mutate(ARG = factor(ARG, levels = unique(ARG)))
+  mutate(Gene = factor(Gene, levels = unique(Gene)))
 
 library(RColorBrewer)
 antibiotic_families <- levels(df_integron_platon$Antibiotic_Family)
@@ -43,12 +44,16 @@ antibiotic_family_colors <- setNames(brewer.pal(n = length(antibiotic_families),
 
 p_integron_platon <- df_integron_platon %>%
   ggplot() +
-  geom_tile(aes(y = sample_id, x = ARG, fill = is_mobile), color = "gray") +
+  geom_tile(aes(y = sample_id, x = Gene, fill = is_mobile), 
+            color = "gray", show.legend = FALSE) +
   scale_fill_viridis_d(name = "MGE", option = "E") +
   ggnewscale::new_scale_fill() +
-  geom_tile(aes(y = sample_id, x = 0, fill = Surface), width = .75) +
+  geom_tile(aes(y = sample_id, x = 0, fill = Surface), width = .7) +
+  guides(fill = guide_legend(ncol = 2)) +
   ggnewscale::new_scale_fill() +
-  geom_tile(aes(y = .2, x = ARG, fill = Antibiotic_Family), height = .45, ) +
+  guides(fill = guide_legend(ncol = 2)) + 
+  geom_tile(aes(y = .2, x = Gene, fill = Antibiotic_Family), height = .45) +
+  guides(fill = guide_legend(ncol = 3)) +
   #scale_fill_brewer(type = "qualitative", palette = "Paired") +
   scale_fill_manual(values = antibiotic_family_colors, name = "Antibiotic Family") +
   theme_minimal() +
@@ -59,41 +64,34 @@ p_integron_platon <- df_integron_platon %>%
 p_integron_platon
 ```
 
-```{r}
-png(filename = "../plots/mobile_integron.png", width = 3600, height = 2250, res = 300)
-p_integron_platon
-dev.off()
-
-pdf(file = "../plots/mobile_integron.pdf", width = 12, height = 7.5)
-p_integron_platon
-dev.off()
-```
-
-
 
 ```{r, fig.width=7, fig.height=7.5}
-p_plasmid_waafle <- arg_contigs %>%
-  group_by(sample_id, ARG) %>%
+df_plot2 <- arg_contigs %>%
+  group_by(sample_id, Gene) %>%
   mutate(is_plasmid = if_else(plasmid_waafle == "LGT", TRUE, FALSE)) %>%
   ungroup() %>%
-  select(sample_id, ARG, is_plasmid) %>%
-  pivot_wider(names_from = "ARG", values_from = "is_plasmid", values_fill = FALSE, values_fn = any) %>%
-  pivot_longer(-sample_id, names_to = "ARG", values_to = "is_plasmid") %>%
-  group_by(ARG) %>%
+  dplyr::select(sample_id, Gene, is_plasmid) %>%
+  pivot_wider(names_from = "Gene", values_from = "is_plasmid", values_fill = FALSE, values_fn = any) %>%
+  pivot_longer(-sample_id, names_to = "Gene", values_to = "is_plasmid") %>%
+  group_by(Gene) %>%
   filter(any(is_plasmid)) %>%
   ungroup() %>%
   left_join(meta_sample, by = "sample_id") %>%
-  left_join(dict_antFam, by = "ARG") %>%
+  left_join(dict_antFam, by = "Gene") %>%
   mutate(Antibiotic_Family = factor(Antibiotic_Family, levels = levels(df_integron_platon$Antibiotic_Family))) %>%
   arrange(Antibiotic_Family) %>%  
-  mutate(ARG = factor(ARG, levels = unique(ARG))) %>%
+  mutate(Gene = factor(Gene, levels = unique(Gene))) -> df_plot2
+  
+p_plasmid_waafle <- df_plot2 %>%
   ggplot() +
-  geom_tile(aes(y = sample_id, x = ARG, fill = is_plasmid), color = "gray") +
+  geom_tile(aes(y = sample_id, x = Gene, fill = is_plasmid),
+            color = "gray", show.legend = FALSE) +
   scale_fill_viridis_d(name = "LGT", option = "E") +
   ggnewscale::new_scale_fill() +
-  geom_tile(aes(y = sample_id, x = 0.4, fill = Surface), width = 0.15) +
+  geom_tile(aes(y = sample_id, x = 0.3, fill = Surface), width = 0.25) +
+  guides(fill = guide_legend(ncol = 2)) + 
   ggnewscale::new_scale_fill() +
-  geom_tile(aes(y = .275, x = ARG, fill = Antibiotic_Family), height = .35, ) +
+  geom_tile(aes(y = .2, x = Gene, fill = Antibiotic_Family), height = .5, ) +
   scale_fill_manual(values = antibiotic_family_colors, name = "Antibiotic Family") +
   theme_minimal() +
   theme(legend.position = "right",
@@ -103,12 +101,23 @@ p_plasmid_waafle
 ```
 
 
-```{r}
-png(filename = "../plots/plasmid_waafle.png", width = 2100, height = 2250, res = 300)
-p_plasmid_waafle
-dev.off()
+```{r, fig.width=12, fig.height=6}
+pall <- ggpubr::ggarrange(
+  
+  p_integron_platon,
+  p_plasmid_waafle +
+    theme(plot.margin = margin(t = 5, r = 5, b = 20, l = 5)),
+  common.legend = TRUE,
+  legend = "bottom", widths = c(.7, .3),
+  labels = c("a", "b"), label.x = c(-.005, -.0075)
+  
+)
+pall
+```
 
-pdf(file = "../plots/plasmid_waafle.pdf", width = 7, height = 7.5)
-p_plasmid_waafle
+```{r}
+png(filename = "../plots/mobiles.png", width = 3600, height = 1800, res = 300)
+pall
 dev.off()
 ```
+
