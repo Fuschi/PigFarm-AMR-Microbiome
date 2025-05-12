@@ -1,0 +1,218 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r, message=FALSE}
+library(tidyverse)
+library(ggpubr)
+```
+
+```{r}
+meta_sample <- readRDS("../data/R/meta_sample.rds")
+bac_reads <- readRDS("../data/R/bac_reads.rds") 
+```
+
+```{r}
+bac_reads_sp <- bac_reads %>%
+  mutate(rela = abun / sum(abun), .by = "sample_id", .after = "abun")
+
+bac_reads_gen <- bac_reads_sp %>%
+  group_by(sample_id, genus, Surface) %>%
+  summarise(rela = sum(rela), .groups = "drop") %>%
+  mutate(highlight = any(rela >= .05), .by = genus)
+
+bac_reads_fam <- bac_reads_sp %>%
+  group_by(sample_id, family, Surface) %>%
+  summarise(rela = sum(rela), .groups = "drop") %>%
+  mutate(highlight = any(rela >= .05), .by = family)
+
+bac_reads_phy <- bac_reads_sp %>%
+  group_by(sample_id, phylum, Surface) %>%
+  summarise(rela = sum(rela), .groups = "drop") %>%
+  mutate(highlight = any(rela >= .05), .by = phylum) 
+```
+
+```{r}
+color_genus <- readRDS("cache/color_shared_genus.rds")
+color_family <- readRDS("cache/color_shared_family.rds")
+color_phylum <- readRDS("cache/color_shared_phylum.rds")
+
+legend_labels <- c(names(color_phylum), names(color_family), names(color_genus))
+max_label_length <- max(nchar(legend_labels))
+
+padded_genus <- str_pad(names(color_genus), max_label_length, side = "right")
+padded_family <- str_pad(names(color_family), max_label_length, side = "right")
+padded_phylum <- str_pad(names(color_phylum), max_label_length, side = "right")
+```
+
+# Compositions
+
+```{r, fig.width=13, fig.height=3.5}
+p_bac_reads_genus <- bac_reads_gen %>%
+  mutate(genus_fct = if_else(genus %in% shared_genus, genus, "Others")) %>%
+  ggplot(aes(x = sample_id, y = rela, fill = genus_fct)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = color_genus, 
+                    breaks = names(color_genus),
+                    labels = padded_genus) +
+  theme_bw() +
+  theme(legend.title = element_text(size = 12),
+        strip.text = element_text(size = 12),
+        axis.text.x = element_text(angle = 25, hjust = 1),
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank()) +
+  guides(fill=guide_legend(ncol=2)) +
+  labs(fill = "Genera")
+p_bac_reads_genus
+```
+
+```{r, fig.width=13, fig.height=3.5}
+p_bac_reads_family <- bac_reads_fam %>%
+  mutate(family_fct = if_else(family %in% shared_family, family, "Others")) %>%
+  ggplot(aes(x = sample_id, y = rela, fill = family_fct)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = color_family, 
+                    breaks = names(color_family),
+                    labels = padded_family) +
+  theme_bw() +
+  theme(legend.title = element_text(size = 12),
+        strip.text = element_text(size = 12),
+        axis.text.x = element_text(angle = 25, hjust = 1),
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank()) +
+  guides(fill=guide_legend(ncol=2)) +
+  labs(fill = "Families")
+p_bac_reads_family
+```
+
+```{r, fig.width=13, fig.height=3.5}
+p_bac_reads_phylum <- bac_reads_phy %>%
+  mutate(phylum_fct = if_else(phylum %in% shared_phylum, phylum, "Others")) %>%
+  ggplot(aes(x = sample_id, y = rela, fill = phylum_fct)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = color_phylum, 
+                    breaks = names(color_phylum),
+                    labels = padded_phylum) +
+  theme_bw() +
+  theme(legend.title = element_text(size = 12),
+        strip.text = element_text(size = 12),
+        axis.text.x = element_text(angle = 25, hjust = 1),
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank()) +
+  guides(fill=guide_legend(ncol=2)) +
+  labs(fill = "Phyla")
+p_bac_reads_phylum
+```
+
+## Alpha
+
+```{r, fig.width=4, fig.height=4}
+# bacteria species reads
+#------------------------------------------------------------------------------#
+abun_bac_sp_reads <- bac_reads %>%
+  dplyr::select(sample_id, species, abun) %>%
+  pivot_wider(names_from = "species", values_from = "abun",values_fill = 0) %>%
+  column_to_rownames("sample_id")
+
+df_alpha_1 <- tibble(
+  sample_id = rownames(abun_bac_sp_reads),
+  Shannon = vegan::diversity(abun_bac_sp_reads),
+  Simpson = vegan::diversity(abun_bac_sp_reads, "simpson")
+) %>%
+  left_join(meta_sample, by = "sample_id")
+
+stat.test.1 <- compare_means(Shannon ~ Surface, data = df_alpha_1,
+                             method = "wilcox.test", p.adjust.method = "none") %>%
+  filter(p <= .1) %>%
+  mutate(y.position = max(df_alpha_1$Shannon) + .25,
+         p.label = case_when(
+           p < .01 ~ "<0.01**",
+           p < .05 ~ "<0.05*",
+           p <= .1 ~ "<0.1"))
+
+p_alpha <- df_alpha_1 %>%
+  ggplot(aes(y=Shannon, x=Surface, colour=Surface))+
+  geom_boxplot(outlier.shape = NA, size = 1.0, alpha = .01) +
+  geom_jitter(aes(fill = Surface),  width = 0.2, height=0, pch=21, size = 2.5) +
+  stat_pvalue_manual(stat.test.1, tip.length=0.01, bracket.size=0.4, label.size = 5,
+                     step.increase=c(0.1), label= "{p.label}") +
+  theme_bw() +
+  theme(axis.title = element_blank(),
+        axis.text.x = element_text(size = 12, angle = 25, hjust = 1, vjust = 1),
+        axis.text.y = element_text(size = 14)) +
+  scale_y_continuous(breaks = c(2.5, 4.5, 6.5))
+p_alpha
+```
+
+# Beta
+
+```{r, warning=FALSE, message=FALSE, fig.width=4, fig.height=4}
+source("cache/make_tsne.R")
+p_beta_tsne_bac_sp_reads <- make_tsne(abun_bac_sp_reads, meta_sample)
+p_beta_tsne_bac_sp_reads <- p_beta_tsne_bac_sp_reads + 
+  theme(legend.position = "bottom")
+p_beta_tsne_bac_sp_reads
+```
+
+```{r, warning=FALSE, fig.width=13, fig.height=5}
+p_void <- ggplot() + theme_void()
+
+p_alpha <- p_alpha +
+  theme(legend.position = "none") +
+  guides(fill = "none", color = "none", shape = "none", linetype = "none")
+
+p_beta_tsne_bac_sp_reads <- p_beta_tsne_bac_sp_reads +
+  theme(plot.margin = margin(t = 5, r = 5, b = 25, l = 5)) +
+  theme(
+    legend.text = element_text(size = 13),
+    legend.title = element_text(size = 14, face = "bold") 
+  )
+
+p_alpha_beta <- ggpubr::ggarrange(
+  p_void,
+  p_alpha,
+  p_void,
+  p_beta_tsne_bac_sp_reads,  
+  p_void,
+  common.legend = TRUE,                      
+  legend = "bottom",
+  labels = c("","a", "","b", ""),
+  label.x = c(0, -.02),
+  ncol = 5,
+  widths = c(.5/13, 5/13, 1/13, 5/13, .5/13)
+)
+p_alpha_beta
+```
+
+
+```{r, fig.width=13, fig.height=10.5}
+p_comp <- ggpubr::ggarrange(
+  p_bac_reads_phylum,
+  p_bac_reads_family,
+  p_bac_reads_genus,
+  labels = c("c", "d", "e"),
+  nrow = 3
+)
+p_comp
+```
+
+```{r, fig.width=13, fig.height=15.5}
+p_all <- ggarrange(
+  p_alpha_beta,
+  p_comp,
+  nrow = 2,
+  heights = c(5/15.5, 10.5/15.5)
+)
+p_all
+```
+
+```{r}
+png(filename = "../plots/fig1.png", width = 3900, height = 4650, res = 300)
+p_all
+dev.off()
+```
+

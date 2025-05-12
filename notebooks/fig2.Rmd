@@ -1,0 +1,277 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r, message=FALSE}
+library(tidyverse)
+library(ggpubr)
+```
+
+```{r}
+arg_reads <- readRDS("../data/R/arg_reads.rds")
+arg_contigs <- readRDS("../data/R/arg_contigs.rds")
+meta_sample <- readRDS("../data/R/meta_sample.rds")
+```
+
+## MILION PARTS
+
+```{r}
+sample_cpm_arg_reads <- arg_reads %>%
+  group_by(sample_id, Surface) %>%
+  summarise(sample_cpm = sum(abun), .groups = "drop") 
+
+stat.test.reads <- compare_means(sample_cpm ~ Surface, 
+                                 data = sample_cpm_arg_reads,
+                                 method = "wilcox.test", p.adjust.method = "none") %>%
+  filter(p <= .1) %>%
+  mutate(y.position = 800,
+         p.label = case_when(
+           p < .01 ~ "<0.01**",
+           p < .05 ~ "<0.05*",
+           p <= .1 ~ "<0.1"))
+
+sample_cpm_arg_contigs <- arg_contigs %>%
+  group_by(sample_id) %>%
+  summarise(sample_amr = sum(abun), .groups = "drop") %>%
+  left_join(meta_sample, by = "sample_id") %>%
+  mutate(sample_cpm = (sample_amr*10^6) / Reads_count)
+
+stat.test.contigs <- compare_means(sample_cpm ~ Surface, 
+                                   data = sample_cpm_arg_reads,
+                                   method = "wilcox.test", p.adjust.method = "none") %>%
+  filter(p <= .1) %>%
+  mutate(y.position = 80,
+         p.label = case_when(
+           p < .01 ~ "<0.01**",
+           p < .05 ~ "<0.05*",
+           p <= .1 ~ "<0.1"))
+```
+
+
+```{r, fig.width=12, fig.height=5}
+p_cpm <- ggpubr::ggarrange(
+  
+  sample_cpm_arg_reads %>%
+    ggplot() +
+    geom_boxplot(aes(x = Surface, y = sample_cpm, fill = Surface, color = Surface),
+                 alpha = .25, outliers = F, color = rgb(0,0,0,.5)) +
+    stat_pvalue_manual(stat.test.reads, tip.length=0.01, bracket.size=0.4,
+                    step.increase=c(0.08), label= "{p.label}", size = 4) +
+    geom_jitter(aes(x = Surface, y = sample_cpm, fill = Surface, color = Surface),
+                width = .2, size = 2) +
+    theme_bw() +
+    theme(axis.title.x = element_blank(),
+          axis.text.x = element_text(angle = 10, vjust = 1, hjust = 1)) +
+    labs(y = "AMR gene abundance (PPM)") +
+    theme(axis.text = element_text(size = 12),
+          axis.title = element_text(size = 13)),
+  
+  sample_cpm_arg_contigs %>%
+    ggplot() +
+    geom_boxplot(aes(x = Surface, y = sample_cpm, fill = Surface, color = Surface),
+                 alpha = .25, outliers = F, color = rgb(0,0,0,.5)) +
+    stat_pvalue_manual(stat.test.contigs, tip.length=0.01, bracket.size=0.4,
+                       step.increase=c(0.08), label= "{p.label}", size = 4) +
+    geom_jitter(aes(x = Surface, y = sample_cpm, fill = Surface, color = Surface),
+                width = .2, size = 2) +
+    theme_bw() +
+    theme(axis.title.x = element_blank(),
+          axis.text.x = element_text(angle = 10, vjust = 1, hjust = 1)) +
+    labs(y = "Coverage of AMR contigs (CPM)") +
+    theme(axis.text = element_text(size = 12),
+          axis.title = element_text(size = 13)),
+  
+  common.legend = TRUE, legend = "none",
+  labels = c("a", "b")
+)
+p_cpm
+```
+
+## ALPHA
+
+```{r, fig.width=12, fig.height=5}
+# arg reads
+#------------------------------------------------------------------------------#
+abun_arg_reads_gene <- arg_reads %>%
+  dplyr::select(sample_id, Gene, abun) %>%
+  pivot_wider(names_from = "Gene", values_from = "abun",values_fill = 0) %>%
+  column_to_rownames("sample_id")
+
+df_alpha_2 <- tibble(
+  sample_id = rownames(abun_arg_reads_gene),
+  Shannon = vegan::diversity(abun_arg_reads_gene),
+  Simpson = vegan::diversity(abun_arg_reads_gene, "simpson")
+) %>%
+  left_join(meta_sample, by = "sample_id")
+
+stat.test.2 <- compare_means(Shannon ~ Surface, data = df_alpha_2,
+                                 method = "wilcox.test", p.adjust.method = "none") %>%
+  filter(p <= .1) %>%
+  mutate(y.position = max(df_alpha_2$Shannon) + .1,
+         p.label = case_when(
+           p < .01 ~ "<0.01**",
+           p < .05 ~ "<0.05*",
+           p <= .1 ~ "<0.1"))
+
+p2 <- df_alpha_2 %>%
+  ggplot(aes(y=Shannon, x=Surface, colour=Surface))+
+  geom_boxplot(outlier.shape = NA, size = 1.0, alpha = .01) +
+  geom_jitter(aes(fill = Surface),  width = 0.2, height=0, pch=21, size = 2.5) +
+  stat_pvalue_manual(stat.test.2, tip.length=0.01, bracket.size=0.4,
+                     step.increase=c(0.08), label= "{p.label}", size = 4) +
+  theme_bw() +
+  theme(axis.text.x = element_text(size = 12, angle = 10, hjust = 1, vjust = 1),
+        axis.text.y = element_text(size = 12),
+        axis.title.y = element_text(size = 14),
+        axis.title.x = element_blank())
+
+# arg contigs
+#------------------------------------------------------------------------------#
+abun_arg_contigs_gene <- arg_contigs %>%
+  dplyr::select(sample_id, Gene, abun) %>%
+  group_by(sample_id, Gene) %>%
+  summarise(abun = sum(abun), .groups = "drop") %>%
+  pivot_wider(names_from = "Gene", values_from = "abun", values_fill = 0) %>%
+  column_to_rownames("sample_id")
+
+df_alpha_3 <- tibble(
+  sample_id = rownames(abun_arg_contigs_gene),
+  Shannon = vegan::diversity(abun_arg_contigs_gene),
+  Simpson = vegan::diversity(abun_arg_contigs_gene, "simpson")
+) %>%
+  left_join(meta_sample, by = "sample_id")
+
+stat.test.3 <- compare_means(Shannon ~ Surface, data = df_alpha_3,
+                                 method = "wilcox.test", p.adjust.method = "none") %>%
+  filter(p <= .1) %>%
+  mutate(y.position = max(df_alpha_3$Shannon) + .15,
+         p.label = case_when(
+           p < .01 ~ "<0.01**",
+           p < .05 ~ "<0.05*",
+           p <= .1 ~ "<0.1"))
+
+p3 <- df_alpha_3 %>%
+  ggplot(aes(y=Shannon, x=Surface, colour=Surface))+
+  geom_boxplot(outlier.shape = NA, size = 1.0, alpha = .01) +
+  geom_jitter(aes(fill = Surface),  width = 0.2, height=0, pch=21, size = 2.5) +
+  stat_pvalue_manual(stat.test.3, tip.length=0.01, bracket.size=0.4,
+                     step.increase=c(0.08), label= "{p.label}", size = 4) +
+  theme_bw() +
+  theme(axis.text.x = element_text(size = 12, angle = 10, hjust = 1, vjust = 1),
+        axis.text.y = element_text(size = 12),
+        axis.title.y = element_text(size = 14),
+        axis.title.x = element_blank()) +
+  scale_y_continuous(breaks = c(2, 3, 4))
+
+p_alpha <- ggpubr::ggarrange(p2, p3, nrow = 1, legend = "none", 
+                             labels = c("c", "d"))
+# # Annotate the arranged figure with a common y-axis label
+# p_alpha <- annotate_figure(p_alpha,
+#                            left = text_grob("Shannon Index", rot = 90, vjust = 1, size = 14))
+p_alpha
+```
+
+
+## Beta
+
+```{r}
+abun_arg_reads_gene <- arg_reads %>%
+  dplyr::select(sample_id, Gene, abun) %>%
+  pivot_wider(names_from = "Gene", values_from = "abun",values_fill = 0) %>%
+  column_to_rownames("sample_id")
+
+abun_arg_contigs_gene <- arg_contigs %>%
+  dplyr::select(sample_id, Gene, abun) %>%
+  group_by(sample_id, Gene) %>%
+  summarise(abun = sum(abun), .groups = "drop") %>%
+  pivot_wider(names_from = "Gene", values_from = "abun", values_fill = 0) %>%
+  column_to_rownames("sample_id")
+
+source("cache/make_tsne.R")
+```
+
+
+```{r, message=FALSE, warning=FALSE}
+p_beta_tsne_arg_reads_gene <- make_tsne(abun_arg_reads_gene, meta_sample)
+p_beta_tsne_arg_contigs_gene <- make_tsne(abun_arg_contigs_gene, meta_sample)
+```
+
+```{r, fig.width=12, fig.height=4, message=FALSE, warning=FALSE}
+p_beta <- ggpubr::ggarrange(
+  
+  p_beta_tsne_arg_reads_gene + 
+    theme(
+    #legend.key.width = unit(1, "cm"), 
+    legend.text = element_text(size = 14),
+    legend.title = element_text(size = 14, face = "bold"),
+    plot.margin = margin(t = 5, r = 60, b = 5, l = 60)
+  ), 
+  p_beta_tsne_arg_contigs_gene +
+    theme(plot.margin = margin(t = 5, r = 60, b = 5, l = 60)),
+  labels = c("f", "g"),
+  common.legend = TRUE, ncol = 2, legend = "bottom", label.x = c(.1,.1)
+  
+)
+p_beta
+```
+
+
+# Compositions
+
+```{r, fig.width=12, fig.height=10}
+arg_abf <- bind_rows(
+  mutate(arg_reads_abf, source = "reads"),
+  mutate(arg_contigs_abf, source = "contigs")
+) %>%
+  mutate(source = factor(source, levels = c("reads", "contigs")))
+
+
+p_comp <- arg_abf %>%
+  mutate(abf = if_else(Antibiotic_Family %in% shared_abf, Antibiotic_Family, "Others")) %>%
+  ggplot(aes(x = sample_id, y = rela, fill = abf)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = color_abf, breaks = names(color_abf)) +
+  theme_bw() +
+  theme(
+    axis.text = element_blank(),
+    legend.position = "top",
+    legend.title = element_text(hjust = .5),
+    #axis.text.x = element_text(angle = 45, hjust = 1),
+    axis.title.y = element_blank(),
+    axis.title.x = element_blank()) +
+  guides(fill=guide_legend(nrow=3, title.position = "top")) +
+  facet_wrap(~source + Surface, ncol = 5, scales = "free") +
+  labs(fill = "Antibiotic Family")
+p_comp
+```
+```{r, fig.width=12, fig.height=18}
+pall <- ggarrange(
+  p_cpm,
+  p_alpha,
+  p_comp,
+  p_beta,
+  nrow = 4,
+  heights = c(3.5/18, 3.5/18, 7/18, 4/18),
+  labels = c("", "", "e", "")
+)
+pall
+```
+
+```{r, fig.width=12, fig.height=22}
+png("../plots/fig2.png", width = 3600, height = 5400, res = 300)
+pall
+dev.off()
+```
+
+
+
+
+```{r}
+arg_abf %>%
+     group_by(Antibiotic_Family, source) %>%
+     summarise(mean_relative = mean(rela), .groups = "drop") %>%
+     arrange(source, desc(mean_relative))
+```
+
