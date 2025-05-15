@@ -63,7 +63,7 @@ p_cpm <- ggpubr::ggarrange(
     theme_bw() +
     theme(axis.title.x = element_blank(),
           axis.text.x = element_text(angle = 10, vjust = 1, hjust = 1)) +
-    labs(y = "AMR gene abundance (PPM)") +
+    labs(y = "AMR gene abundance (CPM)") +
     theme(axis.text = element_text(size = 12),
           axis.title = element_text(size = 13)),
   
