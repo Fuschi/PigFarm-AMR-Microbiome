@@ -80,4 +80,57 @@ vegan::adonis2(dist_aitch_arg_contigs_gene ~ Surface, data = meta_sample)
 ```
 
 
+## CLEAN VS DIRTY ARG ABUNDANCE
+
+### Contigs
+
+```{r}
+sample_cpm_arg_contigs <- arg_contigs %>%
+  group_by(sample_id) %>%
+  summarise(sample_amr = sum(abun), .groups = "drop") %>%
+  left_join(meta_sample, by = "sample_id") %>%
+  mutate(sample_cpm = (sample_amr*10^6) / Reads_count) %>%
+  dplyr::select(sample_id, sample_cpm, Surface_Type)
+```
+
+```{r}
+sample_cpm_arg_contigs %>%
+  ggplot(aes(x = Surface_Type, y = sample_cpm, fill = Surface_Type)) +
+  geom_boxplot() +
+  theme_bw()
+```
+
+```{r}
+wilcox.test(sample_cpm ~ Surface_Type, data = filter(sample_cpm_arg_contigs, Surface_Type != "carcass"))
+```
+
+
+### Reads
+
+```{r}
+sample_cpm_arg_reads <- arg_reads %>%
+  group_by(sample_id, Surface_Type) %>%
+  summarise(sample_cpm = sum(abun), .groups = "drop") 
+```
+
+```{r}
+sample_cpm_arg_reads %>%
+  ggplot(aes(x = Surface_Type, y = sample_cpm, fill = Surface_Type)) +
+  geom_boxplot() +
+  theme_bw()
+```
+
+```{r}
+wilcox.test(sample_cpm ~ Surface_Type, data = filter(sample_cpm_arg_reads, Surface_Type != "carcass"))
+```
+
+
+
+
+
+
+
+
+
+
 
