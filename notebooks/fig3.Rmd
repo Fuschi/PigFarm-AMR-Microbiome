@@ -100,9 +100,9 @@ p_arg_contigs_phy
 ```{r, fig.width=12, fig.height=13}
 pall <- ggpubr::ggarrange(
   
-  p_arg_contigs_gen,
-  p_arg_contigs_fam,
   p_arg_contigs_phy,
+  p_arg_contigs_fam,
+  p_arg_contigs_gen,
   labels = c("a", "b", "c"),
   nrow = 3
   
