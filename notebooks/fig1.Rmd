@@ -34,19 +34,41 @@ bac_reads_phy <- bac_reads_sp %>%
 ```
 
 ```{r}
+color_species <- readRDS("cache/color_shared_species.rds")
 color_genus <- readRDS("cache/color_shared_genus.rds")
 color_family <- readRDS("cache/color_shared_family.rds")
 color_phylum <- readRDS("cache/color_shared_phylum.rds")
 
-legend_labels <- c(names(color_phylum), names(color_family), names(color_genus))
+legend_labels <- c(names(color_phylum), names(color_family), names(color_genus), names(color_species))
 max_label_length <- max(nchar(legend_labels))
 
+padded_species <- str_pad(names(color_species), max_label_length, side = "right")
 padded_genus <- str_pad(names(color_genus), max_label_length, side = "right")
 padded_family <- str_pad(names(color_family), max_label_length, side = "right")
 padded_phylum <- str_pad(names(color_phylum), max_label_length, side = "right")
 ```
 
 # Compositions
+
+```{r, fig.width=13, fig.height=3.5}
+p_bac_reads_species <- bac_reads_sp %>%
+  mutate(species_fct = if_else(species_taxizedb %in% shared_species, species_taxizedb, "Others")) %>%
+  ggplot(aes(x = sample_id, y = rela, fill = species_fct)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = color_species, 
+                    breaks = names(color_species),
+                    labels = padded_species) +
+  theme_bw() +
+  theme(legend.title = element_text(size = 12),
+        strip.text = element_text(size = 12),
+        axis.text.x = element_text(angle = 25, hjust = 1),
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank()) +
+  guides(fill=guide_legend(ncol=2)) +
+  labs(fill = "Species")
+p_bac_reads_species
+```
 
 ```{r, fig.width=13, fig.height=3.5}
 p_bac_reads_genus <- bac_reads_gen %>%
