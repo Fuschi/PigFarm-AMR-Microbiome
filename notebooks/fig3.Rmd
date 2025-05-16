@@ -11,9 +11,45 @@ library(tidyverse)
 arg_contigs <- readRDS("../data/R/arg_contigs.rds")
 meta_sample <- readRDS("../data/R/meta_sample.rds")
 
+color_species <- readRDS("cache/color_shared_species.rds")
 color_genus <- readRDS("cache/color_shared_genus.rds")
 color_family <- readRDS("cache/color_shared_family.rds")
 color_phylum <- readRDS("cache/color_shared_phylum.rds")
+
+legend_labels <- c(names(color_phylum), names(color_family), names(color_genus), names(color_species))
+max_label_length <- max(nchar(legend_labels))
+
+padded_species <- str_pad(names(color_species), max_label_length, side = "right")
+padded_genus <- str_pad(names(color_genus), max_label_length, side = "right")
+padded_family <- str_pad(names(color_family), max_label_length, side = "right")
+padded_phylum <- str_pad(names(color_phylum), max_label_length, side = "right")
+```
+
+```{r, fig.width=12, fig.height=4.5}
+p_arg_contigs_sp <- arg_contigs %>%
+  group_by(sample_id, species_diamond) %>%
+  summarise(abun = sum(abun), .groups = "drop") %>%
+  group_by(sample_id) %>%
+  mutate(rela = abun/sum(abun)) %>%
+  ungroup() %>%
+  left_join(meta_sample, by = "sample_id") %>%
+  mutate(species_fct = if_else(species_diamond %in% names(color_species), species_diamond, "Others")) %>%
+  # Commentare anche le 3 righe sotto se vuoi anche le contigs sconosciute
+  filter(!species_fct %in% "Unknown") %>%
+  group_by(sample_id) %>%
+  mutate(rela = rela / sum(rela), .groups = "drop") %>%
+  ggplot(aes(x = sample_id, y = rela, fill = species_fct)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
+  scale_fill_manual(values = color_species, breaks = names(color_species), labels = padded_species) +
+  theme_bw() +
+  theme(
+    axis.title = element_blank(),
+    legend.position = "right",
+    axis.text.x = element_text(angle = 30, hjust = 1, vjust = 1)) +
+  guides(fill=guide_legend(ncol=2)) +
+  labs(fill = "Species")
+p_arg_contigs_sp
 ```
 
 ```{r, fig.width=12, fig.height=4.5}
