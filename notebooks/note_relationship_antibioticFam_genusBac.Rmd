@@ -95,6 +95,7 @@ result_corr <- result_corr %>%
   mutate(p_lgl = if_else(r > 0 & p < .01, TRUE, FALSE)) 
 
 p_corr <- result_corr %>%
+  filter(amr_fam != "Folate pathway antagonist") %>%
   group_by(amr_fam) %>%
   dplyr::filter(any(p_lgl)) %>%
   group_by(genus) %>%
@@ -134,6 +135,7 @@ df_lasso <- result_glm_lasso %>%
 
 ```{r, fig.width=9, fig.height=9}
 p_lasso <- df_lasso %>% 
+  filter(amr_fam != "Folate pathway antagonist") %>%
   group_by(amr_fam) %>%
   dplyr::filter(any(par_lgl)) %>%
   group_by(genus) %>%
