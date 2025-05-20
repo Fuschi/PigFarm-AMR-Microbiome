@@ -14,7 +14,8 @@ arg_contigs <- readRDS("../data/R/arg_contigs.rds")
 ```
 
 ```{r}
-bac_reads_sp <- bac_reads_sp %>%
+bac_reads_sp <- bac_reads %>%
+  mutate(rela = abun / sum(abun), .by = "sample_id", .after = "abun") %>%
   mutate(highlight = any(rela >= .05), .by = "species_taxizedb")
 
 bac_reads_gen <- bac_reads_sp %>%
@@ -75,10 +76,10 @@ arg_reads_abf <- arg_reads %>%
 ```
 
 ```{r}
-shared_species <- union(
-  filter(arg_contigs_sp, highlight) %>% pull(species_diamond) %>% unique,
+shared_species <- #union(
+  #filter(arg_contigs_sp, highlight) %>% pull(species_diamond) %>% unique,
   filter(bac_reads_sp, highlight) %>% pull(species_taxizedb) %>% unique
-)
+#)
 shared_species <- shared_species[c(setdiff(1:length(shared_species), 
                                          which(shared_species == "Unknown")), 
                                  which(shared_species == "Unknown"))]
