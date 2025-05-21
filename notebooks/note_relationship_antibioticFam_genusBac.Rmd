@@ -160,7 +160,7 @@ df_corr_glm <- result_corr %>%
   mutate(significant = p_lgl & par_lgl)
 ```
 
-```{r, fig.width=12, fig.height=8.5, message=FALSE}
+```{r, fig.width=12, fig.height=8, message=FALSE}
 df_corr_glm_filt <- df_corr_glm %>%
   dplyr::select(genus, amr_fam, significant) %>%
   group_by(amr_fam) %>%
@@ -171,6 +171,7 @@ df_corr_glm_filt <- df_corr_glm %>%
   filter(genus != "Unknown")
   
 p_corr_glm <- df_corr_glm_filt %>%
+  filter(amr_fam != "Folate pathway antagonist") %>%
   mutate(amr_fam = case_when(
     amr_fam == "Macrolide, Lincosamide, Streptogramin A, Streptogramin B, Tetracycline" ~ 
       "Macrolide, Lincosamide,\nStreptogramin A, Streptogramin B,\nTetracycline",
@@ -198,7 +199,7 @@ p_corr_glm
 ```
 
 ```{r}
-png(filename = "../plots/relationship_genera_antFam.png", width = 3600, height = 2550, res = 300)
+png(filename = "../plots/relationship_genera_antFam.png", width = 3500, height = 2400, res = 300)
 p_corr_glm
 dev.off()
 ```

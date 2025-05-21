@@ -21,6 +21,7 @@ arg_contigs <- readRDS("../data/R/arg_contigs.rds")
 
 ```{r}
 mat_MGE <-  arg_contigs %>%
+  filter(Antibiotic_Family != "Folate pathway antagonist") %>%
   group_by(sample_id, Gene) %>%
   mutate(is_mobile = if_else(integron_platon == "MGE", TRUE, FALSE)) %>%
   ungroup() %>%
@@ -32,6 +33,7 @@ mat_MGE <-  arg_contigs %>%
 mat_MGE <- mat_MGE[meta_sample$sample_id, colSums(mat_MGE) > 0]
 
 taxa_MGE <- arg_contigs %>%
+  filter(Antibiotic_Family != "Folate pathway antagonist") %>%
   filter(Gene %in% colnames(mat_MGE)) %>%
   select(Gene, Antibiotic_Family) %>%
   distinct() %>%
@@ -107,6 +109,7 @@ ht_MGE
 
 ```{r}
 mat_LGT <-  arg_contigs %>%
+  filter(Antibiotic_Family != "Folate pathway antagonist") %>%
   group_by(sample_id, Gene) %>%
   mutate(is_mobile = if_else(plasmid_waafle == "LGT", TRUE, FALSE)) %>%
   ungroup() %>%
@@ -118,6 +121,7 @@ mat_LGT <-  arg_contigs %>%
 mat_LGT <- mat_LGT[meta_sample$sample_id, colSums(mat_LGT) > 0]
 
 taxa_LGT <- arg_contigs %>%
+  filter(Antibiotic_Family != "Folate pathway antagonist") %>%
   filter(Gene %in% colnames(mat_LGT)) %>%
   select(Gene, Antibiotic_Family) %>%
   distinct() %>%
