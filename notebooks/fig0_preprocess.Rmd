@@ -16,7 +16,7 @@ arg_contigs <- readRDS("../data/R/arg_contigs.rds")
 ```{r}
 bac_reads_sp <- bac_reads %>%
   mutate(rela = abun / sum(abun), .by = "sample_id", .after = "abun") %>%
-  mutate(highlight = any(rela >= .05), .by = "species_taxizedb")
+  mutate(highlight = any(rela >= .05), .by = "species")
 
 bac_reads_gen <- bac_reads_sp %>%
   group_by(sample_id, genus, Surface) %>%
