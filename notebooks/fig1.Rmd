@@ -52,7 +52,7 @@ padded_phylum <- str_pad(names(color_phylum), max_label_length, side = "right")
 
 ```{r, fig.width=13, fig.height=3.5}
 p_bac_reads_species <- bac_reads_sp %>%
-  mutate(species_fct = if_else(species_taxizedb %in% shared_species, species_taxizedb, "Others")) %>%
+  mutate(species_fct = if_else(species %in% shared_species, species, "Others")) %>%
   ggplot(aes(x = sample_id, y = rela, fill = species_fct)) +
   geom_bar(stat = "identity") +
   facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
@@ -214,8 +214,8 @@ p_alpha_beta
 ```{r, fig.width=13, fig.height=10.5}
 p_comp <- ggpubr::ggarrange(
   p_bac_reads_phylum,
-  p_bac_reads_family,
   p_bac_reads_genus,
+  p_bac_reads_species,
   labels = c("c", "d", "e"),
   nrow = 3
 )
