@@ -35,7 +35,7 @@ mat_MGE <- mat_MGE[meta_sample$sample_id, colSums(mat_MGE) > 0]
 taxa_MGE <- arg_contigs %>%
   filter(Antibiotic_Family != "Folate pathway antagonist") %>%
   filter(Gene %in% colnames(mat_MGE)) %>%
-  select(Gene, Antibiotic_Family) %>%
+  dplyr::select(Gene, Antibiotic_Family) %>%
   distinct() %>%
   mutate(Antibiotic_Family = fct_infreq(Antibiotic_Family)) %>%
   arrange(Antibiotic_Family) %>%  
@@ -123,7 +123,7 @@ mat_LGT <- mat_LGT[meta_sample$sample_id, colSums(mat_LGT) > 0]
 taxa_LGT <- arg_contigs %>%
   filter(Antibiotic_Family != "Folate pathway antagonist") %>%
   filter(Gene %in% colnames(mat_LGT)) %>%
-  select(Gene, Antibiotic_Family) %>%
+  dplyr::select(Gene, Antibiotic_Family) %>%
   distinct() %>%
   mutate(Antibiotic_Family = factor(Antibiotic_Family, levels = levels(taxa_MGE$Antibiotic_Family))) %>%
   arrange(Antibiotic_Family) 

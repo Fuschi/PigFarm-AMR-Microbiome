@@ -22,10 +22,10 @@ make_tsne <- function(abun, meta, seed = 42){
     stat_ellipse(aes(group = Surface_Type, color = Surface_Type)) +
     scale_color_viridis_d() +
     theme_bw() +
-    theme(#axis.text = element_blank(),
+    #theme(#axis.text = element_blank(),
           #axis.title = element_blank(),
-          theme(panel.grid.major = element_blank(), 
-                panel.grid.minor = element_blank())) +
+    theme(panel.grid.major = element_blank(), 
+          panel.grid.minor = element_blank()) +
     xlab("t-SNE 1") + ylab("t-SNE 2")
   
   return(p)
