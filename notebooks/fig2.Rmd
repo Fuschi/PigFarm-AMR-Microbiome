@@ -228,6 +228,7 @@ arg_abf <- bind_rows(
 
 
 p_comp <- arg_abf %>%
+  filter(Antibiotic_Family != "Folate pathway antagonist") %>%
   mutate(abf = if_else(Antibiotic_Family %in% shared_abf, Antibiotic_Family, "Others")) %>%
   ggplot(aes(x = sample_id, y = rela, fill = abf)) +
   geom_bar(stat = "identity") +
