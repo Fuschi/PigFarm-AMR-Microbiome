@@ -1,0 +1,61 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+```{r}
+arg_contigs <- readRDS("../data/R/arg_contigs.rds")
+meta_sample <- readRDS("../data/R/meta_sample.rds")
+
+abun_arg_contigs_gene <- arg_contigs %>%
+  dplyr::select(sample_id, Gene, abun) %>%
+  group_by(sample_id, Gene) %>%
+  summarise(abun = sum(abun), .groups = "drop") %>%
+  pivot_wider(names_from = "Gene", values_from = "abun", values_fill = 0) %>%
+  column_to_rownames("sample_id")
+
+abun_arg_contigs_gene <- abun_arg_contigs_gene[meta_sample$sample_id, ]
+
+all(rownames(abun_arg_contigs_gene) == meta_sample$sample_id)
+```
+
+### MOBILE ABUNDANCE CLEAN VS DIRTY
+
+```{r}
+sample_cpm_arg_contigs_mob <- arg_contigs %>%
+  filter(integron_platon != "") %>%
+  group_by(sample_id) %>%
+  summarise(sample_amr = sum(abun), .groups = "drop") %>%
+  left_join(meta_sample, by = "sample_id") %>%
+  mutate(sample_cpm = (sample_amr*10^6) / Reads_count) %>%
+  dplyr::select(sample_id, sample_cpm, Surface_Type)
+```
+
+```{r, fig.width=6.5, fig.height=4}
+p <- sample_cpm_arg_contigs_mob %>%
+  ggplot(aes(x = Surface_Type, y = sample_cpm, fill = Surface_Type)) +
+  geom_boxplot() +
+  theme_bw()
+p
+```
+
+```{r}
+png(filename = "../plots/supplementary1.png", 
+    width = 6*600, height = 4*600, res = 600)
+p
+dev.off()
+```
+
+
+```{r}
+wilcox.test(sample_cpm ~ Surface_Type, 
+            data = filter(sample_cpm_arg_contigs_mob, Surface_Type != "carcass"))
+```
+
+
+
+

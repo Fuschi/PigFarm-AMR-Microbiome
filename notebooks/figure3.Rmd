@@ -261,7 +261,7 @@ pall
 ```
 
 ```{r, fig.width=12, fig.height=22}
-png("../plots/fig2.png", width = 3600, height = 5400, res = 300)
+png("../plots/figure3.png", width = 2*3600, height = 2*5400, res = 2*300)
 pall
 dev.off()
 ```

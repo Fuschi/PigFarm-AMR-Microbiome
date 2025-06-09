@@ -48,4 +48,5 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 
-OLD
+# R Notebooks in HTML format
+*.nb.html

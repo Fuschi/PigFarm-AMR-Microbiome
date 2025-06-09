@@ -185,7 +185,7 @@ library(grid)
 # Combina le due heatmap
 ht_combined <- ht_MGE + ht_LGT
 
-png(filename = "../plots/mobiles.png", width = 4500, height = 1800, res = 300)
+png(filename = "../plots/figure6.png", width = 2*4500, height = 2*1800, res = 2*300)
 # Disegna la heatmap
 p_combined <- draw(ht_combined,
                    heatmap_legend_side = "bottom",
