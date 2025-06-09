@@ -147,7 +147,7 @@ pall
 ```
 
 ```{r}
-png("../plots/fig3.png", width = 3600, height = 2700, res = 300)
+png("../plots/figure4.png", width = 2*3600, height = 2*2700, res = 2*300)
 pall
 dev.off()
 ```

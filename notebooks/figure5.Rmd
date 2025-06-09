@@ -199,7 +199,7 @@ p_corr_glm
 ```
 
 ```{r}
-png(filename = "../plots/relationship_genera_antFam.png", width = 3500, height = 2400, res = 300)
+png(filename = "../plots/figure5.png", width = 2*3500, height = 2*2400, res = 2*300)
 p_corr_glm
 dev.off()
 ```

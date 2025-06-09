@@ -233,7 +233,7 @@ p_all
 ```
 
 ```{r}
-png(filename = "../plots/fig1.png", width = 3900, height = 4650, res = 300)
+png(filename = "../plots/figure2.png", width = 2*3900, height = 2*4650, res = 2*300)
 p_all
 dev.off()
 ```
