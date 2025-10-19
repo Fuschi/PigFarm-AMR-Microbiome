@@ -1,6 +1,5 @@
 ---
 title: "R Notebook"
-output: html_notebook
 ---
 
 ```{r, message=FALSE}
@@ -30,9 +29,9 @@ abun_arg_reads_antFam <- arg_reads %>%
   column_to_rownames("sample_id")
 
 abun_arg_contigs_antFam <- arg_contigs %>%
-  dplyr::select(sample_id, Antibiotic_Family, abun) %>%
+  dplyr::select(sample_id, Antibiotic_Family, `RPKM coverm`) %>%
   group_by(sample_id, Antibiotic_Family) %>%
-  summarise(abun = sum(abun), .groups = "drop") %>%
+  summarise(abun = sum(`RPKM coverm`), .groups = "drop") %>%
   pivot_wider(names_from = "Antibiotic_Family", values_from = "abun",values_fill = 0) %>%
   column_to_rownames("sample_id")
 ```
@@ -177,6 +176,8 @@ p_corr_glm <- df_corr_glm_filt %>%
       "Macrolide, Lincosamide,\nStreptogramin A, Streptogramin B,\nTetracycline",
     amr_fam == "Lincosamide, Streptogramin A, Pleuromutilin" ~
       "Lincosamide, Streptogramin A,\nPleuromutilin",
+    amr_fam == "Oxazolidinone, Amphenicol, Lincosamide, Streptogramin A, Pleuromutilin" ~
+      "Oxazolidinone, Amphenicol, Lincosamide,\nStreptogramin A, Pleuromutilin",
     TRUE ~ amr_fam
   )) %>%
   ggplot(aes(y = amr_fam, x = genus, fill = significant)) +

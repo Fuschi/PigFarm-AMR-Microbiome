@@ -1,6 +1,5 @@
 ---
 title: "R Notebook"
-output: html_notebook
 ---
 
 ```{r, message=FALSE}
@@ -17,12 +16,12 @@ meta_sample <- readRDS("../data/R/meta_sample.rds")
 ## MILION PARTS
 
 ```{r}
-sample_cpm_arg_reads <- arg_reads %>%
+sample_rpkm_arg_reads <- arg_reads %>%
   group_by(sample_id, Surface) %>%
-  summarise(sample_cpm = sum(abun), .groups = "drop") 
+  summarise(sample_rpkm = sum(abun), .groups = "drop") 
 
-stat.test.reads <- compare_means(sample_cpm ~ Surface, 
-                                 data = sample_cpm_arg_reads,
+stat.test.reads <- compare_means(sample_rpkm ~ Surface, 
+                                 data = sample_rpkm_arg_reads,
                                  method = "wilcox.test", p.adjust.method = "none") %>%
   filter(p <= .1) %>%
   mutate(y.position = 800,
@@ -31,17 +30,16 @@ stat.test.reads <- compare_means(sample_cpm ~ Surface,
            p < .05 ~ "<0.05*",
            p <= .1 ~ "<0.1"))
 
-sample_cpm_arg_contigs <- arg_contigs %>%
+sample_rpkm_arg_contigs <- arg_contigs %>%
   group_by(sample_id) %>%
-  summarise(sample_amr = sum(abun), .groups = "drop") %>%
-  left_join(meta_sample, by = "sample_id") %>%
-  mutate(sample_cpm = (sample_amr*10^6) / Reads_count)
+  summarise(sample_rpkm = sum(`RPKM coverm`), .groups = "drop") %>%
+  left_join(meta_sample, by = "sample_id") 
 
-stat.test.contigs <- compare_means(sample_cpm ~ Surface, 
-                                   data = sample_cpm_arg_reads,
+stat.test.contigs <- compare_means(sample_rpkm ~ Surface, 
+                                   data = sample_rpkm_arg_contigs,
                                    method = "wilcox.test", p.adjust.method = "none") %>%
   filter(p <= .1) %>%
-  mutate(y.position = 80,
+  mutate(y.position = 300,
          p.label = case_when(
            p < .01 ~ "<0.01**",
            p < .05 ~ "<0.05*",
@@ -52,33 +50,33 @@ stat.test.contigs <- compare_means(sample_cpm ~ Surface,
 ```{r, fig.width=12, fig.height=5}
 p_cpm <- ggpubr::ggarrange(
   
-  sample_cpm_arg_reads %>%
+  sample_rpkm_arg_reads %>%
     ggplot() +
-    geom_boxplot(aes(x = Surface, y = sample_cpm, fill = Surface, color = Surface),
+    geom_boxplot(aes(x = Surface, y = sample_rpkm, fill = Surface, color = Surface),
                  alpha = .25, outliers = F, color = rgb(0,0,0,.5)) +
     stat_pvalue_manual(stat.test.reads, tip.length=0.01, bracket.size=0.4,
                     step.increase=c(0.08), label= "{p.label}", size = 4) +
-    geom_jitter(aes(x = Surface, y = sample_cpm, fill = Surface, color = Surface),
+    geom_jitter(aes(x = Surface, y = sample_rpkm, fill = Surface, color = Surface),
                 width = .2, size = 2) +
     theme_bw() +
     theme(axis.title.x = element_blank(),
           axis.text.x = element_text(angle = 10, vjust = 1, hjust = 1)) +
-    labs(y = "AMR gene abundance (CPM)") +
+    labs(y = "Sum of AMR gene RPKM (reads mapping)") +
     theme(axis.text = element_text(size = 12),
           axis.title = element_text(size = 13)),
   
-  sample_cpm_arg_contigs %>%
+  sample_rpkm_arg_contigs %>%
     ggplot() +
-    geom_boxplot(aes(x = Surface, y = sample_cpm, fill = Surface, color = Surface),
+    geom_boxplot(aes(x = Surface, y = sample_rpkm, fill = Surface, color = Surface),
                  alpha = .25, outliers = F, color = rgb(0,0,0,.5)) +
     stat_pvalue_manual(stat.test.contigs, tip.length=0.01, bracket.size=0.4,
                        step.increase=c(0.08), label= "{p.label}", size = 4) +
-    geom_jitter(aes(x = Surface, y = sample_cpm, fill = Surface, color = Surface),
+    geom_jitter(aes(x = Surface, y = sample_rpkm, fill = Surface, color = Surface),
                 width = .2, size = 2) +
     theme_bw() +
     theme(axis.title.x = element_blank(),
           axis.text.x = element_text(angle = 10, vjust = 1, hjust = 1)) +
-    labs(y = "Coverage of AMR contigs (CPM)") +
+    labs(y = "Sum of AMR contig RPKM (CoverM)") +
     theme(axis.text = element_text(size = 12),
           axis.title = element_text(size = 13)),
   
@@ -129,9 +127,9 @@ p2 <- df_alpha_2 %>%
 # arg contigs
 #------------------------------------------------------------------------------#
 abun_arg_contigs_gene <- arg_contigs %>%
-  dplyr::select(sample_id, Gene, abun) %>%
+  dplyr::select(sample_id, Gene, `RPKM coverm`) %>%
   group_by(sample_id, Gene) %>%
-  summarise(abun = sum(abun), .groups = "drop") %>%
+  summarise(abun = sum(`RPKM coverm`), .groups = "drop") %>%
   pivot_wider(names_from = "Gene", values_from = "abun", values_fill = 0) %>%
   column_to_rownames("sample_id")
 
@@ -182,9 +180,9 @@ abun_arg_reads_gene <- arg_reads %>%
   column_to_rownames("sample_id")
 
 abun_arg_contigs_gene <- arg_contigs %>%
-  dplyr::select(sample_id, Gene, abun) %>%
+  dplyr::select(sample_id, Gene, `RPKM coverm`) %>%
   group_by(sample_id, Gene) %>%
-  summarise(abun = sum(abun), .groups = "drop") %>%
+  summarise(abun = sum(`RPKM coverm`), .groups = "drop") %>%
   pivot_wider(names_from = "Gene", values_from = "abun", values_fill = 0) %>%
   column_to_rownames("sample_id")
 
@@ -219,6 +217,23 @@ p_beta
 
 # Compositions
 
+```{r}
+arg_reads_abf <- arg_reads %>%
+  group_by(sample_id, Antibiotic_Family, Surface) %>%
+  summarise(abun = sum(abun), .groups = "drop") %>%
+  group_by(sample_id) %>%
+  mutate(rela = abun / sum(abun))
+
+arg_contigs_abf <- arg_contigs %>%
+  group_by(sample_id, Antibiotic_Family, Surface) %>%
+  summarise(abun = sum(`RPKM coverm`), .groups = "drop") %>%
+  group_by(sample_id) %>%
+  mutate(rela = abun / sum(abun))
+
+color_abf <- readRDS("cache/color_abf.rds")
+```
+
+
 ```{r, fig.width=12, fig.height=10}
 arg_abf <- bind_rows(
   mutate(arg_reads_abf, source = "reads"),
@@ -229,21 +244,23 @@ arg_abf <- bind_rows(
 
 p_comp <- arg_abf %>%
   filter(Antibiotic_Family != "Folate pathway antagonist") %>%
-  mutate(abf = if_else(Antibiotic_Family %in% shared_abf, Antibiotic_Family, "Others")) %>%
+  mutate(abf = if_else(Antibiotic_Family %in% names(color_abf), Antibiotic_Family, "Others")) %>%
   ggplot(aes(x = sample_id, y = rela, fill = abf)) +
   geom_bar(stat = "identity") +
   facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
   scale_fill_manual(values = color_abf, breaks = names(color_abf)) +
   theme_bw() +
   theme(
-    axis.text = element_blank(),
     legend.position = "top",
-    legend.title = element_text(hjust = .5),
-    #axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.title = element_text(hjust = .5, size = 12),
+    strip.text = element_text(size = 12),
+    #axis.text.x = element_text(angle = 25, hjust = 1),
+    axis.text.x = element_blank(),
     axis.title.y = element_blank(),
-    axis.title.x = element_blank()) +
+    axis.title.x = element_blank(),
+    axis.text.y = element_text(size = 12)) +
   guides(fill=guide_legend(nrow=3, title.position = "top")) +
-  facet_wrap(~source + Surface, ncol = 5, scales = "free") +
+  facet_wrap(~source + Surface, ncol = 5, scales = "free_x") +
   labs(fill = "Antibiotic Family")
 p_comp
 ```
@@ -266,13 +283,4 @@ pall
 dev.off()
 ```
 
-
-
-
-```{r}
-arg_abf %>%
-     group_by(Antibiotic_Family, source) %>%
-     summarise(mean_relative = mean(rela), .groups = "drop") %>%
-     arrange(source, desc(mean_relative))
-```
 

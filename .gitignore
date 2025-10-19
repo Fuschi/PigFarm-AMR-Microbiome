@@ -50,3 +50,5 @@ rsconnect/
 
 # R Notebooks in HTML format
 *.nb.html
+
+data/Heavy

@@ -1,6 +1,5 @@
 ---
 title: "R Notebook"
-output: html_notebook
 ---
 
 ## MOBILE
@@ -15,7 +14,29 @@ library(ComplexHeatmap)
 ```{r}
 meta_sample <- readRDS("../data/R/meta_sample.rds")
 arg_contigs <- readRDS("../data/R/arg_contigs.rds")
+arg_contigs_mobileOG <- readRDS("../data/R/arg_contigs_mobileOG.rds")
 ```
+
+```{r}
+arg_contigs_mobileOG <- arg_contigs_mobileOG %>%
+  mutate(major_mge_short = case_when(
+    major_mge == "integration/excision" ~ "I∙E",
+    major_mge == "transfer" ~ "T",
+    major_mge == "replication/recombination/repair" ~ "R∙R∙R",
+    major_mge == "stability/transfer/defense" ~ "S∙T∙D",
+    TRUE ~ "ERROR"
+  )) %>%
+  mutate(minor_mge_short = case_when(
+    is.na(minor_mge) ~ "NA",
+    minor_mge == "conjugation,relaxosome" ~ "c∙r",
+    minor_mge == "replication/recombination/repair" ~ "r∙r∙r",
+    minor_mge == "conjugation" ~ "c",
+    minor_mge == "initiation,copy number control,plasmid" ~ "i∙cnc∙p",
+    TRUE ~ "ERROR"
+  )) %>%
+  unite(mge_category_short, major_mge_short, minor_mge_short, sep =" | ", remove = F)
+```
+
 
 ## MGE
 
@@ -203,6 +224,95 @@ grid.text("b", x = unit(0.68, "npc"), y = unit(0.98, "npc"),
 dev.off()
 ```
 
+# MobileOG
+
+```{r}
+df <- arg_contigs_mobileOG %>%
+  distinct(sample_id, antibiotic_amr, mge_category_short) %>%
+  mutate(sample_id = factor(sample_id,
+                            levels = c("DD1_ita_i", "DD2_ita_i", "DD3_ita_i", "DD4_ita_i",
+                                       "DS1_ita_i", "DS2_ita_i", "DS3_ita_i", "DS4_ita_i",
+                                       "CD1_ita_i", "CD2_ita_i", "CD3_ita_i", "CD4_ita_i",
+                                       "CS1_ita_i", "CS2_ita_i", "CS3_ita_i", "CS4_ita_i",
+                                       "CAR1_ita_i", "CAR2_ita_i", "CAR3_ita_i", "CAR4_ita_i")),
+         antibiotic_amr = fct_infreq(antibiotic_amr),
+         mge_category_short = fct_infreq(mge_category_short)
+         )
+```
+
+```{r}
+cell_w <- 0.9; cell_h <- 0.9
+grid_w <- cell_w/3   # "sub_w"
+grid_h <- cell_h/3
+dot_w <- cell_w * 0.26
+dot_h <- cell_h * 0.26
+
+layout_232 <- tribble(
+  ~idx, ~col, ~row,
+  1,     1.5,  1,
+  2,     2.5,  1,
+  3,     1,    2,
+  4,     2,    2,
+  5,     3,    2,
+  6,     1.5,  3,
+  7,     2.5,  3
+) %>%
+  mutate(
+    dx = (col - 2) * grid_w,
+    dy = (2 - row) * grid_h
+  )
+```
+
+```{r}
+plot_df <- df %>%
+    mutate(
+    xf  = as.integer(sample_id),
+    yf  = as.integer(antibiotic_amr),
+    idx = as.integer(mge_category_short) 
+  ) %>%
+  left_join(layout_232, by = join_by(idx)) %>%
+  mutate(
+    x_pos = xf + dx,
+    y_pos = yf + dy
+  )
+```
 
 
+```{r, fig.width=12, fig.height=6}
+p_mobileOG <- meta_sample %>%
+  select(sample_id, Surface, Surface_Type) %>%
+  right_join(plot_df, by = "sample_id") %>%
+  ggplot() +
+  geom_tile(
+    aes(x = xf, y = yf, color = Surface),
+    width = cell_w, height = cell_h, fill = NA, linewidth = 0.5
+  ) +
+  geom_tile(
+    aes(x = x_pos, y = y_pos, fill = mge_category_short),
+    width = dot_w, height = dot_h, color = NA
+  ) +
+  scale_x_continuous(
+    breaks = seq_along(levels(df$sample_id)),
+    labels = levels(df$sample_id),
+    expand = expansion(mult = 0.02)
+  ) +
+  scale_y_continuous(
+    breaks = seq_along(levels(df$antibiotic_amr)),
+    labels = levels(df$antibiotic_amr),
+    expand = expansion(mult = 0.02)
+  ) +
+  coord_fixed() +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        axis.text.x = element_text(angle = 60, hjust = 1, vjust = 1),
+        axis.title = element_blank()) +
+  labs(fill = "MGE Category")
+p_mobileOG
+```
+
+```{r}
+png(filename = "../plots/mobileOG_amr.png", width = 12*300, height = 6*300, res = 300)
+p_mobileOG
+dev.off()
+```
 

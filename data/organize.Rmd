@@ -3,7 +3,7 @@ title: "R Notebook"
 output: html_notebook
 ---
 
-```{r}
+```{r, message=FALSE}
 library(tidyverse)
 ```
 
@@ -13,15 +13,11 @@ library(tidyverse)
 meta_sample <- read_tsv("RAW/metadata_all2.txt", show_col_types = FALSE) %>%
   rename(Technology = Tecnology) %>%
   filter(Country == "Italy", Technology == "Illumina") %>%
-  #select(-all_of(c("Reads_count", "Host", "Level"))) %>%
-  relocate(sample_id, .before = 1) %>%
-  column_to_rownames("sample_id") %>%
   mutate(Surface_Type = case_when(
     str_detect(Surface, "clean") ~ "clean",
     str_detect(Surface, "dirty") ~ "dirty", 
     str_detect(Surface, "carcass") ~ "carcass"
   )) %>%
-  rownames_to_column("sample_id") %>%
   mutate(Surface = factor(Surface, levels = c("dirty drain", 
                                               "dirty surface",
                                               "clean drain",
@@ -41,16 +37,6 @@ df_arg_reads <- read_tsv("RAW/ARGs_cpm_ITA_ILL.txt", show_col_types = FALSE) %>%
   filter(abun > 0) %>%
   select(sample_id, Gene, abun, Antibiotic_Family) %>%
   left_join(meta_sample, by = "sample_id")
-
-# Used only for check
-# df_arg_reads_raw %>%
-#   group_by(sample_id, Gene) %>%
-#   summarise(n = n()) %>%
-#   arrange(desc(n))
-# df_arg_reads_raw %>%
-#   select(-Antibiotic_Family) %>%
-#   pivot_wider(names_from = "Gene", values_from = "abun", values_fill = 0) %>%
-#   View
 ```
 
 ## ARG CONTIGS 
@@ -86,6 +72,138 @@ df_arg_contigs <- read_tsv("RAW/data_merged_contigs_final.txt", show_col_types =
            plasmid_waafle, integron_platon) %>%
   mutate(across(c(phylum_diamond, genus_diamond, family_diamond), ~if_else(is.na(.), "Unknown", .)))
 ```
+
+```{r}
+original_names <- unique(df_arg_contigs$kraken2023)
+classification_kraken_contigs <- taxizedb::name2taxid(original_names, out_type = "summary") %>%
+  filter(!(name == "Bacteria" & id == "629395"),
+         !(name == "Rothia" & id == "508215")) %>%
+  pull(id) %>% taxizedb::classification()
+
+# Assuming you already have `classification_kraken_contigs` as the result of `taxizedb::classification()`
+# Define the taxonomic ranks you expect in the final data frame
+expected_ranks <- c("domain", "kingdom", "phylum", "class", "order", "family", "genus", "species")
+
+# Function to safely process each element and attach the original name
+process_taxa <- function(x, original_name) {
+  # Check if the element is a data frame and has the necessary columns
+  if (is.data.frame(x) && all(c("rank", "name") %in% colnames(x))) {
+    df <- as.data.frame(t(deframe(x[, c("rank", "name")])))
+    
+    # Ensure all expected ranks are present, fill missing ones with NA
+    missing_ranks <- setdiff(expected_ranks, colnames(df))
+    if (length(missing_ranks) > 0) {
+      df[missing_ranks] <- NA
+    }
+    
+    # Add the original name as a new column
+    df$original_name <- original_name
+    
+    return(df[, c("original_name", expected_ranks), drop = FALSE])  # Return data frame with original name and all expected ranks
+  } else {
+    # Return a data frame with NA for non-conforming elements, and include the original name
+    return(as.data.frame(matrix(NA, nrow = 1, ncol = length(expected_ranks) + 1, 
+                                dimnames = list(NULL, c("original_name", expected_ranks)))) %>%
+             mutate(original_name = original_name))
+  }
+}
+
+# Apply the function to each element of the list with corresponding original name
+taxa_bacteria_contigs <- map2(classification_kraken_contigs, original_names, process_taxa) %>%
+  bind_rows() %>%
+  rename_with(\(x) paste0(x, "_kraken2023"), kingdom:species)
+
+df_arg_contigs <- df_arg_contigs %>%
+  left_join(taxa_bacteria_contigs, join_by(kraken2023 == original_name)) %>%
+  mutate(across(ends_with("_kraken2023"), ~if_else(is.na(.), "Unknown", .)))
+```
+
+```{r, message=FALSE}
+coverm_amr <- read_tsv("RAW/coverm_amr.tsv")
+```
+
+
+```{r}
+df_arg_contigs <- df_arg_contigs %>%
+  left_join(coverm_amr, join_by(sample_id, Contig_name)) %>%
+  relocate(`Mean coverm`:`Reads per base coverm`, .after = abun)
+```
+
+
+```{r}
+best_hits_mobileOG <- read_tsv("RAW/mobileOG/best_hits.tsv", show_col_types = F)
+metadata_mobileOG <- read_csv("RAW/mobileOG/mobileOG-db-beatrix-1.6-All.csv", show_col_types = F)
+```
+
+```{r}
+best_hits_mobileOG_in_our_contigs_amr <-  best_hits_mobileOG %>%
+  filter(`Specific Contig` %in% unique(df_arg_contigs$Contig_name)) %>%
+   mutate(sample_id = str_replace(`Specific Contig`, "_NODE.*$", "")) %>%
+  left_join(metadata_mobileOG, by = join_by(`mobileOG ID` == `mobileOG Entry Name`)) 
+  #group_by(`Specific Contig_mobileOG`) %>%
+  #summarise(n = n()) %>%
+  #arrange(desc(n))
+```
+
+
+```{r}
+df_mge <- best_hits_mobileOG_in_our_contigs_amr %>%
+  select(sample_id, `Sequence Title`, `Query Title`, ORF_Start, ORF_End, 
+         `Major mobileOG Category.x`, `Minor mobileOG Category`, `Gene Name`,`Specific Contig`,) %>%
+  transmute(
+    sample_id = sample_id,
+    contig_id = `Specific Contig`,
+    start_mge  = pmin(as.numeric(ORF_Start), as.numeric(ORF_End), na.rm = TRUE),
+    end_mge    = pmax(as.numeric(ORF_Start), as.numeric(ORF_End), na.rm = TRUE),
+    minor_mge  = `Minor mobileOG Category`,
+    major_mge  = `Major mobileOG Category.x`,
+    gene_name_mge = `Gene Name`,
+    seq_title_mge = `Sequence Title`,           # opzionale
+    query_title_mge = `Query Title`             # opzionale
+  ) %>%
+  mutate(sample_id = str_replace(contig_id, "_NODE.*$", "")) %>%
+  drop_na(start_mge, end_mge)
+
+df_amr <- df_arg_contigs %>%  
+  select(sample_id, Contig_name, start, end, Gene, Antibiotic_Family, kraken2023, Contig_length) %>%
+  transmute(
+    sample_id,
+    contig_id = Contig_name,
+    start_amr  = pmin(as.numeric(start), as.numeric(end), na.rm = TRUE),
+    end_amr    = pmax(as.numeric(start), as.numeric(end), na.rm = TRUE),
+    gene_amr   = Gene,
+    antibiotic_amr = Antibiotic_Family,
+    kraken2023 = kraken2023,
+    contig_length = Contig_length
+  ) %>%
+  drop_na(start_amr, end_amr)
+
+# quanto consideri “vicino al bordo” di un MGE?
+pad_bp <- 5000  # metti 0 se vuoi solo overlap vero
+
+res <- df_amr %>%
+  # join many-to-many su stesso sample e stessa contig
+  full_join(df_mge, by = join_by(sample_id, contig_id), relationship = "many-to-many") %>%
+  # calcolo overlap (in bp) e distanza (in bp) tra [start_amr,end_amr] e [start_mge,end_mge]
+  mutate(
+    overlap_bp = pmin(end_amr, end_mge) - pmax(start_amr, start_mge) + 1,
+    overlap_bp = if_else(is.na(overlap_bp), 0, pmax(overlap_bp, 0)),
+    # distanza tra intervalli su una linea: 0 se si sovrappongono, altrimenti gap minimo
+    distance_bp = case_when(
+      is.na(start_mge) ~ Inf,  # nessun MGE su quella contig
+      overlap_bp > 0 ~ 0,
+      TRUE ~ pmax(start_mge - end_amr, start_amr - end_mge)
+    ),
+    in_MGE = (overlap_bp > 0) | (distance_bp <= pad_bp)
+  ) %>%
+  filter(in_MGE)
+```
+
+```{r}
+saveRDS(res, "R/arg_contigs_mobileOG.rds")
+```
+
+
 
 ## BACTERIA READS
 
@@ -159,6 +277,3 @@ saveRDS(df_arg_contigs, "R/arg_contigs.rds")
 saveRDS(df_arg_reads, "R/arg_reads.rds")
 saveRDS(df_bac_reads, "R/bac_reads.rds")
 ```
-
-
-

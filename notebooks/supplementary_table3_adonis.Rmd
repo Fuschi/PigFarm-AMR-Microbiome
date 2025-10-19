@@ -1,6 +1,5 @@
 ---
 title: "R Notebook"
-output: html_notebook
 ---
 
 ```{r, message=FALSE}
@@ -62,9 +61,9 @@ arg_contigs <- readRDS("../data/R/arg_contigs.rds")
 meta_sample <- readRDS("../data/R/meta_sample.rds")
 
 abun_arg_contigs_gene <- arg_contigs %>%
-  dplyr::select(sample_id, Gene, abun) %>%
+  dplyr::select(sample_id, Gene, `RPKM coverm`) %>%
   group_by(sample_id, Gene) %>%
-  summarise(abun = sum(abun), .groups = "drop") %>%
+  summarise(abun = sum(`RPKM coverm`), .groups = "drop") %>%
   pivot_wider(names_from = "Gene", values_from = "abun", values_fill = 0) %>%
   column_to_rownames("sample_id")
 

@@ -1,6 +1,5 @@
 ---
 title: "R Notebook"
-output: html_notebook
 ---
 
 ```{r, message=FALSE}
@@ -52,7 +51,7 @@ padded_phylum <- str_pad(names(color_phylum), max_label_length, side = "right")
 
 ```{r, fig.width=13, fig.height=3.5}
 p_bac_reads_species <- bac_reads_sp %>%
-  mutate(species_fct = if_else(species %in% shared_species, species, "Others")) %>%
+  mutate(species_fct = if_else(species %in% names(color_species), species, "Others")) %>%
   ggplot(aes(x = sample_id, y = rela, fill = species_fct)) +
   geom_bar(stat = "identity") +
   facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
@@ -72,7 +71,7 @@ p_bac_reads_species
 
 ```{r, fig.width=13, fig.height=3.5}
 p_bac_reads_genus <- bac_reads_gen %>%
-  mutate(genus_fct = if_else(genus %in% shared_genus, genus, "Others")) %>%
+  mutate(genus_fct = if_else(genus %in% names(color_genus), genus, "Others")) %>%
   ggplot(aes(x = sample_id, y = rela, fill = genus_fct)) +
   geom_bar(stat = "identity") +
   facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
@@ -92,7 +91,7 @@ p_bac_reads_genus
 
 ```{r, fig.width=13, fig.height=3.5}
 p_bac_reads_family <- bac_reads_fam %>%
-  mutate(family_fct = if_else(family %in% shared_family, family, "Others")) %>%
+  mutate(family_fct = if_else(family %in% names(color_family), family, "Others")) %>%
   ggplot(aes(x = sample_id, y = rela, fill = family_fct)) +
   geom_bar(stat = "identity") +
   facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
@@ -112,7 +111,7 @@ p_bac_reads_family
 
 ```{r, fig.width=13, fig.height=3.5}
 p_bac_reads_phylum <- bac_reads_phy %>%
-  mutate(phylum_fct = if_else(phylum %in% shared_phylum, phylum, "Others")) %>%
+  mutate(phylum_fct = if_else(phylum %in% names(color_phylum), phylum, "Others")) %>%
   ggplot(aes(x = sample_id, y = rela, fill = phylum_fct)) +
   geom_bar(stat = "identity") +
   facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
