@@ -204,3 +204,23 @@ png(filename = "../plots/figure5.png", width = 2*3500, height = 2*2400, res = 2*
 p_corr_glm
 dev.off()
 ```
+
+
+```{r, fig.width=12, fig.height=6}
+p_amr_kraken <- arg_contigs %>%
+  select(Contig_name, genus_kraken2023, `RPKM coverm`) %>%
+  mutate(genus_kraken = fct_lump_min(genus_kraken2023, 2),
+         genus_kraken = fct_infreq(genus_kraken),
+         genus_kraken = fct_relevel(genus_kraken, "Other", after = Inf)) %>%
+  ggplot(aes(x = genus_kraken)) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+p_amr_kraken
+```
+
+```{r}
+png(filename = "../plots/amr_kraken.png", width = 12*300, height = 6*300, res = 300)
+p_amr_kraken
+dev.off()
+```
+

@@ -222,13 +222,15 @@ arg_reads_abf <- arg_reads %>%
   group_by(sample_id, Antibiotic_Family, Surface) %>%
   summarise(abun = sum(abun), .groups = "drop") %>%
   group_by(sample_id) %>%
-  mutate(rela = abun / sum(abun))
+  mutate(rela = abun / sum(abun)) %>%
+  ungroup()
 
 arg_contigs_abf <- arg_contigs %>%
   group_by(sample_id, Antibiotic_Family, Surface) %>%
   summarise(abun = sum(`RPKM coverm`), .groups = "drop") %>%
   group_by(sample_id) %>%
-  mutate(rela = abun / sum(abun))
+  mutate(rela = abun / sum(abun)) %>%
+  ungroup()
 
 color_abf <- readRDS("cache/color_abf.rds")
 ```
@@ -243,8 +245,8 @@ arg_abf <- bind_rows(
 
 
 p_comp <- arg_abf %>%
-  filter(Antibiotic_Family != "Folate pathway antagonist") %>%
   mutate(abf = if_else(Antibiotic_Family %in% names(color_abf), Antibiotic_Family, "Others")) %>%
+  mutate(abf = if_else(Antibiotic_Family == "Folate pathway antagonist", "Others", Antibiotic_Family)) %>%
   ggplot(aes(x = sample_id, y = rela, fill = abf)) +
   geom_bar(stat = "identity") +
   facet_wrap(~ Surface, scales = "free_x", ncol = 5) +
