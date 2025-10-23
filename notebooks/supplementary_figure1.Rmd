@@ -67,12 +67,31 @@ sample_rpkm_arg_contigs_mobileOG <- arg_contigs %>%
   group_by(sample_id) %>%
   summarise(sample_rpkm = sum(`RPKM coverm`), .groups = "drop") %>%
   left_join(meta_sample, by = "sample_id") %>%
-  dplyr::select(sample_id, sample_rpkm, Surface)
+  dplyr::select(sample_id, sample_rpkm, Surface, Surface_Type) %>%
+  mutate(type = case_when(
+    Surface %in% c("clean drain", "dirty drain") ~ "drain",
+    Surface %in% c("clean surface", "dirty surface") ~ "surface",
+    .default = "carcass"
+  ))
 ```
 
 ```{r, fig.width=6.5, fig.height=4}
 p <- sample_rpkm_arg_contigs_mobileOG %>%
-  ggplot(aes(x = Surface, y = sample_rpkm, fill = Surface)) +
+  ggplot(aes(x = type, y = sample_rpkm, fill = type)) +
+  geom_boxplot(alpha = .5) +
+  geom_jitter() +
+  theme_bw()
+p
+```
+
+```{r}
+p <- sample_rpkm_arg_contigs_mobileOG %>%
+  mutate(type = case_when(
+    Surface %in% c("clean drain", "dirty drain") ~ "drain",
+    Surface %in% c("clean surface", "dirty surface") ~ "surface",
+    .default = "carcass"
+  )) %>%
+  ggplot(aes(x = type, y = sample_rpkm, fill = type)) +
   geom_boxplot(alpha = .5) +
   geom_jitter() +
   theme_bw()
@@ -80,9 +99,10 @@ p
 ```
 
 
+
 ```{r}
-wilcox.test(sample_rpkm ~ Surface, 
-            data = filter(sample_rpkm_arg_contigs_mobileOG, Surface_Type != "carcass"))
+wilcox.test(sample_rpkm ~ type, 
+            data = filter(sample_rpkm_arg_contigs_mobileOG, type != "carcass"))
 ```
 
 
