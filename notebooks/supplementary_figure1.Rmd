@@ -55,5 +55,36 @@ wilcox.test(sample_rpkm ~ Surface_Type,
 ```
 
 
+### AMR MOBILE ABUNDANCE CLEAN VS DIRTY MOBILEOG
+
+```{r}
+arg_contigs_mobileOG <- readRDS("../data/R/arg_contigs_mobileOG.rds")
+```
+
+```{r}
+sample_rpkm_arg_contigs_mobileOG <- arg_contigs %>%
+  filter(Contig_name %in% unique(arg_contigs_mobileOG$contig_id)) %>%
+  group_by(sample_id) %>%
+  summarise(sample_rpkm = sum(`RPKM coverm`), .groups = "drop") %>%
+  left_join(meta_sample, by = "sample_id") %>%
+  dplyr::select(sample_id, sample_rpkm, Surface)
+```
+
+```{r, fig.width=6.5, fig.height=4}
+p <- sample_rpkm_arg_contigs_mobileOG %>%
+  ggplot(aes(x = Surface, y = sample_rpkm, fill = Surface)) +
+  geom_boxplot(alpha = .5) +
+  geom_jitter() +
+  theme_bw()
+p
+```
+
+
+```{r}
+wilcox.test(sample_rpkm ~ Surface, 
+            data = filter(sample_rpkm_arg_contigs_mobileOG, Surface_Type != "carcass"))
+```
+
+
 
 

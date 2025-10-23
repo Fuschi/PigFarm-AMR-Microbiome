@@ -256,12 +256,12 @@ p_comp <- arg_abf %>%
     legend.position = "top",
     legend.title = element_text(hjust = .5, size = 12),
     strip.text = element_text(size = 12),
-    #axis.text.x = element_text(angle = 25, hjust = 1),
-    axis.text.x = element_blank(),
+    axis.text.x = element_text(angle = 25, hjust = 1),
+    #axis.text.x = element_blank(),
     axis.title.y = element_blank(),
     axis.title.x = element_blank(),
     axis.text.y = element_text(size = 12)) +
-  guides(fill=guide_legend(nrow=3, title.position = "top")) +
+  guides(fill=guide_legend(nrow=1, title.position = "top")) +
   facet_wrap(~source + Surface, ncol = 5, scales = "free_x") +
   labs(fill = "Antibiotic Family")
 p_comp
