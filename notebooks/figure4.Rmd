@@ -108,9 +108,9 @@ p_arg_contigs_fam
 ```{r, fig.width=12, fig.height=4.5}
 p_arg_contigs_phy <- arg_contigs %>%
   group_by(sample_id, phylum_kraken2023) %>%
-  summarise(abun = sum(abun), .groups = "drop") %>%
+  summarise(`RPKM coverm` = sum(`RPKM coverm`), .groups = "drop") %>%
   group_by(sample_id) %>%
-  mutate(rela = abun/sum(abun)) %>%
+  mutate(rela = `RPKM coverm`/sum(`RPKM coverm`)) %>%
   ungroup() %>%
   left_join(meta_sample, by = "sample_id") %>%
   mutate(phylum_fct = if_else(phylum_kraken2023 %in% names(color_phylum), phylum_kraken2023, "Others")) %>%
